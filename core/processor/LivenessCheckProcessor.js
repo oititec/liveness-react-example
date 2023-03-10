@@ -1,9 +1,4 @@
 import { FaceTecSDK } from '../../core-sdk/FaceTecSDK.js/FaceTecSDK';
-// import {
-//   FaceTecSessionResult,
-//   FaceTecFaceScanResultCallback,
-//   FaceTecFaceScanProcessor,
-// } from '../core-sdk/FaceTecSDK.js/FaceTecPublicApi';
 import { Crypto } from '../../src/crypto/crypto';
 
 //
@@ -65,7 +60,7 @@ export const LivenessCheckProcessor = (function () {
       _this.latestNetworkRequest.open(
         'POST',
         process.env.REACT_APP_BASE_URL +
-          '/facecaptcha/service/captcha/3d/liveness'
+          '/facecaptcha/service/captcha/3d/liveness' // voltar aqui
       );
       _this.latestNetworkRequest.setRequestHeader(
         'Content-Type',

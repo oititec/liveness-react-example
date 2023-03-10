@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/styles.css';
 import { Home } from './home';
 import LogoOiti from './assets/img/logo-oiti.png';
-// import { Liveness2D } from './liveness-2d';
+import { Liveness2D } from './liveness-2d';
 import { Liveness3D } from './liveness-3d';
 
 const App = () => {
@@ -26,9 +26,9 @@ const App = () => {
         <Router>
           <Routes>
             <Route element={<Home />} path="/" exact />
+            <Route element={<Liveness2D />} path="/liveness-2d" />
             <Route element={<Liveness3D />} path="/liveness-3d" />
-            {/*<Route element={<Liveness2D />} path="/liveness-2d" />
-             <Route element={<SendDocuments />} path="/send-documents" /> */}
+            {/* <Route element={<SendDocuments />} path="/send-documents" /> */}
           </Routes>
         </Router>
       </Container>

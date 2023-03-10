@@ -60,7 +60,7 @@ export const LivenessCheckProcessor = (function () {
       _this.latestNetworkRequest.open(
         'POST',
         process.env.REACT_APP_BASE_URL +
-          '/facecaptcha/service/captcha/3d/liveness' // voltar aqui
+          '/facecaptcha/service/captcha/3d/liveness'
       );
       _this.latestNetworkRequest.setRequestHeader(
         'Content-Type',

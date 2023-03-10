@@ -1,10 +1,5 @@
-import { FaceTecSDK } from '../core-sdk/FaceTecSDK_js/FaceTecSDK';
-// import {
-//   FaceTecSessionResult,
-//   FaceTecFaceScanResultCallback,
-//   FaceTecFaceScanProcessor,
-// } from '../core-sdk/FaceTecSDK.js/FaceTecPublicApi';
-import { Crypto } from '../../../../crypto/crypto';
+import { FaceTecSDK } from '../../core-sdk/FaceTecSDK.js/FaceTecSDK';
+import { Crypto } from '../../src/crypto/crypto';
 
 //
 // Este é um exemplo de classe independente para realizar verificações de vivacidade com o FaceTec SDK.
@@ -14,7 +9,7 @@ import { Crypto } from '../../../../crypto/crypto';
 export const LivenessCheckProcessor = (function () {
   function LivenessCheckProcessor(sessionToken, sampleAppControllerReference) {
     var _this = this;
-    console.log('consolando', this);
+
     this.latestNetworkRequest = new XMLHttpRequest();
     //
     // Parte 2: Manipulando o resultado de um FaceScan
@@ -47,7 +42,7 @@ export const LivenessCheckProcessor = (function () {
       // Parte 4: Obtenha dados essenciais do FaceTecSessionResult
       //
       // TODO Inserir a appKey aqui !!!!
-      this.appkey = _this.sampleAppControllerReference.getAppkey();
+      this.appkey = _this.sampleAppControllerReference.getAppKey();
       var parameters = {
         appkey: this.appkey,
         userAgent: FaceTecSDK.createFaceTecAPIUserAgentString(
@@ -154,16 +149,12 @@ export const LivenessCheckProcessor = (function () {
       // Chamar uma função personalizada no Sample App Controller é feito para fins de demonstração para mostrar que é aqui que você obtém o controle do FaceTec SDK.
       //
       _this.success = _this.latestSessionResult.isCompletelyDone;
+
       _this.sampleAppControllerReference.onComplete(
         _this.latestSessionResult,
         null,
         _this.latestNetworkRequest.status
       );
-      if (_this.success) {
-        _this.sampleAppControllerReference.redirectSendDocument();
-
-        window.location.href = '/send-document.html';
-      }
     };
     //
     // NOTA: Este método de conveniência pública é apenas para fins de demonstração, para que o Aplicativo de Amostra possa obter informações sobre o que está acontecendo no processador.

@@ -5,10 +5,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: path.join(__dirname, "src", "index.js"),
-  mode: "development",
+  entry: path.join(__dirname, 'src', 'index.js'),
+  mode: 'development',
   output: {
-    path:path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -16,32 +16,32 @@ module.exports = {
         test: /\.?js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: ['file-loader'],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html"),
+      template: path.join(__dirname, 'src', 'index.html'),
     }),
     new Dotenv(),
     new CopyWebpackPlugin({
       patterns: [
-          { from: 'core-sdk', to: 'core-sdk' },
-          { from: 'core', to: 'core' }
-      ]
-  })
+        { from: 'core-sdk', to: 'core-sdk' },
+        { from: 'core', to: 'core' },
+      ],
+    }),
   ],
-}
+};

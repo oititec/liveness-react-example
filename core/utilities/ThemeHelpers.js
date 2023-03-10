@@ -1,5 +1,5 @@
-import { Config } from '../../../../Config';
-import { FaceTecSDK } from '../core-sdk/FaceTecSDK_js/FaceTecSDK';
+import { Config } from '../../src/Config';
+import { FaceTecSDK } from '../../core-sdk/FaceTecSDK.js/FaceTecSDK';
 // import { FaceTecCustomization } from '../core-sdk/FaceTecSDK.js/FaceTecCustomization';
 import { SampleAppUtilities } from './SampleAppUtilities';
 import { SoundFileUtilities } from './SoundFileUtilities';
@@ -27,9 +27,10 @@ export const ThemeHelpers = (function () {
     var currentCustomization = new FaceTecSDK.FaceTecCustomization();
 
     // Adicionar personalização de som a nova personalização de tema
-    var soundFileUtilities = new SoundFileUtilities();
-    currentCustomization =
-      soundFileUtilities.setVocalGuidanceSoundFiles(currentCustomization);
+    // var soundFileUtilities = new SoundFileUtilities();
+
+    // currentCustomization =
+    //   soundFileUtilities.setVocalGuidanceSoundFiles(currentCustomization);
 
     const retryScreenSlideshowImages = [
       themeResourceDirectory + 'FaceTec_ideal_1.png',
@@ -2017,7 +2018,7 @@ export const ThemeHelpers = (function () {
   function getLowLightCustomizationForTheme(theme) {
     var currentLowLightCustomization = getCustomizationForTheme(theme);
 
-    const retryScreenSlideshowImages: string[] = [
+    const retryScreenSlideshowImages = [
       themeResourceDirectory + 'FaceTec_ideal_1.png',
       themeResourceDirectory + 'FaceTec_ideal_2.png',
       themeResourceDirectory + 'FaceTec_ideal_3.png',

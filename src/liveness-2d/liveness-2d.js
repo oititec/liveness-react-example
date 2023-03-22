@@ -21,7 +21,7 @@ const Liveness2D = () => {
   const handleShow = () => setShow(true);
 
   const staticAppKey =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXJ0aWZhY2UiLCJ1c2VyIjoiQjdDOUE1Njg5QUFFNTUwMUM3QkM3QzVDRUQ2MERFMjM1RkVDfHNhZnJhLmVwZi5obWwiLCJlbXBDb2QiOiIwMDAwMDAwNTc2IiwiZmlsQ29kIjoiMDAwMDAwMjY2MiIsImNwZiI6Ijc4NjUyMTg2NzIzIiwibm9tZSI6IjYyRDY1OEJBNTQzMjA0NjRCRjA5RjI5MUVCQURBMjlGMTEzNTEyQjI5NjdGNzQ3OTM4MTI4QjdFMDQwQjkyNzEzREE4NTVDQTk0ODQ4M0MzMkRFRDQ2QTY1MTQ0MDZGMjY4NzAxOTYyNDI2NzQyMzA3MkVFRERBNjhDMDlEMkM1RTk4M0ZDM0F8U0FGUkEgSE9NT0xPRyIsIm5hc2NpbWVudG8iOiIwMS8wMS8yMDAwIiwiZWFzeS1pbmRleCI6IkFBQUFFdWpHQ3hmZm5iYjc0YWxLVGNuL29CSUszSzEra1RvejRFckVvclMwUmNFdTV0QUtZOCtHQVpXMEVRPT0iLCJrZXkiOiJUWFZqYUNCbGRtbHNJSE52YjI0Z2FHbG5hQ0JwYmlCb2IzQmxJR1J2SUhacFpYYz0iLCJleHAiOjE2Nzc1MDc4NTYsImlhdCI6MTY3NzUwNjA1Nn0.KkkPHjkniSkbpGXePkp8tme217UNYrNrCW9hGcE8KMw';
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXJ0aWZhY2UiLCJ1c2VyIjoiQjMzNzY2QkIwNzc3RTNENTE1RTkzNDdDNTI2MkQ2N0ExN0QxfHNhZnJhLmVwZi5obWwiLCJlbXBDb2QiOiIwMDAwMDAwNTc2IiwiZmlsQ29kIjoiMDAwMDAwMjY2MiIsImNwZiI6Ijc4NjUyMTg2NzIzIiwibm9tZSI6IjBGOTA1MENGQzYxNzJCQjVDNzgwMTNCQUMxRDQzQzQ1RkEyODk4MTE2MkU3RjYxREI4MEE4M0RBNjhBNzM0N0QwOEMzODA4NzM5RUE2MkVENERCMjZFQkI5NTk0QjIyMzNERjZERkQwRkQxRjJEOUE5MUQzNTBDQUZCRDhCNUQ1OTZERDYwMzl8U0FGUkEgSE9NT0xPRyIsIm5hc2NpbWVudG8iOiIwMS8wMS8yMDAwIiwiZWFzeS1pbmRleCI6IkFBQUFFcG40MUF3dm92bUZUZjVNOWpzUUJiZlI1NEM5UkJRZHZJb3p4TE5sNEM2MnRzTFJyTElqSkxBYjJ3PT0iLCJrZXkiOiJUM1YwSUcxaGVTQm1aWGNnYm05eWRHaDNZWEprSUdKbGJHbGxkbWx1WnlCaGRIUT0iLCJleHAiOjE2Nzk1MDExMTAsImlhdCI6MTY3OTQ5OTMxMH0.cXyma_8ywElAyQkM2hFxfymNwD5QTwj9QL-7x-kSgic';
 
   const liveness2DArea = useRef(null);
   const video = useRef(null);
@@ -274,7 +274,7 @@ const Liveness2D = () => {
         showHideDivConfirmSuccess();
 
         setTimeout(() => {
-          closeLiveness2D();
+          closeLiveness2D(appkey);
         }, 5000);
       }, 1000);
     } else {
@@ -289,13 +289,13 @@ const Liveness2D = () => {
 
         livenessError && handleShow();
 
-        closeLiveness2D();
+        closeLiveness2D(appkey);
       }, 1000);
     }
   };
 
   // Encerrando a câmera
-  const closeLiveness2D = () => {
+  const closeLiveness2D = (appkey) => {
     body[0].removeAttribute('style');
 
     liveness2DArea.current.classList.add('d-none');
@@ -306,6 +306,8 @@ const Liveness2D = () => {
 
     video.current.srcObject.getTracks()[0].stop();
     video.current.src = '';
+
+    window.localStorage.setItem('appkey', appkey);
 
     initialState();
   };

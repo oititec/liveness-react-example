@@ -20,7 +20,7 @@ export declare class FaceTecRect {
     width: number;
     height: number;
     constructor();
-    create(x: number, y: number, width: number, height: number): this;
+    create(x: number, y: number, width: number, height: number): FaceTecRect;
 }
 export interface FaceTecFeedbackBarCustomization {
     shadow: string;
@@ -97,6 +97,7 @@ export interface FaceTecGuidanceCustomization {
     retryScreenImageCornerRadius: string;
     retryScreenOvalStrokeColor: string;
     cameraPermissionsScreenImage: string;
+    cameraFeedIssueScreenImage: string;
 }
 export interface FaceTecEnterFullScreenCustomization {
     buttonFont: string;
@@ -377,6 +378,50 @@ export interface FaceTecIDScanCustomization {
      * Default is configured to use image named 'FaceTec_passport_checkmark' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
      */
     captureScreenPassportCheckmarkImage: string;
+    /**
+     * Color of the Additional Review Screen background.
+     * Default is white.
+     */
+    additionalReviewScreenBackgroundColors: string;
+    /**
+     * Color of the text displayed on the Additional Review Screen (not including the action button text).
+     * Default is custom color.
+     */
+    additionalReviewScreenForegroundColor: string;
+    /**
+     * Image displayed on the ID Scan Additional Review Screen.
+     * Default is configured to use image named 'FaceTec_review' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    additionalReviewScreenImage: string;
+    /**
+     * Configure an SVG element to display on the ID Scan Additional Review Screen.
+     * Note: All CSS required for the SVG animation needs to be included in your app's CSS file before launching FaceTec Browser SDK.
+     * Note: The result animation is displayed for 2 seconds, so custom animation timing should be configured accordingly.
+     * If this is set to an SVGElement object, the SVG supplied will be used instead of the image configured with additionalReviewScreenImage.
+     * If this is null, the image configured for additionalReviewScreenImage will be displayed instead.
+     * Default is null.
+     */
+    additionalReviewScreenAnimation: SVGElement | null;
+    /**
+     * Controls whether to show the 'FaceTec_face_match_to_id_branding_logo' image (or image configured with .faceMatchToIDBrandingImage) on the ID Scan Capture and Review Screens for Photo ID Match Sessions.
+     * Default is false (hidden).
+     */
+    showFaceMatchToIDBrandingImage: boolean;
+    /**
+     * Image displayed on the ID Scan Capture and Review Screens for Photo ID Match Sessions.
+     * Default is configured to use image named 'FaceTec_face_match_to_id_branding_logo' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    faceMatchToIDBrandingImage: string;
+    /**
+     * Image displayed on the ID Scan Capture and Review Screens for standalone ID Scan Sessions.
+     * Default is configured to use image named 'FaceTec_standalone_id_scan_watermark' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    standaloneIDScanWatermark: string;
+    /**
+     * Controls whether to show the Additional Review Screen at the end of an ID Scan Session if there was an issue with scanning part of the ID.
+     * Default is false (shown).
+     */
+    disableAdditionalReviewScreen: boolean;
 }
 export interface FaceTecOCRConfirmationCustomization {
     backgroundColors: string;
@@ -409,6 +454,20 @@ export interface FaceTecOCRConfirmationCustomization {
     buttonBackgroundNormalColor: string;
     buttonBackgroundHighlightColor: string;
     buttonBackgroundDisabledColor: string;
+    customScrollIndicatorAnimation: SVGElement | null;
+    scrollIndicatorBackgroundNormalColor: string;
+    scrollIndicatorBackgroundHighlightColor: string;
+    scrollIndicatorForegroundNormalColor: string;
+    scrollIndicatorForegroundHighlightColor: string;
+    scrollIndicatorBorderColor: string;
+    scrollIndicatorBorderWidth: string;
+    scrollIndicatorCornerRadius: string;
+    scrollIndicatorFont: string;
+    scrollIndicatorShadow: string;
+    enableScrollIndicator: boolean;
+    enableScrollIndicatorTextAnimation: boolean;
+    enableFixedConfirmButton: boolean;
+    showScrollIndicatorImage: boolean;
 }
 export interface FaceTecSecurityWatermarkCustomization {
     securityWatermarkImage: FaceTecSecurityWatermarkImage;
@@ -470,6 +529,13 @@ export declare class FaceTecCustomization {
      */
     enableUnconstrainedGuidanceStringLengths: boolean;
     /**
+     * Control whether to allow customization of ID Scan's watermark image using FaceTecIDScanCustomization.standaloneIDScanWatermark.
+     * By default, the ID Scan watermark image will only be displayed when performing a Photo ID Scan Session.
+     * Note: This functionality is not available by default, and must be requested from FaceTec in order to enable.
+     * Default is false (disabled).
+    */
+    enableStandaloneIDScanWatermarkCustomization: boolean;
+    /**
      * This function allows special runtime control of the success message shown when the success animation occurs for a FaceScan.
      * Please note that you can also customize this string via the standard customization/localization methods provided by the FaceTec Browser SDK.
      * Special runtime access is enabled to this text because the developer may wish to change this text depending on the FaceTec Browser SDK's mode of operation.
@@ -481,7 +547,7 @@ export declare class FaceTecCustomization {
      * This function allows special runtime control of the various possible result messages shown when the result animation occurs for an ID Scan Session.<br>
      * Please note that you can also customize these strings via the standard customization/localization methods provided.<br>
      */
-    static setIDScanResultScreenMessageOverrides: (successFrontSide: string, successFrontSideBackNext: string, successBackSide: string, successUserConfirmation: string, retryFaceDidNotMatch: string, retryIDNotFullyVisible: string, retryOCRResultsNotGoodEnough: string, retryIDTypeNotSupported?: string) => void;
+    static setIDScanResultScreenMessageOverrides: (successFrontSide: string, successFrontSideBackNext: string, successBackSide: string, successPassport: string, successUserConfirmation: string, retryFaceDidNotMatch: string, retryIDNotFullyVisible: string, retryOCRResultsNotGoodEnough?: string, retryIDTypeNotSupported?: string) => void;
     /**
      * This function allows special runtime control of the various possible upload messages shown when the Result Screen's upload progress content is shown for an ID Scan Session.
      * If this method is used, any values configured with FaceTecIDScanResultCallback.uploadMessageOverride will be overridden with the applicable value configured with this method.
@@ -932,6 +998,11 @@ export declare class FaceTecGuidanceCustomization {
      * Default is configured to use image named 'FaceTec_camera' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
      */
     cameraPermissionsScreenImage: string;
+    /**
+     * Image displayed on the Camera Feed Issue Screen for mobile devices.
+     * Default is configured to use image named 'FaceTec_camera' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    cameraFeedIssueScreenImage: string;
     /**
      * Constructor for FaceTecGuidanceCustomization object.
      *
@@ -1406,9 +1477,53 @@ export declare class FaceTecIDScanCustomization {
      * Default is configured to use image named 'FaceTec_passport_checkmark' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
      */
     captureScreenPassportCheckmarkImage: string;
+    /**
+     * Color of the Additional Review Screen background.
+     * Default is white.
+     */
+    additionalReviewScreenBackgroundColors: string;
+    /**
+     * Color of the text displayed on the Additional Review Screen (not including the action button text).
+     * Default is custom color.
+     */
+    additionalReviewScreenForegroundColor: string;
+    /**
+     * Image displayed on the ID Scan Additional Review Screen.
+     * Default is configured to use image named 'FaceTec_review' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    additionalReviewScreenImage: string;
+    /**
+     * Configure an SVG element to display on the ID Scan Additional Review Screen.
+     * Note: All CSS required for the SVG animation needs to be included in your app's CSS file before launching FaceTec Browser SDK.
+     * Note: The result animation is displayed for 2 seconds, so custom animation timing should be configured accordingly.
+     * If this is set to an SVGElement object, the SVG supplied will be used instead of the image configured with additionalReviewScreenImage.
+     * If this is null, the image configured for additionalReviewScreenImage will be displayed instead.
+     * Default is null.
+     */
+    additionalReviewScreenAnimation: SVGElement | null;
+    /**
+     * Controls whether to show the 'FaceTec_face_match_to_id_branding_logo' image (or image configured with .faceMatchToIDBrandingImage) on the ID Scan Capture and Review Screens for Photo ID Match Sessions.
+     * Default is false (hidden).
+     */
+    showFaceMatchToIDBrandingImage: boolean;
+    /**
+    * Image displayed on the ID Scan Capture and Review Screens for Photo ID Match Sessions.
+    * Default is configured to use image named 'FaceTec_face_match_to_id_branding_logo' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+    */
+    faceMatchToIDBrandingImage: string;
+    /**
+    * Image displayed on the ID Scan Capture and Review Screens for standalone ID Scan Sessions.
+    * Default is configured to use image named 'FaceTec_standalone_id_scan_watermark' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+    */
+    standaloneIDScanWatermark: string;
+    /**
+     * Controls whether to show the Additional Review Screen at the end of an ID Scan Session if there was an issue with scanning part of the ID.
+     * Default is false (shown).
+     */
+    disableAdditionalReviewScreen: boolean;
     /** Constructor for FaceTecIDScanCustomization object. */
     constructor();
-    [key: string]: string | boolean;
+    [key: string]: string | boolean | SVGElement | null;
 }
 export declare class FaceTecOCRConfirmationCustomization {
     /**
@@ -1567,9 +1682,86 @@ export declare class FaceTecOCRConfirmationCustomization {
      * Default is custom FaceTec Browser SDK color.
      */
     buttonBackgroundDisabledColor: string;
+    /**
+     * Configure an SVG element to display on the scroll indicator on the User OCR Confirmation Screen.
+     * Note: All CSS required for the SVG animation needs to be included in your app's CSS file before launching FaceTec Browser SDK.
+     * Note: The scroll indicator animation is displayed indefinitely while waiting for user interaction, so the custom animation should be set to loop/repeat infinitely.
+     * If this is set to an SVGElement object, the SVG supplied will be used instead of the default scroll indicator animation.
+     * If this is null, the default scroll indicator animation will be used.
+     * Default is null.
+     */
+    customScrollIndicatorAnimation: SVGElement | null;
+    /**
+     * Color of the scroll indicator's background during the User OCR Confirmation Screen.
+     * Default is custom color.
+     */
+    scrollIndicatorBackgroundNormalColor: string;
+    /**
+     * Color of the scroll indicator's background when the button is pressed during the User OCR Confirmation Screen.
+     * Default is custom color.
+     */
+    scrollIndicatorBackgroundHighlightColor: string;
+    /**
+     * Color of the scroll indicator's text and default image tint during the User OCR Confirmation Screen.
+     * Default is white.
+     */
+    scrollIndicatorForegroundNormalColor: string;
+    /**
+     * Color of the scroll indicator's text and default image tint when the button is pressed during the User OCR Confirmation Screen.
+     * Default is white.
+     */
+    scrollIndicatorForegroundHighlightColor: string;
+    /**
+     * Color of the scroll indicator's border during the User OCR Confirmation Screen.
+     * Default is transparent.
+     */
+    scrollIndicatorBorderColor: string;
+    /**
+     * Thickness of the scroll indicator's border during theUser OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    scrollIndicatorBorderWidth: string;
+    /**
+     * Corner radius of the scroll indicator's border on the User OCR Confirmation Screen.
+     * If this value is set to -1, the corner radius will be set to half the height of the scroll indicator.
+     * Default is -1.
+     */
+    scrollIndicatorCornerRadius: string;
+    /**
+     * Font of the scroll indicator's text on the User OCR Confirmation Screen.
+     * If this value is null, FaceTec's default Typeface will be used.
+     * Default is null.
+     */
+    scrollIndicatorFont: string;
+    /**
+     * Shadow displayed behind the scroll indicator on the User OCR Confirmation Screen.
+     * This accepts box-shadow css attribute string values.
+     * Default is a custom shadow.
+     */
+    scrollIndicatorShadow: string;
+    /**
+     * Control whether to show the scroll indicator on the User OCR Confirmation Screen when there is scrollable content.
+     * Default is true (enabled).
+     */
+    enableScrollIndicator: boolean;
+    /**
+     * Control whether to animate the text and image of the scroll indicator on the User OCR Confirmation Screen.
+     * Default is true (enabled).
+     */
+    enableScrollIndicatorTextAnimation: boolean;
+    /**
+     * Control whether to place the User OCR Confirmation Screen action button at the bottom of the scrollable content, or fixed to the bottom of the screen (always visible).
+     * Default is false (button is below the scrollable content).
+     */
+    enableFixedConfirmButton: boolean;
+    /**
+     * Control whether to show the animate-able image on the scroll indicator on the User OCR Confirmation Screen.
+     * Default is true (shown).
+     */
+    showScrollIndicatorImage: boolean;
     /** Constructor for FaceTecOCRConfirmationCustomization object. */
     constructor();
-    [key: string]: string | boolean;
+    [key: string]: string | boolean | SVGElement | null;
 }
 export declare class FaceTecSecurityWatermarkCustomization {
     securityWatermarkImage: FaceTecSecurityWatermarkImage;
@@ -1627,6 +1819,9 @@ export declare var FaceTecCustomizations: {
         7?: string | null | undefined;
         8?: string | null | undefined;
         9?: string | null | undefined;
+        10?: string | null | undefined;
+        11?: string | null | undefined;
+        12?: string | null | undefined;
     };
     idScanUploadMessageOverrides: {
         0?: string | null | undefined;

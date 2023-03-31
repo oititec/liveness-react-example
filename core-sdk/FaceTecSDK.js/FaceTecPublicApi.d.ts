@@ -226,7 +226,11 @@ export declare enum FaceTecIDScanStatus {
     /**
      ID Scan was skipped.
     */
-    Skipped = 7
+    Skipped = 7,
+    /**
+     ID Scan was cancelled because device is in landscape mode.
+    */
+    LandscapeModeNotAllowed = 8
 }
 /** ID Scan Result object */
 export interface FaceTecIDScanResult {
@@ -247,8 +251,7 @@ export declare class FaceTecIDScanResultCallback {
 /** Abstract class for developer to override for processing FaceTec ID Scans. */
 export declare abstract class FaceTecIDScanProcessor {
     abstract onFaceTecSDKCompletelyDone: () => void;
-    abstract processSessionResultWhileFaceTecSDKWaits: (sessionResult: FaceTecSessionResult, faceScanResultCallback: FaceTecFaceScanResultCallback) => void;
-    abstract processIDScanResultWhileFaceTecSDKWaits: (idScanResult: FaceTecIDScanResult, idCheckResultCallback: FaceTecIDScanResultCallback) => void;
+    abstract processIDScanResultWhileFaceTecSDKWaits: (idScanResult: FaceTecIDScanResult, idScanResultCallback: FaceTecIDScanResultCallback) => void;
 }
 /**
  * Describes the next step to go into during the Photo ID Match process.

@@ -454,7 +454,6 @@ const SendDocuments = () => {
       images: snapsSend,
     };
 
-    // const result = await facecaptchaService.sendDocument(parameters);
     try {
       const result = await facecaptchaService.sendDocument(parameters);
 
@@ -482,23 +481,6 @@ const SendDocuments = () => {
         );
       }, 1000);
     }
-
-    // this.facecaptchaService
-    //   .sendDocument(this.appkey, snapsSend).subscribe(
-    //     (response: any) => {
-    //       this.isLoaded = false;
-    //       this.uploadRequest = true;
-    //       this.uploadResp = true;
-    //       console.log(response);
-    //       this.message = 'Documento enviado com sucesso';
-    //     },
-    //     (error) => {
-    //       this.isLoaded = false;
-    //       this.backSetTypeCapture();
-    //       console.log(error);
-    //       this.notifier.notify( 'error', 'Documento não localizado! Por favor reenvie o documento.' );
-    //     }
-    //   );
   };
 
   useEffect(() => {

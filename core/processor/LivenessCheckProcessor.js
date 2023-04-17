@@ -1,4 +1,4 @@
-import { FaceTecSDK } from '../../core-sdk/FaceTecSDK.js/FaceTecSDK';
+import { FaceTecSDK } from '../core-sdk/FaceTecSDK.js/FaceTecSDK';
 import { Crypto } from '../../src/crypto/crypto';
 
 //

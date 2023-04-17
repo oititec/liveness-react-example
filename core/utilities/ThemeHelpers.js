@@ -1,5 +1,5 @@
 import { Config } from '../../src/Config';
-import { FaceTecSDK } from '../../core-sdk/FaceTecSDK.js/FaceTecSDK';
+import { FaceTecSDK } from '../core-sdk/FaceTecSDK.js/FaceTecSDK';
 // import { FaceTecCustomization } from '../core-sdk/FaceTecSDK.js/FaceTecCustomization';
 import { SampleAppUtilities } from './SampleAppUtilities';
 import { SoundFileUtilities } from './SoundFileUtilities';

@@ -29,8 +29,7 @@ export var SampleApp = (function () {
     '8QIDAQAB\n' +
     '-----END PUBLIC KEY-----';
 
-  const staticAppKey =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXJ0aWZhY2UiLCJ1c2VyIjoiRjc2NDgxOTIzREFBMEE2QkQ0NjE1M0M0NzFDRTM1MDVGRkU0fHNhZnJhLmVwZi5obWwiLCJlbXBDb2QiOiIwMDAwMDAwNTc2IiwiZmlsQ29kIjoiMDAwMDAwMjY2MiIsImNwZiI6Ijc4NjUyMTg2NzIzIiwibm9tZSI6IkExQ0QxNzA5NEY1NjBEOEIwMzA3MjI3MkFCOEI4MjNGMDkzMENDNEE3MjZEN0Q3RDdEQkZDMkM5RkY3REVBNDI4NEMxODlGN0RDNkNFMkM5NzUzMzhGREY5Q0RDQjIzRkQ3MzQ5RTYxMjcxN0MxMEY5OTMzMEY5OTk4Qjg3NkIwQ0EwRTkxRDZ8U0FGUkEgSE9NT0xPRyIsIm5hc2NpbWVudG8iOiIwMS8wMS8yMDAwIiwiZWFzeS1pbmRleCI6IkFBQUFFaklBRnFrZzhLd01MVnBmZ1BPd3ZQblpkWWc3VFRrMDdIZC9QNDRaYU1TUG9keFNZQkI2ckpqSVJ3PT0iLCJrZXkiOiJRV0pzWlNCaGJpQm9iM0JsSUc5bUlHSnZaSGt1SUVGdWVTQnVZWGtnYzJoNWJtVT0iLCJleHAiOjE2ODE3NDAwNjAsImlhdCI6MTY4MTczODI2MH0.b-AaGxskho_F0DCMgfrWnwHS_P7fyXqN4jcjuQXyyik';
+  const staticAppKey = window.localStorage.getItem('appkey');
 
   const staticUserAgent = FaceTecSDK.createFaceTecAPIUserAgentString('');
 
@@ -115,7 +114,7 @@ export var SampleApp = (function () {
 
     resultSessionToken = result.sessionToken;
 
-    window.localStorage.setItem('appkey', staticAppKey);
+    window.localStorage.setItem('hasLiveness', 'true');
 
     // Obtenha um token de sessão do FaceTec SDK e inicie o 3D Liveness Check.
     latestProcessor = new LivenessCheckProcessor(resultSessionToken, SampleApp);

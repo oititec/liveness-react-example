@@ -20,8 +20,7 @@ const Liveness2D = () => {
   };
   const handleShow = () => setShow(true);
 
-  const staticAppKey =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXJ0aWZhY2UiLCJ1c2VyIjoiQjMzNzY2QkIwNzc3RTNENTE1RTkzNDdDNTI2MkQ2N0ExN0QxfHNhZnJhLmVwZi5obWwiLCJlbXBDb2QiOiIwMDAwMDAwNTc2IiwiZmlsQ29kIjoiMDAwMDAwMjY2MiIsImNwZiI6Ijc4NjUyMTg2NzIzIiwibm9tZSI6IjBGOTA1MENGQzYxNzJCQjVDNzgwMTNCQUMxRDQzQzQ1RkEyODk4MTE2MkU3RjYxREI4MEE4M0RBNjhBNzM0N0QwOEMzODA4NzM5RUE2MkVENERCMjZFQkI5NTk0QjIyMzNERjZERkQwRkQxRjJEOUE5MUQzNTBDQUZCRDhCNUQ1OTZERDYwMzl8U0FGUkEgSE9NT0xPRyIsIm5hc2NpbWVudG8iOiIwMS8wMS8yMDAwIiwiZWFzeS1pbmRleCI6IkFBQUFFcG40MUF3dm92bUZUZjVNOWpzUUJiZlI1NEM5UkJRZHZJb3p4TE5sNEM2MnRzTFJyTElqSkxBYjJ3PT0iLCJrZXkiOiJUM1YwSUcxaGVTQm1aWGNnYm05eWRHaDNZWEprSUdKbGJHbGxkbWx1WnlCaGRIUT0iLCJleHAiOjE2Nzk1MDExMTAsImlhdCI6MTY3OTQ5OTMxMH0.cXyma_8ywElAyQkM2hFxfymNwD5QTwj9QL-7x-kSgic';
+  const staticAppKey = window.localStorage.getItem('appkey');
 
   const liveness2DArea = useRef(null);
   const video = useRef(null);
@@ -307,7 +306,7 @@ const Liveness2D = () => {
     video.current.srcObject.getTracks()[0].stop();
     video.current.src = '';
 
-    window.localStorage.setItem('appkey', appkey);
+    window.localStorage.setItem('hasLiveness', 'true');
 
     initialState();
   };

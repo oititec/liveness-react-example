@@ -25,7 +25,7 @@ const App = () => {
         </Col>
       </Row>
       <Container>
-        <Router>
+        <Router basename={'/facetec'}>
           <Routes>
             <Route element={<Home />} path="/" exact />
             <Route element={<Liveness2D />} path="/liveness-2d" />

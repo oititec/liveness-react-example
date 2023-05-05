@@ -171,7 +171,6 @@ const SendDocuments = () => {
   const startCamera = () => {
     if (ownState.multiCapture) {
       if (ownState.indexTempSnap !== -1) {
-        // aqui
         setOwnState({
           ...((ownState.message =
             ownState.indexTempSnap === 1
@@ -418,7 +417,6 @@ const SendDocuments = () => {
       return (
         setOwnState({
           ...((ownState.indexTempSnap = index),
-          // (ownState.snapsCaptures = ownState.snapsCaptures.splice(index, 1)),
           (ownState.showUpload = false),
           (ownState.message = 'Carregando...'),
           (ownState.sendDocument = true),

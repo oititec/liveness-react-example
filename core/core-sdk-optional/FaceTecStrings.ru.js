@@ -5,7 +5,7 @@ var FaceTecStrings = {
   "FaceTec_action_continue": "ПРОДОЛЖИТЬ",
   "FaceTec_action_take_photo": "СФОТОГРАФИРОВАТЬ",
   "FaceTec_action_accept_photo": "ПРИНЯТЬ",
-  "FaceTec_action_retake_photo": "ПОВТОРИТЬ ФОТО",
+  "FaceTec_action_retake_photo": "ПОВТ.ФОТО",
   "FaceTec_action_confirm": "ПОДТВЕРДИТЬ ИНФОРМАЦИЮ",
 
   "FaceTec_accessibility_cancel_button": "Отмена",
@@ -97,13 +97,14 @@ var FaceTecStrings = {
   "FaceTec_initializing_camera": "Защита данных с камеры",
 
   "FaceTec_idscan_type_selection_header": "Подготовьтесь к сканированию<br/>вашего идентификационного документа",
-  "FaceTec_idscan_capture_id_front_instruction_message": "Покажите переднюю сторону идентификационного документа",
-  "FaceTec_idscan_capture_id_back_instruction_message": "Покажите обратную сторону идентификационного документа",
-  "FaceTec_idscan_review_id_front_instruction_message": "Подтвердите, что фотография четкая",
-  "FaceTec_idscan_review_id_back_instruction_message": "Подтвердите, что фотография четкая",
+  "FaceTec_idscan_capture_id_front_instruction_message": "Покаж.передн.стор.идент.докум.",
+  "FaceTec_idscan_capture_id_back_instruction_message": "Покаж.обратн.стор.идент.докум.",
+  "FaceTec_idscan_review_id_front_instruction_message": "Подтвердите, что фотогр.четкая",
+  "FaceTec_idscan_review_id_back_instruction_message": "Подтвердите, что фотогр.четкая",
   "FaceTec_idscan_additional_review_message": "Требуется дополнительная<br/>проверка",
   "FaceTec_idscan_ocr_confirmation_main_header": "Проверьте и подтвердите",
   "FaceTec_idscan_ocr_confirmation_scroll_message": "Прокрутите вниз",
+  "FaceTec_idscan_feedback_flip_id_to_back_message": "Покаж.обратн.стор.идент.докум.",
 
   "FaceTec_result_success_message": "Успешно",
   "FaceTec_result_facescan_upload_message": "Загрузка<br/>зашифрованного<br/>3D-скана лица",

@@ -5,7 +5,7 @@ var FaceTecStrings = {
   "FaceTec_action_continue": "CONTINUAR",
   "FaceTec_action_take_photo": "TOMAR FOTO",
   "FaceTec_action_accept_photo": "ACEPTAR",
-  "FaceTec_action_retake_photo": "VOLVER A TOMAR",
+  "FaceTec_action_retake_photo": "VOLVER",
   "FaceTec_action_confirm": "CONFIRMAR INFORMACIÓN",
 
   "FaceTec_accessibility_cancel_button": "Cancelar",
@@ -94,16 +94,17 @@ var FaceTecStrings = {
   "FaceTec_enter_fullscreen_message": "Antes de comenzar, haga clic en el botón de abajo para abrir el modo de pantalla completa.",
   "FaceTec_enter_fullscreen_action": "ABRIR PANTALLA COMPLETA",
 
-  "FaceTec_initializing_camera": "Protegiendo la conexión de la cámara",
+  "FaceTec_initializing_camera": "Protegiendo la conexión",
 
   "FaceTec_idscan_type_selection_header": "Prepárese para escanear<br/>su identificación",
-  "FaceTec_idscan_capture_id_front_instruction_message": "Muestre el anverso de su identificación",
-  "FaceTec_idscan_capture_id_back_instruction_message": "Muestre el reverso de su identificación",
-  "FaceTec_idscan_review_id_front_instruction_message": "Verifique que la foto sea nítida y legible",
-  "FaceTec_idscan_review_id_back_instruction_message": "Verifique que la foto sea nítida y legible",
+  "FaceTec_idscan_capture_id_front_instruction_message": "Anverso de su identificación",
+  "FaceTec_idscan_capture_id_back_instruction_message": "Reverso de su identificación",
+  "FaceTec_idscan_review_id_front_instruction_message": "Verifique sea nítida y legible",
+  "FaceTec_idscan_review_id_back_instruction_message": "Verifique sea nítida y legible",
   "FaceTec_idscan_additional_review_message": "Se requiere<br/>una verificación adicional",
   "FaceTec_idscan_ocr_confirmation_main_header": "Revisar y confirmar",
   "FaceTec_idscan_ocr_confirmation_scroll_message": "Desplácese hacia abajo",
+  "FaceTec_idscan_feedback_flip_id_to_back_message": "Reverso de su identificación",
 
   "FaceTec_result_success_message": "Listo",
   "FaceTec_result_facescan_upload_message": "Subiendo<br/>el escaneo facial 3D<br/>encriptado",

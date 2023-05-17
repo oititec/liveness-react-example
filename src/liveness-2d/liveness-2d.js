@@ -90,6 +90,14 @@ const Liveness2D = () => {
     }, 1000);
   };
 
+  // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
+  const deleteAppKey = () => {
+    window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('hasLiveness');
+
+    window.location.href = '/';
+  };
+
   // Iniciando o processo de captura de imagem
   const startCapture = () => {
     showIniciar = false;
@@ -385,10 +393,17 @@ const Liveness2D = () => {
         <Col xs={12}>
           <Button
             variant="success"
-            className="btn-rounded"
+            className="btn-rounded me-4"
             onClick={() => showLiveness2D()}
           >
             Continuar
+          </Button>
+          <Button
+            variant="success"
+            className="btn-rounded"
+            onClick={() => deleteAppKey()}
+          >
+            Em caso de problemas, clique aqui
           </Button>
         </Col>
       </Row>

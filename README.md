@@ -14,7 +14,7 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 ## Changelog
 
-### [FaceTec SDK: 9.6.30](https://dev.facetec.com/release-notes)
+### FaceTec SDK: 9.6.30
 
 _data: 16/05/2023_
 
@@ -24,15 +24,15 @@ _data: 16/05/2023_
 - Various stability improvement fixes.
 - Improvements to Blind User Assistance Mode.
 
-### [FaceTec SDK: 9.6.26](https://dev.facetec.com/release-notes)
+### FaceTec SDK: 9.6.26
 
 _data: 17/04/2023_
 
-### [FaceTec SDK: 9.6.24](https://dev.facetec.com/release-notes)
+### FaceTec SDK: 9.6.24
 
 _data: 31/03/2023_
 
-### [FaceTec SDK: 9.6.21](https://dev.facetec.com/release-notes)
+### FaceTec SDK: 9.6.21
 
 _data: 09/03/2023_
 

@@ -1,6 +1,7 @@
-#Este documento trata com detalhes a implementação do SDK da FaceTec no exemplo em React relacionado ao Envio de Documentos.
+# Este documento trata com detalhes a implementação do SDK da FaceTec no exemplo em React relacionado ao Envio de Documentos.
 
-##1 - Informações da home
+## 1 - Informações da home
+
 Ao abrir o endereço https://localhost:8080 no seu navegador web, você cairá na tela abaixo:
 <br>
 ![image.png](https://i.ibb.co/7nscwCZ/Screenshot-2023-04-20-at-17-23-34-React-App.png)
@@ -20,7 +21,8 @@ Você terá 3 itens no menu:
 Realize um processo de Liveness (seja ele 2D ou 3D) para que a appkey seja registrada com seubotão devido processo de Liveness. Retorne para a home e verá que o botão de Envio de documentos estará habilitado.
 Print da home com botão de envio de documentos habilitado
 
-2 - Envio de documentos
+## 2 - Envio de documentos
+
 <br>
 ![image](https://i.ibb.co/xJZPyxb/image.png)
 

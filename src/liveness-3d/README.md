@@ -1,6 +1,7 @@
-#Este documento trata com detalhes a implementação do SDK da FaceTec no exemplo em React relacionado ao Liveness 3D.
+# Este documento trata com detalhes a implementação do SDK da FaceTec no exemplo em React relacionado ao Liveness 3D.
 
-##1 - Informações da home
+## 1 - Informações da home
+
 Ao abrir o endereço https://localhost:8080 no seu navegador web, você cairá na tela abaixo:
 <br>
 ![image.png](https://i.ibb.co/7nscwCZ/Screenshot-2023-04-20-at-17-23-34-React-App.png)
@@ -17,7 +18,8 @@ Você terá 3 itens no menu:
 - [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
 - [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
 
-##2 - Liveness 3D
+## 2 - Liveness 3D
+
 <br>
 
 ![image.png](https://i.ibb.co/N1gGzsT/Screenshot-2023-04-26-at-10-55-24-React-App.png)

@@ -1,6 +1,7 @@
-#Este documento trata com detalhes a implementação em React relacionado ao Liveness 2D.
+# Este documento trata com detalhes a implementação em React relacionado ao Liveness 2D.
 
-##1 - Informações da home
+## 1 - Informações da home
+
 Ao abrir o endereço https://localhost:8080 no seu navegador web, você cairá na tela abaixo:
 <br>
 ![image.png](https://i.ibb.co/7nscwCZ/Screenshot-2023-04-20-at-17-23-34-React-App.png)
@@ -17,7 +18,8 @@ Você terá 3 itens no menu:
 - [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
 - [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
 
-##2 - Liveness 2D
+## 2 - Liveness 2D
+
 ![image.png](https://i.ibb.co/2McZBL4/Screenshot-2023-04-20-at-17-28-04-React-App.png)
 
 Ao clicar no botão Continuar, será exibido um aviso no navegador solicitando a permissão para usar a câmera do seu dispositivo. Após conceder a permissão de uso da câmera, Pressione o botão Continuar para iniciar a captura da imagem.

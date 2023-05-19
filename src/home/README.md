@@ -1,5 +1,7 @@
-#Informações gerais
-##O projeto foi desenvolvido utilizando as seguintes dependências:
+# Informações gerais
+
+## O projeto foi desenvolvido utilizando as seguintes dependências:
+
 <br>
 "@material-design-icons/font": "^0.14.3",
 <br>
@@ -19,7 +21,8 @@
 <br>
 "react-router-dom": "^6.8.2"
 
-##Para o ambiente de desenvolvimento são utilizadas as seguintes dependências:
+## Para o ambiente de desenvolvimento são utilizadas as seguintes dependências:
+
 "@babel/core": "^7.21.0",
 <br>
 "@babel/preset-env": "^7.20.2",

@@ -30,26 +30,6 @@ Esses dois diretórios contém os arquivos do SDK e a tradução oficial que dei
 
 ---
 
-### Para atualizar o SDK no exemplo em `Angular`:
-
-Dentro do projeto de exemplo em `Angular`, localize os diretórios `core-sdk` e `core-sdk-optional` no seguinte caminho:
-<br>
-`src/assets`
-
-Agora é só colar os arquivos e pronto. SDK atualizado com sucesso.
-
----
-
-### Para atualizar o SDK no exemplo em `JavaScript`:
-
-Dentro do projeto de exemplo em `JavaScript`, localize os diretórios `core-sdk` e `core-sdk-optional` no seguinte caminho:
-<br>
-`assets/js`
-
-Agora é só colar os arquivos e pronto. SDK atualizado com sucesso.
-
----
-
 ### Para atualizar o SDK no exemplo em `React`:
 
 Dentro do projeto de exemplo em `React`, localize o diretório `core-sdk` no diretório raíz do projeto

@@ -13,9 +13,9 @@ Você será direcionado para a tela abaixo:
 
 Você terá 3 itens no menu:
 
-- [Liveness 2D](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/384/Liveness-2D#)
-- [Liveness 3D](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/386/Liveness-3D#)
-- [Envio de documentos](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/388/Envio-de-documentos#) - Este último só estará disponível ao finalizar um do processos de Liveness
+- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-2d/README.md)
+- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
 
 ##2 - Liveness 3D
 <br>

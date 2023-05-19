@@ -4,11 +4,11 @@ Este repositório contém o processo de liveness em 2D, 3D, envio de documentos 
 
 Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
-- [Visão geral](https://github.com/oititec/liveness-react-example/tree/main/src/home/README.md)
-- [Liveness 2D](https://github.com/oititec/liveness-react-example/tree/main/src/liveness-2d/README.md)
-- [Liveness 3D](https://github.com/oititec/liveness-react-example/tree/main/src/liveness-3d/README.md)
-- [Envio de documentos](https://github.com/oititec/liveness-react-example/tree/main/src/send-documents/README.md)
-- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/tree/main/update-guide/README.md)
+- [Visão geral](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/home/README.md)
+- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-2d/README.md)
+- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md)
+- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/update-guide/README.md)
 
 ---
 

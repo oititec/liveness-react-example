@@ -65,6 +65,6 @@ Será gerado na árvore de arquivos um diretório chamado dist e dentro dele con
 
 ##Para visualização da documentação detalhada de cada processo de Liveness, use os links abaixo
 
-- [Liveness 2D](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/384/Liveness-2D#)
-- [Liveness 3D](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/386/Liveness-3D#)
-- [Envio de documentos](https://dev.azure.com/OITI/Legacy/_wiki/wikis/b9f6a4b4-0663-4116-a611-6490d0b939c9/388/Envio-de-documentos#)
+- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-2d/README.md)
+- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md)

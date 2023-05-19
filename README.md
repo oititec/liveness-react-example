@@ -12,7 +12,7 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 ---
 
-## Changelog
+## Changelog Liveness 3D
 
 ### FaceTec SDK: 9.6.30
 

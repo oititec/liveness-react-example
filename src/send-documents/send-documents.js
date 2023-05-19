@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ImgIcon from '../assets/img/img-icon.png';
 import ChevronRight from '../assets/img/chevron-right.png';
@@ -483,6 +483,14 @@ const SendDocuments = () => {
     }
   };
 
+  // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
+  const deleteAppKey = () => {
+    window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('hasLiveness');
+
+    window.location.href = '/';
+  };
+
   useEffect(() => {
     ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
@@ -544,6 +552,16 @@ const SendDocuments = () => {
               </Col>
             </Row>
           </div>
+        </Col>
+        <Col xs={12} className="text-center">
+          <Button
+            id="liveness-button"
+            variant="link"
+            onClick={() => deleteAppKey()}
+            // disabled
+          >
+            Em caso de problemas, clique aqui
+          </Button>
         </Col>
       </Row>
 

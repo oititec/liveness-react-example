@@ -9,6 +9,14 @@ const Liveness3D = () => {
     SampleApp.onLivenessCheckPressed();
   };
 
+  // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
+  const deleteAppKey = () => {
+    window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('hasLiveness');
+
+    window.location.href = '/';
+  };
+
   useEffect(() => {
     SampleApp.getProductionKey();
   }, []);
@@ -39,6 +47,16 @@ const Liveness3D = () => {
             </div>
           </div>
         </div>
+      </Col>
+      <Col xs={12} className="text-center">
+        <Button
+          id="liveness-button"
+          variant="link"
+          onClick={() => deleteAppKey()}
+          // disabled
+        >
+          Em caso de problemas, clique aqui
+        </Button>
       </Col>
     </Row>
   );

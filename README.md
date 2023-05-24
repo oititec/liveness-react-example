@@ -4,16 +4,16 @@ Este repositório contém o processo de liveness em 2D, 3D, envio de documentos 
 
 Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
-- [Visão geral](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/home/README.md)
-- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-2d/README.md)
-- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
-- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md)
+- [Visão geral](https://github.com/oititec/liveness-react-example/blob/main/src/home/README.md)
+- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-2d/README.md)
+- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md)
 
 ---
 
 ## Changelog Liveness 3D
 
-- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/update-guide/README.md)
+- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.md)
 
 ### FaceTec SDK: 9.6.30
 

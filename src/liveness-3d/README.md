@@ -14,9 +14,9 @@ Você será direcionado para a tela abaixo:
 
 Você terá 3 itens no menu:
 
-- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-2d/README.md)
-- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/liveness-3d/README.md)
-- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/feat/REAME.md-update/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
+- [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-2d/README.md)
+- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
 
 ## 2 - Liveness 3D
 

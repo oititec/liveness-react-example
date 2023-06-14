@@ -15,15 +15,19 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 - [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.md)
 
-### FaceTec SDK: 9.6.30
+### FaceTec SDK: 9.6.34
 
-_data: 16/05/2023_
+_data: 14/06/2023_
 
 - Added New Device-side and Server-side Video Injection Checks to mitigate Generative AI Threats.
 - Performance improvements on low-tier and mid-tier devices leading to Success Rate Improvements.
 - Fixes for multiple issues affecting usability when integrated into a iFrame-based Applications.
 - Various stability improvement fixes.
 - Improvements to Blind User Assistance Mode.
+
+### FaceTec SDK: 9.6.30
+
+_data: 16/05/2023_
 
 ### FaceTec SDK: 9.6.26
 

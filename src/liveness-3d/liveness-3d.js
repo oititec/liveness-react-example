@@ -50,10 +50,9 @@ const Liveness3D = () => {
       </Col>
       <Col xs={12} className="text-center">
         <Button
-          id="liveness-button"
+          id="delete-appkey"
           variant="link"
           onClick={() => deleteAppKey()}
-          // disabled
         >
           Em caso de problemas, clique aqui
         </Button>

@@ -399,6 +399,7 @@ const Liveness2D = () => {
             Continuar
           </Button>
           <Button
+            id="reset-appkey"
             variant="success"
             className="btn-rounded"
             onClick={() => deleteAppKey()}

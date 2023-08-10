@@ -48,6 +48,7 @@ const InsertAppKey = () => {
           <Col xs={2}>
             <Button
               variant="primary"
+              className="w-100"
               onClick={() => setAppKeyValue()}
               disabled={loading}
             >

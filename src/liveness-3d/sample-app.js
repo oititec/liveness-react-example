@@ -35,10 +35,12 @@ export var SampleApp = (function () {
 
   const loadAssets = () => {
     // Defina um caminho de diretório para outros recursos do FaceTec Browser SDK.
-    FaceTecSDK.setResourceDirectory('../../core-sdk/FaceTecSDK.js/resources');
+    FaceTecSDK.setResourceDirectory(
+      '../../core/core-sdk/FaceTecSDK.js/resources'
+    );
 
     // Defina o caminho do diretório para as imagens necessárias do FaceTec Browser SDK.
-    FaceTecSDK.setImagesDirectory('../../core-sdk/FaceTec_images');
+    FaceTecSDK.setImagesDirectory('../../core/core-sdk/FaceTec_images');
 
     // Defina as personalizações do FaceTec Device SDK.
     ThemeHelpers.setAppTheme(ThemeHelpers.getCurrentTheme());

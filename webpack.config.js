@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const Dotenv = require('dotenv-webpack');
 
@@ -39,10 +39,7 @@ module.exports = {
     }),
     new Dotenv(),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'core-sdk', to: 'core-sdk' },
-        { from: 'core', to: 'core' },
-      ],
+      patterns: [{ from: 'core', to: 'core' }],
     }),
     new CleanWebpackPlugin(),
   ],

@@ -42,10 +42,7 @@ module.exports = {
     }),
     new Dotenv(),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'core-sdk', to: 'core-sdk' },
-        { from: 'core', to: 'core' },
-      ],
+      patterns: [{ from: 'core', to: 'core' }],
     }),
     new CleanWebpackPlugin(),
   ],

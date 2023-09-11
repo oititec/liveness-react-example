@@ -1,4 +1,4 @@
-![image.png](https://github.com/oititec/liveness-react-example/main/src/assets/img/OitiHeader.png)
+![image.png](https://github.com/oititec/liveness-react-example/blob/main/src/assets/img/OitiHeader.png)
 
 # CertiFace para React
 

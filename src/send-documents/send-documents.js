@@ -469,7 +469,10 @@ const SendDocuments = () => {
 
       window.alert('Documento enviado com sucesso');
 
+      window.localStorage.removeItem('apiType');
       window.localStorage.removeItem('appkey');
+      window.localStorage.removeItem('errorMessage');
+      window.localStorage.removeItem('hasLiveness');
     } catch (error) {
       setTimeout(() => {
         setOwnState({
@@ -485,7 +488,9 @@ const SendDocuments = () => {
 
   // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
+    window.localStorage.removeItem('apiType');
     window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 
     window.location.href = '/';

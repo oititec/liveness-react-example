@@ -10,6 +10,11 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
+  devServer: {
+    https: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [

@@ -52,7 +52,12 @@ const InsertAppKeyGlobal = () => {
       <Col xs={12}>
         <Row>
           <Col xs={10}>
-            <Form.Control type="text" id="txt-appkey" onChange={handleAppKey} />
+            <Form.Control
+              type="text"
+              id="txt-appkey"
+              onChange={handleAppKey}
+              placeholder="Insira a AppKey aqui"
+            />
           </Col>
           <Col xs={2}>
             <Button

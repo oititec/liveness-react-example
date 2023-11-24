@@ -13,6 +13,7 @@ const Liveness3D = () => {
   const deleteAppKey = () => {
     window.localStorage.removeItem('apiType');
     window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('ticket');
     window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 

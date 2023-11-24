@@ -23,18 +23,31 @@ const InsertAppKeyFlexible = () => {
   const setAppKeyValue = () => {
     setLoading(true);
 
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const data = {
+      operatorLogin: 'int.evolution.dev',
+      ticket: ticket,
+      appKey: appkey,
+    };
+
     // axios
-    //   .get(
-    //     `${process.env.REACT_APP_BASE_URL}/facecaptcha/service/captcha/checkauth?appkey=${appkey}`
+    //   .post(
+    //     `${process.env.REACT_APP_BASE_URL}/hml/facecaptcha/service/captcha/orchestrator/validatekeys`,
+    //     data,
+    //     headers
     //   )
     //   .then((e) => {
-    //     window.localStorage.setItem('appkey', appkey);
-
-    //     setTimeout(() => {
-    //       navigate('/nav-menu');
-    //     }, 1000);
+    //     console.log(e, data);
+    //     setError(true);
+    //     setErrorMessage('passou!');
     //   })
     //   .catch((error) => {
+    //     console.log(error);
     //     setLoading(false);
     //     setError(true);
     //     setErrorMessage(error.response.data.error);

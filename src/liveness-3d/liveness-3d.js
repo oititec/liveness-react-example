@@ -27,7 +27,7 @@ const Liveness3D = () => {
   return (
     <Row>
       <Col xs={12} className="mt-4">
-        <Link to="/">Voltar</Link>
+        <Link to="/nav-menu">Voltar</Link>
       </Col>
       <Col xs={12} className="my-4">
         <div className="wrapping-box-container">

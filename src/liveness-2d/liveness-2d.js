@@ -367,7 +367,7 @@ const Liveness2D = () => {
     <Fragment>
       <Row>
         <Col xs={12} className="mt-4">
-          <Link to="/">Voltar</Link>
+          <Link to="/nav-menu">Voltar</Link>
         </Col>
         <Col xs={12} className="mb-4">
           <h1>Reconhecimento facial</h1>

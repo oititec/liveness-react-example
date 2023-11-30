@@ -10,6 +10,7 @@ import { FaceCaptcha } from '@oiti/facecaptcha-core';
 const SendDocuments = () => {
   const defaultState = {
     appkey: window.localStorage.getItem('appkey'),
+    apiType: window.localStorage.getItem('apiType'),
     message: '', // trocar para ''
     sendDocument: false, // trocar pra false
     isLoaded: false, // trocar pra false
@@ -455,9 +456,15 @@ const SendDocuments = () => {
     };
 
     try {
-      const result = await facecaptchaService.sendDocument(parameters);
+      let result;
 
-      console.log('consolando', result);
+      if (ownState.apiType === 'flexible-api') {
+        result = await facecaptchaService.sendDocument(parameters);
+      } else {
+        result = await facecaptchaService.sendDocument(parameters);
+      }
+
+      console.log(result);
 
       setTimeout(() => {
         setOwnState({
@@ -475,6 +482,8 @@ const SendDocuments = () => {
       window.localStorage.removeItem('errorMessage');
       window.localStorage.removeItem('hasLiveness');
     } catch (error) {
+      console.log(error);
+
       setTimeout(() => {
         setOwnState({
           ...(ownState.isLoaded = false),

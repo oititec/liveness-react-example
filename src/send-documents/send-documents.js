@@ -6,11 +6,13 @@ import ChevronRight from '../assets/img/chevron-right.png';
 import CaptureArea from './capture-area';
 import axios from 'axios';
 import { FaceCaptcha } from '@oiti/facecaptcha-core';
+import { jwtDecode } from 'jwt-decode';
 
 const SendDocuments = () => {
   const defaultState = {
     appkey: window.localStorage.getItem('appkey'),
     apiType: window.localStorage.getItem('apiType'),
+    ticket: window.localStorage.getItem('ticket'),
     message: '', // trocar para ''
     sendDocument: false, // trocar pra false
     isLoaded: false, // trocar pra false
@@ -28,9 +30,14 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
+    userDocumentNumber: '',
+    name: '',
+    birthDate: '',
   };
 
   const [ownState, setOwnState] = useState(defaultState);
+
+  const appkeyData = jwtDecode(`${ownState.appkey}`);
 
   const handleStream = (stream) => {
     setTimeout(() => {
@@ -446,22 +453,35 @@ const SendDocuments = () => {
     );
 
     const facecaptchaService = new FaceCaptcha(axios, {
-      BaseURL: process.env.REACT_APP_BASE_URL,
+      BaseURL:
+        ownState.apiType === 'flexible-api'
+          ? process.env.REACT_APP_FLEXIBLE_API_URL
+          : process.env.REACT_APP_BASE_URL,
       timeout: 20000,
     });
 
-    const parameters = {
+    const parametersGlobalAPI = {
       appkey: ownState.appkey,
       images: snapsSend,
+    };
+
+    const parametersFlexibleAPI = {
+      ticket: ownState.ticket,
+      userDocumentNumber: ownState.userDocumentNumber,
+      name: ownState.name,
+      birthDate: ownState.birthDate,
+      photo: snapsSend,
     };
 
     try {
       let result;
 
       if (ownState.apiType === 'flexible-api') {
-        result = await facecaptchaService.sendDocument(parameters);
+        result = await facecaptchaService.sendCertifaceData(
+          parametersFlexibleAPI
+        );
       } else {
-        result = await facecaptchaService.sendDocument(parameters);
+        result = await facecaptchaService.sendDocument(parametersGlobalAPI);
       }
 
       console.log(result);
@@ -508,6 +528,19 @@ const SendDocuments = () => {
   };
 
   useEffect(() => {
+    if (ownState.apiType === 'flexible-api') {
+      const getCpfFromAppKey = appkeyData.cpf;
+      const getNameFromAppKey = appkeyData.nome.split('|')[1];
+      const getBirthdateFromAppKey = appkeyData.nascimento.split('/');
+
+      setOwnState({
+        ...ownState,
+        userDocumentNumber: getCpfFromAppKey,
+        name: getNameFromAppKey,
+        birthDate: `${getBirthdateFromAppKey[2]}-${getBirthdateFromAppKey[1]}-${getBirthdateFromAppKey[0]}`,
+      });
+    }
+
     ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
 

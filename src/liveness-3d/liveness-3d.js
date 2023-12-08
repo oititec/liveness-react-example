@@ -3,11 +3,16 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FacetecLogo from '../assets/img/FaceTec_Logo.png';
 import { SampleApp } from './sample-app';
+import { useNavigate } from 'react-router-dom';
 
 const Liveness3D = () => {
   const showLiveness3D = () => {
     SampleApp.onLivenessCheckPressed();
   };
+
+  const navigate = useNavigate();
+
+  let ignore = false;
 
   // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
@@ -17,11 +22,23 @@ const Liveness3D = () => {
     window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 
-    window.location.href = '/';
+    navigate('/');
   };
 
   useEffect(() => {
-    SampleApp.getProductionKey();
+    if (window.localStorage.getItem('appkey')) {
+      SampleApp.getProductionKey();
+    } else {
+      if (!ignore) {
+        ignore = true;
+
+        window.alert(
+          'Você precisa usar uma appkey válida para usar este módulo.\nClique em ok para continuar.'
+        );
+
+        navigate('/');
+      }
+    }
   }, []);
 
   return (

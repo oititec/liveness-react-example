@@ -6,7 +6,7 @@ import ChevronRight from '../assets/img/chevron-right.png';
 import CaptureArea from './capture-area';
 import axios from 'axios';
 import { FaceCaptcha } from '@oiti/facecaptcha-core';
-import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const SendDocuments = () => {
   const defaultState = {
@@ -30,14 +30,13 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
-    userDocumentNumber: '',
-    name: '',
-    birthDate: '',
   };
 
   const [ownState, setOwnState] = useState(defaultState);
 
-  const appkeyData = jwtDecode(`${ownState.appkey}`);
+  const navigate = useNavigate();
+
+  let ignore = false;
 
   const handleStream = (stream) => {
     setTimeout(() => {
@@ -230,9 +229,10 @@ const SendDocuments = () => {
     const constraints = {
       audio: false,
       video: {
-        facingMode: 'environment',
+        facingMode: 'right',
         width: { exact: 640 },
         height: { exact: 480 },
+        focusMode: 'continuous',
       },
     };
 
@@ -242,6 +242,7 @@ const SendDocuments = () => {
         width: { exact: 1280 },
         height: { exact: 720 },
         facingMode: 'environment',
+        focusMode: 'continuous',
       };
     }
 
@@ -446,19 +447,24 @@ const SendDocuments = () => {
     resetSnap();
   };
 
+  const facecaptchaService = new FaceCaptcha(axios, {
+    BaseURL:
+      ownState.apiType === 'flexible-api'
+        ? process.env.REACT_APP_FLEXIBLE_API_URL
+        : process.env.REACT_APP_BASE_URL,
+    timeout: 20000,
+  });
+
+  const facecaptchaServiceBFF = new FaceCaptcha(axios, {
+    BaseURL: `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo`,
+    timeout: 20000,
+  });
+
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
     const snapsSend = ownState.snapsCaptures.map((snap) =>
       snap.replace('data:image/jpeg;base64,', '')
     );
-
-    const facecaptchaService = new FaceCaptcha(axios, {
-      BaseURL:
-        ownState.apiType === 'flexible-api'
-          ? process.env.REACT_APP_FLEXIBLE_API_URL
-          : process.env.REACT_APP_BASE_URL,
-      timeout: 20000,
-    });
 
     const parametersGlobalAPI = {
       appkey: ownState.appkey,
@@ -467,11 +473,11 @@ const SendDocuments = () => {
 
     const parametersFlexibleAPI = {
       ticket: ownState.ticket,
-      userDocumentNumber: ownState.userDocumentNumber,
-      name: ownState.name,
-      birthDate: ownState.birthDate,
-      photo: snapsSend,
+      appkey: ownState.appkey,
+      documentImages: snapsSend,
     };
+
+    console.log(parametersFlexibleAPI.documentImages[0]);
 
     try {
       let result;
@@ -501,17 +507,27 @@ const SendDocuments = () => {
       window.localStorage.removeItem('ticket');
       window.localStorage.removeItem('errorMessage');
       window.localStorage.removeItem('hasLiveness');
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log(error);
 
       setTimeout(() => {
-        setOwnState({
-          ...(ownState.isLoaded = false),
-        });
+        setTimeout(() => {
+          setOwnState({
+            ...((ownState.isLoaded = false),
+            (ownState.uploadRequest = true),
+            (ownState.uploadResp = false)),
+          });
+        }, 1000);
 
         window.alert(
           'Documento não localizado! Por favor reenvie o documento.'
         );
+
+        window.location.reload();
       }, 1000);
     }
   };
@@ -524,24 +540,56 @@ const SendDocuments = () => {
     window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 
-    window.location.href = '/';
+    navigate('/');
+  };
+
+  // Este método é apenas para demonstração e não deve ser implementado de forma alguma no front
+  const getResultFromApi = async () => {
+    await axios
+      .get(
+        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${ownState.ticket}`,
+        {
+          headers: {
+            // Autentication: `Bearer ${ownState.appkey}`,
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+            'x-sub-org': '1',
+            'x-group': '1',
+            'x-branch': '1',
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const isButtonEnabled = () => {
+    // return ownState.apiType === 'flexible-api' && 'disabled';
+    return '';
   };
 
   useEffect(() => {
-    if (ownState.apiType === 'flexible-api') {
-      const getCpfFromAppKey = appkeyData.cpf;
-      const getNameFromAppKey = appkeyData.nome.split('|')[1];
-      const getBirthdateFromAppKey = appkeyData.nascimento.split('/');
+    // Esta chamada é apenas para demonstração e não deve ser implementada de forma alguma no front
+    ownState.apiType === 'flexible-api' && getResultFromApi();
 
-      setOwnState({
-        ...ownState,
-        userDocumentNumber: getCpfFromAppKey,
-        name: getNameFromAppKey,
-        birthDate: `${getBirthdateFromAppKey[2]}-${getBirthdateFromAppKey[1]}-${getBirthdateFromAppKey[0]}`,
-      });
+    if (window.localStorage.getItem('hasLiveness')) {
+      ownState.sendDocument && onResize();
+    } else {
+      if (!ignore) {
+        ignore = true;
+
+        window.alert(
+          'Você deve realizar o processo de Liveness 2D ou 3D para poder realizar esta etapa.\nClique em OK para continuar.'
+        );
+
+        navigate('/nav-menu');
+      }
     }
-
-    ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
 
   return (
@@ -558,7 +606,7 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${isButtonEnabled()}`}
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -582,7 +630,7 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${isButtonEnabled()}`}
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >

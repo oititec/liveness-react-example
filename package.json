@@ -16,11 +16,10 @@
   "license": "ISC",
   "dependencies": {
     "@material-design-icons/font": "^0.14.3",
-    "@oiti/facecaptcha-core": "^0.0.21",
+    "@oiti/facecaptcha-core": "^0.2.4",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
     "dotenv-webpack": "^8.0.1",
-    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",

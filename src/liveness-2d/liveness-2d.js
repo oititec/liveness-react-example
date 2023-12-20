@@ -16,8 +16,6 @@ const Liveness2D = () => {
 
   const navigate = useNavigate();
 
-  let ignore = false;
-
   const handleClose = () => {
     setShow(false);
 
@@ -365,19 +363,7 @@ const Liveness2D = () => {
   };
 
   useEffect(() => {
-    if (window.localStorage.getItem('appkey')) {
-      initialState();
-    } else {
-      if (!ignore) {
-        ignore = true;
-
-        window.alert(
-          'Você precisa usar uma appkey válida para usar este módulo.\nClique em ok para continuar.'
-        );
-
-        navigate('/');
-      }
-    }
+    initialState();
   });
 
   return (

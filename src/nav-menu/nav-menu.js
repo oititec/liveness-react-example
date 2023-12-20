@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Liveness2D from '../assets/img/liveness-2d.png';
 import Liveness3D from '../assets/img/liveness-3d.png';
 import SendDocuments from '../assets/img/send-documents.png';
 import ChevronRight from '../assets/img/chevron-right.png';
-import { useNavigate } from 'react-router-dom';
 
 const NavMenu = () => {
-  const navigate = useNavigate();
-
-  let ignore = false;
-
-  useEffect(() => {
-    if (!ignore && !window.localStorage.getItem('appkey')) {
-      ignore = true;
-
-      window.alert(
-        'Você precisa selecionar o tipo de API que será utilizada neste exemplo.\nClique em OK para continuar.'
-      );
-
-      navigate('/');
-    }
-  }, []);
-
   return (
     <Row>
       <Col xs={12}>

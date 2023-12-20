@@ -29,36 +29,43 @@ const InsertAppKeyFlexible = () => {
       },
     };
 
-    const data = {
-      operatorLogin: 'int.evolution.dev',
-      ticket: ticket,
-      appKey: appkey,
-    };
+    // const data = {
+    //   operatorLogin: 'int.evolution.dev',
+    //   ticket: ticket,
+    //   appKey: appkey,
+    // };
 
-    // axios
-    //   .post(
-    //     `${process.env.REACT_APP_BASE_URL}/hml/facecaptcha/service/captcha/orchestrator/validatekeys`,
-    //     data,
-    //     headers
-    //   )
-    //   .then((e) => {
-    //     console.log(e, data);
-    //     setError(true);
-    //     setErrorMessage('passou!');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setLoading(false);
-    //     setError(true);
-    //     setErrorMessage(error.response.data.error);
-    //   });
+    // O código abaixo é apenas um exemplo para validar se o ticket é válido e está ativo.
+    // Não deve ser implementado no front de maneira alguma.
+    axios
+      .get(
+        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${ticket}`,
+        {
+          headers: {
+            'x-sub-org': '1',
+            'x-group': '1',
+            'x-branch': '1',
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
 
-    window.localStorage.setItem('appkey', appkey);
-    window.localStorage.setItem('ticket', ticket);
+        setError(true);
 
-    setTimeout(() => {
-      navigate('/nav-menu');
-    }, 1000);
+        window.localStorage.setItem('appkey', appkey);
+        window.localStorage.setItem('ticket', ticket);
+
+        setTimeout(() => {
+          navigate('/nav-menu');
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setError(true);
+        setErrorMessage(error.response.data.message);
+      });
   };
 
   useEffect(() => {

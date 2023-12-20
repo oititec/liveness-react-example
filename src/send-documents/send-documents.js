@@ -30,13 +30,12 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
+    isButtonEnabled: true, // trocar para true
   };
 
   const [ownState, setOwnState] = useState(defaultState);
 
   const navigate = useNavigate();
-
-  let ignore = false;
 
   const handleStream = (stream) => {
     setTimeout(() => {
@@ -550,10 +549,6 @@ const SendDocuments = () => {
         `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${ownState.ticket}`,
         {
           headers: {
-            // Autentication: `Bearer ${ownState.appkey}`,
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
             'x-sub-org': '1',
             'x-group': '1',
             'x-branch': '1',
@@ -562,6 +557,16 @@ const SendDocuments = () => {
       )
       .then((res) => {
         console.log(res);
+
+        res.data.ticketStatus !== 'ACTIVE'
+          ? setOwnState({
+              ...ownState,
+              isButtonEnabled: true,
+            })
+          : setOwnState({
+              ...ownState,
+              isButtonEnabled: false,
+            });
       })
       .catch((error) => {
         console.log(error);
@@ -569,27 +574,21 @@ const SendDocuments = () => {
   };
 
   const isButtonEnabled = () => {
-    // return ownState.apiType === 'flexible-api' && 'disabled';
-    return '';
+    let isDisabled = ownState.isButtonEnabled;
+
+    return ownState.apiType === 'flexible-api' && isDisabled ? 'disabled' : '';
   };
 
   useEffect(() => {
     // Esta chamada é apenas para demonstração e não deve ser implementada de forma alguma no front
-    ownState.apiType === 'flexible-api' && getResultFromApi();
+    ownState.apiType === 'flexible-api'
+      ? getResultFromApi()
+      : setOwnState({
+          ...ownState,
+          isButtonEnabled: false,
+        });
 
-    if (window.localStorage.getItem('hasLiveness')) {
-      ownState.sendDocument && onResize();
-    } else {
-      if (!ignore) {
-        ignore = true;
-
-        window.alert(
-          'Você deve realizar o processo de Liveness 2D ou 3D para poder realizar esta etapa.\nClique em OK para continuar.'
-        );
-
-        navigate('/nav-menu');
-      }
-    }
+    ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
 
   return (

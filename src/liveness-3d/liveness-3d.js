@@ -12,8 +12,6 @@ const Liveness3D = () => {
 
   const navigate = useNavigate();
 
-  let ignore = false;
-
   // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
     window.localStorage.removeItem('apiType');
@@ -26,19 +24,7 @@ const Liveness3D = () => {
   };
 
   useEffect(() => {
-    if (window.localStorage.getItem('appkey')) {
-      SampleApp.getProductionKey();
-    } else {
-      if (!ignore) {
-        ignore = true;
-
-        window.alert(
-          'Você precisa usar uma appkey válida para usar este módulo.\nClique em ok para continuar.'
-        );
-
-        navigate('/');
-      }
-    }
+    SampleApp.getProductionKey();
   }, []);
 
   return (

@@ -23,11 +23,11 @@ const InsertAppKeyFlexible = () => {
   const setAppKeyValue = () => {
     setLoading(true);
 
-    const headers = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    // const headers = {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // };
 
     // const data = {
     //   operatorLogin: 'int.evolution.dev',

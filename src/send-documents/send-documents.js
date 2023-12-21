@@ -576,7 +576,11 @@ const SendDocuments = () => {
   const isButtonEnabled = () => {
     let isDisabled = ownState.isButtonEnabled;
 
-    return ownState.apiType === 'flexible-api' && isDisabled ? 'disabled' : '';
+    return ownState.apiType === 'flexible-api'
+      ? isDisabled
+        ? 'disabled'
+        : ''
+      : '';
   };
 
   useEffect(() => {

@@ -39,7 +39,9 @@ const InsertAppKeyFlexible = () => {
     // Não deve ser implementado no front de maneira alguma.
     axios
       .get(
-        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${ticket}`,
+        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${
+          ticket !== '' ? ticket : 'undefined'
+        }`,
         {
           headers: {
             'x-sub-org': '1',

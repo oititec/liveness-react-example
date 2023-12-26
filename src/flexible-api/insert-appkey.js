@@ -23,18 +23,6 @@ const InsertAppKeyFlexible = () => {
   const setAppKeyValue = () => {
     setLoading(true);
 
-    // const headers = {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // };
-
-    // const data = {
-    //   operatorLogin: 'int.evolution.dev',
-    //   ticket: ticket,
-    //   appKey: appkey,
-    // };
-
     // O código abaixo é apenas um exemplo para validar se o ticket é válido e está ativo.
     // Não deve ser implementado no front de maneira alguma.
     axios

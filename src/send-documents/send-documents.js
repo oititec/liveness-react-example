@@ -454,11 +454,6 @@ const SendDocuments = () => {
     timeout: 20000,
   });
 
-  const facecaptchaServiceBFF = new FaceCaptcha(axios, {
-    BaseURL: `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo`,
-    timeout: 20000,
-  });
-
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
     const snapsSend = ownState.snapsCaptures.map((snap) =>

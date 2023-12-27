@@ -471,8 +471,6 @@ const SendDocuments = () => {
       documentImages: snapsSend,
     };
 
-    console.log(parametersFlexibleAPI.documentImages[0]);
-
     try {
       let result;
 

@@ -30,7 +30,6 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
-    isButtonEnabled: true, // trocar para true
   };
 
   const [ownState, setOwnState] = useState(defaultState);
@@ -535,56 +534,7 @@ const SendDocuments = () => {
     navigate('/');
   };
 
-  // Este método é apenas para demonstração e não deve ser implementado de forma alguma no front
-  const getResultFromApi = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${ownState.ticket}`,
-        {
-          headers: {
-            'x-sub-org': '1',
-            'x-group': '1',
-            'x-branch': '1',
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-
-        res.data.ticketStatus !== 'ACTIVE'
-          ? setOwnState({
-              ...ownState,
-              isButtonEnabled: true,
-            })
-          : setOwnState({
-              ...ownState,
-              isButtonEnabled: false,
-            });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const isButtonEnabled = () => {
-    let isDisabled = ownState.isButtonEnabled;
-
-    return ownState.apiType === 'flexible-api'
-      ? isDisabled
-        ? 'disabled'
-        : ''
-      : '';
-  };
-
   useEffect(() => {
-    // Esta chamada é apenas para demonstração e não deve ser implementada de forma alguma no front
-    ownState.apiType === 'flexible-api'
-      ? getResultFromApi()
-      : setOwnState({
-          ...ownState,
-          isButtonEnabled: false,
-        });
-
     ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
 
@@ -602,7 +552,7 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            className={`btn btn-outline-secondary d-block mb-3 ${isButtonEnabled()}`}
+            className="btn btn-outline-secondary d-block mb-3"
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -626,7 +576,7 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            className={`btn btn-outline-secondary d-block mb-3 ${isButtonEnabled()}`}
+            className="btn btn-outline-secondary d-block mb-3"
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >

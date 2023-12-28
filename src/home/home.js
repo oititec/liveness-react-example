@@ -29,7 +29,10 @@ const Home = () => {
             <Col xs={'auto'} className="d-flex align-items-center">
               <img src={Liveness2D} alt="" aria-hidden="true" />
             </Col>
-            <Col xs>
+            <Col
+              xs
+              className="d-flex align-items-center justify-content-center"
+            >
               <h2>Certiface API</h2>
               {/* <h3>Lorem ipsum dollor sit amet</h3> */}
             </Col>
@@ -48,7 +51,10 @@ const Home = () => {
             <Col xs={'auto'} className="d-flex align-items-center">
               <img src={Liveness2D} alt="" aria-hidden="true" />
             </Col>
-            <Col xs>
+            <Col
+              xs
+              className="d-flex align-items-center justify-content-center"
+            >
               <h2>Global API</h2>
               {/* <h3>Lorem ipsum dollor sit amet</h3> */}
             </Col>

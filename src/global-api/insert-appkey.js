@@ -44,7 +44,7 @@ const InsertAppKeyGlobal = () => {
     <Row>
       <Col xs={12}>
         <h1 className="my-4 text-center">
-          Para usar a aplicação usando a API Global, por favor insira
+          Para usar a aplicação usando a Global API, por favor insira
           <br />
           uma AppKey válida.
         </h1>

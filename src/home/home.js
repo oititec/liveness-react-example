@@ -30,8 +30,8 @@ const Home = () => {
               <img src={Liveness2D} alt="" aria-hidden="true" />
             </Col>
             <Col xs>
-              <h2>API Flexível</h2>
-              <h3>Lorem ipsum dollor sit amet</h3>
+              <h2>Certiface API</h2>
+              {/* <h3>Lorem ipsum dollor sit amet</h3> */}
             </Col>
             <Col xs={'auto'} className="d-flex align-items-center">
               <img src={ChevronRight} alt="" aria-hidden="true" />
@@ -49,8 +49,8 @@ const Home = () => {
               <img src={Liveness2D} alt="" aria-hidden="true" />
             </Col>
             <Col xs>
-              <h2>API Global</h2>
-              <h3>Lorem ipsum dollor sit amet</h3>
+              <h2>Global API</h2>
+              {/* <h3>Lorem ipsum dollor sit amet</h3> */}
             </Col>
             <Col xs={'auto'} className="d-flex align-items-center">
               <img src={ChevronRight} alt="" aria-hidden="true" />

@@ -23,38 +23,49 @@ const InsertAppKeyFlexible = () => {
   const setAppKeyValue = () => {
     setLoading(true);
 
-    // O código abaixo é apenas um exemplo para validar se o ticket é válido e está ativo.
-    // Não deve ser implementado no front de maneira alguma.
     axios
       .get(
-        `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${
-          ticket !== '' ? ticket : 'undefined'
-        }`,
-        {
-          headers: {
-            'x-sub-org': '1',
-            'x-group': '1',
-            'x-branch': '1',
-          },
-        }
+        `${process.env.REACT_APP_BASE_URL}/facecaptcha/service/captcha/checkauth?appkey=${appkey}`
       )
-      .then((res) => {
-        console.log(res);
+      .then((e) => {
+        // O código abaixo é apenas um exemplo para validar se o ticket é válido e está ativo.
+        // Não deve ser implementado no front de maneira alguma.
+        axios
+          .get(
+            `${process.env.REACT_APP_FLEXIBLE_API_URL}/bff-demo/result/${
+              ticket !== '' ? ticket : 'undefined'
+            }`,
+            {
+              headers: {
+                'x-sub-org': '1',
+                'x-group': '1',
+                'x-branch': '1',
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
 
-        setError(true);
+            setError(true);
 
-        window.localStorage.setItem('appkey', appkey);
-        window.localStorage.setItem('ticket', ticket);
+            window.localStorage.setItem('appkey', appkey);
+            window.localStorage.setItem('ticket', ticket);
 
-        setTimeout(() => {
-          navigate('/nav-menu');
-        }, 1000);
+            setTimeout(() => {
+              navigate('/nav-menu');
+            }, 1000);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+            setError(true);
+            setErrorMessage(error.response.data.message);
+          });
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         setError(true);
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error.response.data.error);
       });
   };
 

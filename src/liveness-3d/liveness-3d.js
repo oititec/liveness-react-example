@@ -40,6 +40,7 @@ const Liveness3D = () => {
               variant="primary"
               className="btn-rounded"
               onClick={() => showLiveness3D()}
+              disabled
             >
               3D Liveness Check
             </Button>

@@ -92,7 +92,7 @@ export var SampleApp = (function () {
 
       loadAssets();
     } else {
-      SampleAppUtilities.displayStatus(result);
+      SampleAppUtilities.displayStatus(result.response.data.error);
     }
   };
 

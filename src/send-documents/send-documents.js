@@ -30,6 +30,7 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
+    uploadButtonText: 'Enviar foto', // trocar para 'Enviar foto'
   };
 
   const [ownState, setOwnState] = useState(defaultState);
@@ -64,6 +65,7 @@ const SendDocuments = () => {
       sendDocument: true,
       multiCapture: type === 1 ? false : true,
       showTypeCapture: false,
+      uploadButtonText: type === 1 ? 'Enviar foto' : 'Enviar fotos',
     });
 
     setTimeout(() => {
@@ -455,6 +457,12 @@ const SendDocuments = () => {
 
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
+    setOwnState({
+      ...ownState,
+      isLoaded: true,
+      uploadButtonText: 'Enviando...',
+    });
+
     const snapsSend = ownState.snapsCaptures.map((snap) =>
       snap.replace('data:image/jpeg;base64,', '')
     );
@@ -510,7 +518,10 @@ const SendDocuments = () => {
           setOwnState({
             ...((ownState.isLoaded = false),
             (ownState.uploadRequest = true),
-            (ownState.uploadResp = false)),
+            (ownState.uploadResp = false),
+            (ownState.uploadButtonText = `Enviar foto${
+              ownState.snapsCaptures.length === 2 && 's'
+            }`)),
           });
         }, 1000);
 
@@ -552,7 +563,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              !ownState.appkey ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -576,7 +589,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              !ownState.appkey ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >

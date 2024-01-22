@@ -7,9 +7,16 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
-  mode: 'development',
+  // mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
+  devtool: 'source-map',
+  devServer: {
+    https: true,
+    historyApiFallback: true,
+    watchFiles: [path.join(__dirname, 'src/**/*')],
   },
   module: {
     rules: [
@@ -43,4 +50,5 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
   ],
+  target: 'web',
 };

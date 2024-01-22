@@ -1,8 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const InsertAppKey = () => {
+const InsertAppKeyGlobal = () => {
+  const navigate = useNavigate();
+
   const [appkey, setAppkey] = useState('');
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,7 +26,7 @@ const InsertAppKey = () => {
         window.localStorage.setItem('appkey', appkey);
 
         setTimeout(() => {
-          window.location.reload();
+          navigate('/nav-menu');
         }, 1000);
       })
       .catch((error) => {
@@ -33,17 +36,28 @@ const InsertAppKey = () => {
       });
   };
 
+  useEffect(() => {
+    window.localStorage.setItem('apiType', 'global-api');
+  }, []);
+
   return (
     <Row>
       <Col xs={12}>
         <h1 className="my-4 text-center">
-          Para usar a aplicação, por favor insira uma AppKey válida.
+          Para usar a aplicação usando a Global API, por favor insira
+          <br />
+          uma AppKey válida.
         </h1>
       </Col>
       <Col xs={12}>
         <Row>
           <Col xs={10}>
-            <Form.Control type="text" id="txt-appkey" onChange={handleAppKey} />
+            <Form.Control
+              type="text"
+              id="txt-appkey"
+              onChange={handleAppKey}
+              placeholder="Insira a AppKey aqui"
+            />
           </Col>
           <Col xs={2}>
             <Button
@@ -62,4 +76,4 @@ const InsertAppKey = () => {
   );
 };
 
-export default InsertAppKey;
+export default InsertAppKeyGlobal;

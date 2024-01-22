@@ -9,9 +9,12 @@ import axios from 'axios';
 import Success from '../assets/img/success.png';
 import ModalError from './modal-error';
 import { Crypto } from '../crypto/crypto';
+import { useNavigate } from 'react-router-dom';
 
 const Liveness2D = () => {
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setShow(false);
@@ -92,10 +95,13 @@ const Liveness2D = () => {
 
   // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
+    window.localStorage.removeItem('apiType');
     window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('ticket');
+    window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 
-    window.location.href = '/';
+    navigate('/');
   };
 
   // Iniciando o processo de captura de imagem
@@ -364,7 +370,7 @@ const Liveness2D = () => {
     <Fragment>
       <Row>
         <Col xs={12} className="mt-4">
-          <Link to="/">Voltar</Link>
+          <Link to="/nav-menu">Voltar</Link>
         </Col>
         <Col xs={12} className="mb-4">
           <h1>Reconhecimento facial</h1>

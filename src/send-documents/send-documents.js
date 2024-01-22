@@ -6,10 +6,13 @@ import ChevronRight from '../assets/img/chevron-right.png';
 import CaptureArea from './capture-area';
 import axios from 'axios';
 import { FaceCaptcha } from '@oiti/facecaptcha-core';
+import { useNavigate } from 'react-router-dom';
 
 const SendDocuments = () => {
   const defaultState = {
     appkey: window.localStorage.getItem('appkey'),
+    apiType: window.localStorage.getItem('apiType'),
+    ticket: window.localStorage.getItem('ticket'),
     message: '', // trocar para ''
     sendDocument: false, // trocar pra false
     isLoaded: false, // trocar pra false
@@ -27,9 +30,12 @@ const SendDocuments = () => {
     showDesktop: false, // trocar pra false
     indexTempSnap: -1, // trocar para -1
     uploadResp: true, // trocar para true
+    uploadButtonText: 'Enviar foto', // trocar para 'Enviar foto'
   };
 
   const [ownState, setOwnState] = useState(defaultState);
+
+  const navigate = useNavigate();
 
   const handleStream = (stream) => {
     setTimeout(() => {
@@ -59,6 +65,7 @@ const SendDocuments = () => {
       sendDocument: true,
       multiCapture: type === 1 ? false : true,
       showTypeCapture: false,
+      uploadButtonText: type === 1 ? 'Enviar foto' : 'Enviar fotos',
     });
 
     setTimeout(() => {
@@ -222,9 +229,12 @@ const SendDocuments = () => {
     const constraints = {
       audio: false,
       video: {
-        facingMode: 'environment',
+        facingMode: 'right',
         width: { exact: 640 },
         height: { exact: 480 },
+        aspectRatio: { ideal: 1 },
+        focusMode: 'manual',
+        focusDistance: 0.33,
       },
     };
 
@@ -234,6 +244,9 @@ const SendDocuments = () => {
         width: { exact: 1280 },
         height: { exact: 720 },
         facingMode: 'environment',
+        aspectRatio: { ideal: 1 },
+        focusMode: 'manual',
+        focusDistance: 0.33,
       };
     }
 
@@ -438,26 +451,49 @@ const SendDocuments = () => {
     resetSnap();
   };
 
+  const facecaptchaService = new FaceCaptcha(axios, {
+    BaseURL:
+      ownState.apiType === 'flexible-api'
+        ? process.env.REACT_APP_FLEXIBLE_API_URL
+        : process.env.REACT_APP_BASE_URL,
+    timeout: 20000,
+  });
+
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
+    setOwnState({
+      ...ownState,
+      isLoaded: true,
+      uploadButtonText: 'Enviando...',
+    });
+
     const snapsSend = ownState.snapsCaptures.map((snap) =>
       snap.replace('data:image/jpeg;base64,', '')
     );
 
-    const facecaptchaService = new FaceCaptcha(axios, {
-      BaseURL: process.env.REACT_APP_BASE_URL,
-      timeout: 20000,
-    });
-
-    const parameters = {
+    const parametersGlobalAPI = {
       appkey: ownState.appkey,
       images: snapsSend,
     };
 
-    try {
-      const result = await facecaptchaService.sendDocument(parameters);
+    const parametersFlexibleAPI = {
+      ticket: ownState.ticket,
+      appkey: ownState.appkey,
+      documentImages: snapsSend,
+    };
 
-      console.log('consolando', result);
+    try {
+      let result;
+
+      if (ownState.apiType === 'flexible-api') {
+        result = await facecaptchaService.sendCertifaceData(
+          parametersFlexibleAPI
+        );
+      } else {
+        result = await facecaptchaService.sendDocument(parametersGlobalAPI);
+      }
+
+      console.log(result);
 
       setTimeout(() => {
         setOwnState({
@@ -469,26 +505,48 @@ const SendDocuments = () => {
 
       window.alert('Documento enviado com sucesso');
 
+      window.localStorage.removeItem('apiType');
       window.localStorage.removeItem('appkey');
-    } catch (error) {
+      window.localStorage.removeItem('ticket');
+      window.localStorage.removeItem('errorMessage');
+      window.localStorage.removeItem('hasLiveness');
+
       setTimeout(() => {
-        setOwnState({
-          ...(ownState.isLoaded = false),
-        });
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+
+      setTimeout(() => {
+        setTimeout(() => {
+          setOwnState({
+            ...((ownState.isLoaded = false),
+            (ownState.uploadRequest = true),
+            (ownState.uploadResp = false),
+            (ownState.uploadButtonText = `Enviar foto${
+              ownState.snapsCaptures.length === 2 && 's'
+            }`)),
+          });
+        }, 1000);
 
         window.alert(
           'Documento não localizado! Por favor reenvie o documento.'
         );
+
+        window.location.reload();
       }, 1000);
     }
   };
 
   // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
+    window.localStorage.removeItem('apiType');
     window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('ticket');
+    window.localStorage.removeItem('errorMessage');
     window.localStorage.removeItem('hasLiveness');
 
-    window.location.href = '/';
+    navigate('/');
   };
 
   useEffect(() => {
@@ -499,7 +557,7 @@ const SendDocuments = () => {
     <Fragment>
       <Row>
         <Col xs={12} className="mt-4">
-          <Link to="/">Voltar</Link>
+          <Link to="/nav-menu">Voltar</Link>
         </Col>
         <Col xs={12} className="mb-4">
           <h1>Envio de documentos</h1>
@@ -509,7 +567,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              !ownState.appkey ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -533,7 +593,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              !ownState.appkey ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >

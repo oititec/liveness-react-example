@@ -116,7 +116,7 @@ const CaptureArea = ({
                       <i className="material-icons me-2" aria-hidden="true">
                         outbox
                       </i>
-                      Enviar foto{state.snapsCaptures.length === 2 && 's'}
+                      {state.uploadButtonText}
                     </button>
                   )}
                 </div>

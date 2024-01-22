@@ -232,7 +232,9 @@ const SendDocuments = () => {
         facingMode: 'right',
         width: { exact: 640 },
         height: { exact: 480 },
-        focusMode: 'continuous',
+        aspectRatio: { ideal: 1 },
+        focusMode: 'manual',
+        focusDistance: 0.33,
       },
     };
 
@@ -242,7 +244,9 @@ const SendDocuments = () => {
         width: { exact: 1280 },
         height: { exact: 720 },
         facingMode: 'environment',
-        focusMode: 'continuous',
+        aspectRatio: { ideal: 1 },
+        focusMode: 'manual',
+        focusDistance: 0.33,
       };
     }
 

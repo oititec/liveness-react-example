@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Navbar, Row } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-design-icons/font';
 import './assets/css/styles.css';

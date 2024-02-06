@@ -98,9 +98,15 @@ export var SampleApp = (function () {
       appKey: staticAppKey,
     });
 
-    resultProductKey = result.productionKey;
+    if (result.productionKey) {
+      resultProductKey = result.productionKey;
 
-    loadAssets();
+      loadAssets();
+    } else {
+      SampleAppUtilities.displayStatus(
+        'Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela.'
+      );
+    }
   };
 
   const getSessionToken = async () => {
@@ -135,11 +141,6 @@ export var SampleApp = (function () {
     if (!latestProcessor.isSuccess()) {
       // Redefina o identificador de inscrição.
       latestEnrollmentIdentifier = '';
-
-      // Mostrar mensagem de saída antecipada na tela. Se isso ocorrer, verifique os logs.
-      SampleAppUtilities.displayStatus(
-        'A sessão foi encerrada antecipadamente, consulte os logs para obter mais detalhes.'
-      );
 
       return;
     }

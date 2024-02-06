@@ -14,7 +14,6 @@ export const SampleAppUtilities = (function () {
       UI('#custom-logo-container').fadeIn(800);
     }
     UI('#controls').fadeIn(800, () => {
-      enableControlButtons();
       if (callback) {
         callback();
       }
@@ -139,6 +138,7 @@ export const SampleAppUtilities = (function () {
   return {
     displayStatus,
     fadeOutMainUIAndPrepareForSession,
+    disableControlButtons,
     enableControlButtons,
     generateUUId,
     formatUIForDevice,

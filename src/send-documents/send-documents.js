@@ -234,6 +234,10 @@ const SendDocuments = () => {
         width: { exact: 1280 },
         height: { exact: 720 },
         facingMode: 'environment',
+        focusMode: 'continuous',
+        advanced: [
+          { zoom: isAndroid() ? 2.0 : 1.0, torch: isAndroid() ? true : false },
+        ],
       };
     }
 
@@ -263,6 +267,10 @@ const SendDocuments = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
+  };
+
+  const isAndroid = () => {
+    return /Android/i.test(navigator.userAgent);
   };
 
   const startCapture = () => {

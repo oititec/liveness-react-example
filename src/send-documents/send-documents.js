@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ImgIcon from '../assets/img/img-icon.png';
 import ChevronRight from '../assets/img/chevron-right.png';
@@ -223,37 +223,17 @@ const SendDocuments = () => {
       audio: false,
       video: {
         facingMode: 'environment',
-        width: {
-          min: 640,
-          ideal: 640,
-          max: 640,
-        },
-        height: {
-          min: 480,
-          ideal: 480,
-          max: 480,
-        },
+        width: { exact: 640 },
+        height: { exact: 480 },
       },
     };
 
     // se mobile, ajusta configurações de video para mobile
     if (isMobile()) {
       constraints.video = {
-        width: {
-          min: 1280,
-          ideal: 1920,
-          max: 2560,
-        },
-        height: {
-          min: 720,
-          ideal: 1080,
-          max: 1440,
-        },
+        width: { exact: 1280 },
+        height: { exact: 720 },
         facingMode: 'environment',
-        focusMode: 'continuous',
-        advanced: [
-          { zoom: isAndroid() ? 2.0 : 1.0, torch: isAndroid() ? true : false },
-        ],
       };
     }
 
@@ -283,10 +263,6 @@ const SendDocuments = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
-  };
-
-  const isAndroid = () => {
-    return /Android/i.test(navigator.userAgent);
   };
 
   const startCapture = () => {
@@ -507,14 +483,6 @@ const SendDocuments = () => {
     }
   };
 
-  // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
-  const deleteAppKey = () => {
-    window.localStorage.removeItem('appkey');
-    window.localStorage.removeItem('hasLiveness');
-
-    window.location.href = '/';
-  };
-
   useEffect(() => {
     ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
@@ -576,15 +544,6 @@ const SendDocuments = () => {
               </Col>
             </Row>
           </div>
-        </Col>
-        <Col xs={12} className="text-center">
-          <Button
-            id="delete-appkey"
-            variant="link"
-            onClick={() => deleteAppKey()}
-          >
-            Em caso de problemas, clique aqui
-          </Button>
         </Col>
       </Row>
 

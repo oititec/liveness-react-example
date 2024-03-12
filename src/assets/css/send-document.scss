@@ -74,6 +74,10 @@
     justify-content: center;
     color: #000;
     overflow-y: auto;
+
+    &.mobile-thumb {
+      width: 100%;
+    }
     
     > div {
       width: 50%;

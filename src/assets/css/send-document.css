@@ -73,6 +73,9 @@
   color: #000;
   overflow-y: auto;
 }
+.send-document-area .thumb-picture.mobile-thumb, .send-document-area .thumbs-group.mobile-thumb {
+  width: 100%;
+}
 .send-document-area .thumb-picture > div, .send-document-area .thumbs-group > div {
   width: 50%;
 }

@@ -53,21 +53,41 @@ const SendDocuments = () => {
   };
 
   const setTypeCapture = (type) => {
-    setOwnState({
-      ...ownState,
-      message: 'Carregando...',
-      sendDocument: true,
-      multiCapture: type === 1 ? false : true,
-      showTypeCapture: false,
-    });
+    let capturaFoto = document.getElementById('captura-foto');
 
-    setTimeout(() => {
+    if (isMobile()) {
+      capturaFoto.click();
+
       setOwnState({
         ...ownState,
-        message: '',
-        isLoaded: false,
+        sendDocument: true,
+        multiCapture: type === 1 ? false : true,
+        showTypeCapture: false,
       });
-    });
+
+      setTimeout(() => {
+        setOwnState({
+          ...ownState,
+          isLoaded: false,
+        });
+      });
+    } else {
+      setOwnState({
+        ...ownState,
+        message: 'Carregando...',
+        sendDocument: true,
+        multiCapture: type === 1 ? false : true,
+        showTypeCapture: false,
+      });
+
+      setTimeout(() => {
+        setOwnState({
+          ...ownState,
+          message: '',
+          isLoaded: false,
+        });
+      });
+    }
   };
 
   const onResize = () => {
@@ -224,20 +244,20 @@ const SendDocuments = () => {
       video: {
         facingMode: 'environment',
         width: {
-          min: 640,
-          ideal: 640,
-          max: 640,
+          min: 1280,
+          ideal: 1920,
+          max: 2560,
         },
         height: {
-          min: 480,
-          ideal: 480,
-          max: 480,
+          min: 720,
+          ideal: 1080,
+          max: 1440,
         },
       },
     };
 
     // se mobile, ajusta configurações de video para mobile
-    if (isMobile()) {
+    if (!isMobile()) {
       constraints.video = {
         width: {
           min: 1280,
@@ -251,18 +271,15 @@ const SendDocuments = () => {
         },
         facingMode: 'environment',
         focusMode: 'continuous',
-        advanced: [
-          { zoom: isAndroid() ? 2.0 : 1.0, torch: isAndroid() ? true : false },
-        ],
       };
-    }
 
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then((stream) => handleStream(stream))
-      .catch((err) => {
-        console.log('Sem câmera! ' + err);
-      });
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((stream) => handleStream(stream))
+        .catch((err) => {
+          console.log('Sem câmera! ' + err);
+        });
+    }
   };
 
   // Fecha a câmera
@@ -285,22 +302,9 @@ const SendDocuments = () => {
     );
   };
 
-  const isAndroid = () => {
-    return /Android/i.test(navigator.userAgent);
-  };
-
   const startCapture = () => {
-    setOwnState({
-      ...ownState,
-      processing: true,
-      message: 'Processando...',
-      showIniciar: false,
-      isLoaded: true,
-    });
-
-    setTimeout(() => {
+    if (isMobile()) {
       snapCapture();
-      stopCameraStreams();
 
       setOwnState({
         ...ownState,
@@ -309,7 +313,28 @@ const SendDocuments = () => {
         isLoaded: false,
         processing: false,
       });
-    }, 1500);
+    } else {
+      setOwnState({
+        ...ownState,
+        processing: true,
+        message: 'Processando...',
+        showIniciar: false,
+        isLoaded: true,
+      });
+
+      setTimeout(() => {
+        snapCapture();
+        stopCameraStreams();
+
+        setOwnState({
+          ...ownState,
+          message: '',
+          btnControllers: true,
+          isLoaded: false,
+          processing: false,
+        });
+      }, 1500);
+    }
   };
 
   // Limpa as listar e reinicia a Câmera
@@ -381,11 +406,15 @@ const SendDocuments = () => {
 
   // captura imagem da câmera
   const snap = () => {
+    const capturaFoto = document.getElementById('captura-foto');
+    const imgMobile = document.getElementById('img-mobile');
+    const fotoCapturada = capturaFoto.files[0];
     const video = document.getElementById('video');
     const canvas = document.getElementById('fc_canvas');
     const ctx = canvas.getContext('2d');
+    const img = new Image();
 
-    let ratio = video.videoWidth / video.videoHeight;
+    let ratio = !isMobile() ? video.videoWidth / video.videoHeight : 0;
     let widthReal = 0;
     let heightReal = 0;
     let startX = 0;
@@ -402,7 +431,7 @@ const SendDocuments = () => {
       // retrato
       ctx.canvas.width = 640;
       ctx.canvas.height = 960;
-      ratio = video.videoHeight / video.videoWidth;
+      ratio = !isMobile() ? video.videoWidth / video.videoHeight : 0;
       // verifica proporção
       if (ratio > 1.5) {
         widthReal = video.videoWidth;
@@ -410,30 +439,51 @@ const SendDocuments = () => {
         startX = 0;
         startY = 0;
       } else {
-        widthReal = video.videoHeight / 1.5;
-        heightReal = video.videoHeight;
-        startX = (video.videoWidth - widthReal) / 2;
+        widthReal = !isMobile() ? video.videoHeight / 1.5 : 0;
+        heightReal = !isMobile() ? video.videoHeight : 0;
+        startX = (!isMobile() ? video.videoWidth - widthReal : 0) / 2;
         startY = 0;
       }
     }
 
-    // crop image video
-    ctx.drawImage(
-      video,
-      startX,
-      startY,
-      widthReal,
-      heightReal,
-      0,
-      0,
-      ctx.canvas.width,
-      ctx.canvas.height
-    );
+    if (isMobile()) {
+      const reader = new FileReader();
 
-    const img = new Image();
-    img.src = canvas.toDataURL('image/jpeg');
+      reader.readAsDataURL(fotoCapturada);
 
-    return img.src;
+      reader.onload = () => {
+        imgMobile.src = reader.result;
+        img.src = imgMobile.src;
+
+        setTimeout(() => {
+          setOwnState({
+            ...ownState,
+            snapTempDOM: img.src,
+            message: '',
+            btnControllers: true,
+          });
+
+          return img.src;
+        });
+      };
+    } else {
+      // crop image video
+      ctx.drawImage(
+        video,
+        startX,
+        startY,
+        widthReal,
+        heightReal,
+        0,
+        0,
+        ctx.canvas.width,
+        ctx.canvas.height
+      );
+
+      img.src = canvas.toDataURL('image/jpeg');
+
+      return img.src;
+    }
   };
 
   // remove imagem das listas
@@ -517,6 +567,12 @@ const SendDocuments = () => {
 
   useEffect(() => {
     ownState.sendDocument && onResize();
+
+    let capturaFoto = document.getElementById('captura-foto');
+
+    capturaFoto.addEventListener('change', () => {
+      startCapture();
+    });
   }, [ownState.sendDocument]);
 
   return (
@@ -595,6 +651,7 @@ const SendDocuments = () => {
         resetSnap={resetSnap}
         removeSnapFromLists={removeSnapFromLists}
         uploadPictures={uploadPictures}
+        isMobile={isMobile}
       />
     </Fragment>
   );

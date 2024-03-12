@@ -306,13 +306,13 @@ const SendDocuments = () => {
     if (isMobile()) {
       snapCapture();
 
-      setOwnState({
-        ...ownState,
-        message: '',
-        btnControllers: true,
-        isLoaded: false,
-        processing: false,
-      });
+      // setOwnState({
+      //   ...ownState,
+      //   message: '',
+      //   btnControllers: true,
+      //   isLoaded: false,
+      //   processing: false,
+      // });
     } else {
       setOwnState({
         ...ownState,
@@ -461,10 +461,12 @@ const SendDocuments = () => {
             snapTempDOM: img.src,
             message: '',
             btnControllers: true,
+            isLoaded: false,
+            processing: false,
           });
 
           return img.src;
-        });
+        }, 100);
       };
     } else {
       // crop image video

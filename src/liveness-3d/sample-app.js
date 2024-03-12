@@ -1,11 +1,11 @@
 import { FaceCaptcha } from '@oiti/facecaptcha-core';
 import axios from 'axios';
-import { FaceTecSDK } from '../../core/core-sdk/FaceTecSDK.js/FaceTecSDK';
-import { ThemeHelpers } from '../../core/utilities/ThemeHelpers';
-import { LivenessCheckProcessor } from '../../core/processor/LivenessCheckProcessor';
-import { Config } from '../Config';
-import { SampleAppUtilities } from '../../core/utilities/SampleAppUtilities';
 import * as FaceTecStringsPtBr from '../../core/core-sdk-optional/FaceTecStrings.pt-br';
+import { FaceTecSDK } from '../../core/core-sdk/FaceTecSDK.js/FaceTecSDK';
+import { LivenessCheckProcessor } from '../../core/processor/LivenessCheckProcessor';
+import { SampleAppUtilities } from '../../core/utilities/SampleAppUtilities';
+import { ThemeHelpers } from '../../core/utilities/ThemeHelpers';
+import { Config } from '../Config';
 
 export var SampleApp = (function () {
   let resultProductKey = '';
@@ -96,6 +96,7 @@ export var SampleApp = (function () {
       appKey: staticAppKey,
     });
 
+    console.log(result.productionKey);
     resultProductKey = result.productionKey;
 
     loadAssets();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ChevronRight from '../assets/img/chevron-right.png';
 import Liveness2D from '../assets/img/liveness-2d.png';
 import Liveness3D from '../assets/img/liveness-3d.png';
 import SendDocuments from '../assets/img/send-documents.png';
-import ChevronRight from '../assets/img/chevron-right.png';
 
 const NavMenu = () => {
   return (
@@ -74,6 +74,23 @@ const NavMenu = () => {
                   (Liveness 2D ou 3D) antes.
                 </p>
               )}
+            </Col>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={ChevronRight} alt="" aria-hidden="true" />
+            </Col>
+          </Row>
+        </Link>
+      </Col>
+
+      <Col xs={12}>
+        <Link to="/iproov" className="btn btn-outline-secondary d-block mb-3">
+          <Row>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={Liveness3D} alt="" aria-hidden="true" />
+            </Col>
+            <Col xs>
+              <h2>POC Iprov</h2>
+              <h3>Interação da face em tempo real.</h3>
             </Col>
             <Col xs={'auto'} className="d-flex align-items-center">
               <img src={ChevronRight} alt="" aria-hidden="true" />

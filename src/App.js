@@ -1,11 +1,12 @@
+import '@material-design-icons/font';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Col, Container, Navbar, Row } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@material-design-icons/font';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './assets/css/styles.css';
-import { Home } from './home';
 import LogoOiti from './assets/img/logo-oiti.png';
+import { Home } from './home';
+import { IProovComponent } from './iproov';
 import { Liveness2D } from './liveness-2d';
 import { Liveness3D } from './liveness-3d';
 import { SendDocuments } from './send-documents';
@@ -31,6 +32,7 @@ const App = () => {
             <Route element={<Liveness2D />} path="/liveness-2d" />
             <Route element={<Liveness3D />} path="/liveness-3d" />
             <Route element={<SendDocuments />} path="/send-documents" />
+            <Route element={<IProovComponent />} path="/iproov" />
           </Routes>
         </Router>
       </Container>

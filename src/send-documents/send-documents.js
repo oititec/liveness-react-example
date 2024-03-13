@@ -339,13 +339,28 @@ const SendDocuments = () => {
 
   // Limpa as listar e reinicia a Câmera
   const resetSnap = () => {
+    const resetMobileImage = () => {
+      let imgMobile = document.getElementById('img-mobile');
+      imgMobile.setAttribute('src', '');
+
+      capturaFotoFromInput();
+    };
+
     const resetControls = () => {
+      if (isMobile) {
+        resetMobileImage();
+      }
+
       return setOwnState({
         ...((ownState.snapTempDOM = ''), (ownState.btnControllers = false)),
       });
     };
 
     const resetShowUpload = () => {
+      if (isMobile) {
+        resetMobileImage();
+      }
+
       return setOwnState({
         ...(ownState.showUpload = true),
       });
@@ -354,18 +369,30 @@ const SendDocuments = () => {
     if (ownState.multiCapture) {
       if (ownState.snapsCaptures.length < 2) {
         resetControls();
-        startCamera();
+
+        if (!isMobile()) {
+          startCamera();
+        }
       } else {
         resetShowUpload();
-        stopCameraStreams();
+
+        if (!isMobile()) {
+          stopCameraStreams();
+        }
       }
     } else {
       if (ownState.snapsCaptures.length < 1) {
         resetControls();
-        startCamera();
+
+        if (!isMobile()) {
+          startCamera();
+        }
       } else {
         resetShowUpload();
-        stopCameraStreams();
+
+        if (!isMobile()) {
+          stopCameraStreams();
+        }
       }
     }
   };
@@ -453,14 +480,14 @@ const SendDocuments = () => {
 
       reader.onload = () => {
         imgMobile.src = reader.result;
-        img.src = imgMobile.src;
 
         setTimeout(() => {
           setOwnState({
             ...ownState,
-            snapTempDOM: img.src,
+            snapTempDOM: reader.result,
             message: '',
             btnControllers: true,
+            sendDocument: true,
             isLoaded: false,
             processing: false,
           });
@@ -565,6 +592,14 @@ const SendDocuments = () => {
     window.localStorage.removeItem('hasLiveness');
 
     window.location.href = '/';
+  };
+
+  const capturaFotoFromInput = () => {
+    let capturaFoto = document.getElementById('captura-foto');
+
+    capturaFoto.click(() => {
+      startCapture();
+    });
   };
 
   useEffect(() => {

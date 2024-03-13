@@ -25,7 +25,7 @@ const CaptureArea = ({
                 </div>
               )}
 
-              {!state.showUpload && (
+              {!state.showUpload && !isMobile() && (
                 <video id="video" className="object-fit-contain" />
               )}
 
@@ -142,7 +142,7 @@ const CaptureArea = ({
         capture="camera"
         aria-hidden="true"
       />
-      <img id="img-mobile" src="" width="100%" height={100} />
+      <img id="img-mobile" src="" />
       <canvas id="fc_canvas" style={{ display: 'none' }}></canvas>
     </Fragment>
   );

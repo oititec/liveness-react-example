@@ -357,13 +357,22 @@ const SendDocuments = () => {
     };
 
     const resetShowUpload = () => {
-      if (isMobile) {
-        resetMobileImage();
-      }
+      let capturaFoto = document.getElementById('captura-foto');
+      let imgMobile = document.getElementById('img-mobile');
 
-      return setOwnState({
-        ...(ownState.showUpload = true),
-      });
+      if (!isMobile()) {
+        setOwnState({
+          ...(ownState.showUpload = true),
+        });
+      } else {
+        capturaFoto.value = '';
+        imgMobile.src = '';
+
+        setOwnState({
+          ...ownState,
+          showUpload: true,
+        });
+      }
     };
 
     if (ownState.multiCapture) {
@@ -582,6 +591,8 @@ const SendDocuments = () => {
         window.alert(
           'Documento não localizado! Por favor reenvie o documento.'
         );
+
+        window.location.reload();
       }, 1000);
     }
   };

@@ -141,8 +141,14 @@ const CaptureArea = ({
         accept="image/*"
         capture="camera"
         aria-hidden="true"
+        // style={{ display: 'none' }}
       />
-      <img id="img-mobile" src="" />
+      <img
+        id="img-mobile"
+        src=""
+        aria-hidden="true"
+        // style={{ display: 'none' }}
+      />
       <canvas id="fc_canvas" style={{ display: 'none' }}></canvas>
     </Fragment>
   );

@@ -82,6 +82,15 @@
     > div {
       width: 50%;
 
+      &.mobile-group {
+        width: 100%;
+        
+        > div {
+          width: 40%;
+          margin: 0 auto;
+        }
+      }
+
       p {
         text-align: center;
         font-weight: 700;

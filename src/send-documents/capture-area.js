@@ -36,9 +36,15 @@ const CaptureArea = ({
                     isMobile() ? 'mobile-thumb' : ''
                   }`}
                 >
-                  <div>
+                  <div
+                    className={`thumb-group-card ${
+                      isMobile() ? 'mobile-group' : ''
+                    }`}
+                  >
                     <p>A foto do documento ficou boa?</p>
-                    <img id="imgCamera" src={state.snapTempDOM} alt="" />
+                    <div>
+                      <img id="imgCamera" src={state.snapTempDOM} alt="" />
+                    </div>
                   </div>
                 </div>
               )}
@@ -47,7 +53,11 @@ const CaptureArea = ({
                 <div
                   className={`thumbs-group ${isMobile() ? 'mobile-thumb' : ''}`}
                 >
-                  <div className="thumb-group-card">
+                  <div
+                    className={`thumb-group-card ${
+                      isMobile() ? 'mobile-group' : ''
+                    }`}
+                  >
                     <p>
                       Deseja enviar ou trocar a
                       {state.snapsCaptures.length === 2 && 's'} foto

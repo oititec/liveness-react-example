@@ -53,40 +53,33 @@ const SendDocuments = () => {
   };
 
   const setTypeCapture = (type) => {
-    let capturaFoto = document.getElementById('captura-foto');
+    if (isMobile()) {
+      let capturaFoto = document.getElementById('captura-foto');
+
+      capturaFoto.click();
+    }
 
     if (isMobile()) {
-      capturaFoto.click();
-
       setOwnState({
-        ...ownState,
-        multiCapture: type === 1 ? false : true,
-        showTypeCapture: false,
-      });
-
-      setTimeout(() => {
-        setOwnState({
-          ...ownState,
-          isLoaded: false,
-        });
-      });
-    } else {
-      setOwnState({
-        ...ownState,
-        message: 'Carregando...',
-        sendDocument: true,
-        multiCapture: type === 1 ? false : true,
-        showTypeCapture: false,
-      });
-
-      setTimeout(() => {
-        setOwnState({
-          ...ownState,
-          message: '',
-          isLoaded: false,
-        });
+        ...(ownState.multiCapture = type === 1 ? false : true),
       });
     }
+
+    setOwnState({
+      ...ownState,
+      message: 'Carregando...',
+      sendDocument: isMobile() ? ownState.sendDocument : true,
+      multiCapture: type === 1 ? false : true,
+      showTypeCapture: false,
+    });
+
+    setTimeout(() => {
+      setOwnState({
+        ...ownState,
+        message: '',
+        isLoaded: false,
+      });
+    });
   };
 
   const onResize = () => {
@@ -372,6 +365,10 @@ const SendDocuments = () => {
 
         if (!isMobile()) {
           startCamera();
+        } else {
+          let capturaFoto = document.getElementById('captura-foto');
+
+          capturaFoto.click();
         }
       } else {
         resetShowUpload();
@@ -407,6 +404,7 @@ const SendDocuments = () => {
   // prepara captura de imagem
   const snapTick = () => {
     // Adiciona as fotos nas listas
+    console.log(ownState.snapsCaptures.length);
     if (ownState.indexTempSnap !== -1) {
       ownState.snapsCaptures.splice(
         ownState.indexTempSnap,
@@ -414,6 +412,7 @@ const SendDocuments = () => {
         ownState.snapTempDOM
       );
     } else {
+      console.log('entrei aqui');
       ownState.snapsCaptures.push(ownState.snapTempDOM);
     }
 
@@ -651,7 +650,7 @@ const SendDocuments = () => {
             </Row>
           </div>
         </Col>
-        {/* <Col xs={12} className="mb-4">
+        <Col xs={12} className="mb-4">
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
@@ -677,7 +676,7 @@ const SendDocuments = () => {
               </Col>
             </Row>
           </div>
-        </Col> */}
+        </Col>
         <Col xs={12} className="text-center">
           <Button
             id="delete-appkey"

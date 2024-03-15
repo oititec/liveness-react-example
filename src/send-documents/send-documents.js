@@ -478,27 +478,67 @@ const SendDocuments = () => {
       }
     }
 
+    const resizeMe = (img) => {
+      var width = img.width;
+      var height = img.height;
+
+      var max_width = 1280;
+      var max_height = 768;
+
+      if (width > height) {
+        if (width > max_width) {
+          height = Math.round((height *= max_width / width));
+          width = max_width;
+        }
+      } else {
+        if (height > max_height) {
+          width = Math.round((width *= max_height / height));
+          height = max_height;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      return canvas.toDataURL('image/jpeg', 1.5); // voltar aqui
+    };
+
     if (isMobile()) {
       const reader = new FileReader();
 
-      reader.readAsDataURL(fotoCapturada);
+      reader.readAsArrayBuffer(fotoCapturada);
 
-      reader.onload = () => {
-        imgMobile.src = reader.result;
+      reader.onload = (e) => {
+        let blob = new Blob([e.target.result]);
+        window.URL = window.URL || window.webkitURL;
+        let blobURL = window.URL.createObjectURL(blob);
 
-        setTimeout(() => {
-          setOwnState({
-            ...ownState,
-            snapTempDOM: reader.result,
-            message: '',
-            btnControllers: true,
-            sendDocument: true,
-            isLoaded: false,
-            processing: false,
-          });
+        imgMobile.src = blobURL;
 
-          return img.src;
-        }, 100);
+        imgMobile.onload = () => {
+          let resized = resizeMe(imgMobile);
+
+          let newinput = document.createElement('input');
+          newinput.type = 'hidden';
+          newinput.name = 'images[]';
+          newinput.value = resized;
+
+          setTimeout(() => {
+            setOwnState({
+              ...ownState,
+              snapTempDOM: newinput.value,
+              message: '',
+              btnControllers: true,
+              sendDocument: true,
+              isLoaded: false,
+              processing: false,
+            });
+
+            return imgMobile.src;
+          }, 100);
+        };
       };
     } else {
       // crop image video
@@ -578,6 +618,8 @@ const SendDocuments = () => {
       window.alert('Documento enviado com sucesso');
 
       window.localStorage.removeItem('appkey');
+
+      window.location.reload();
     } catch (error) {
       setTimeout(() => {
         setOwnState({

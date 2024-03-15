@@ -502,7 +502,7 @@ const SendDocuments = () => {
       var ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
 
-      return canvas.toDataURL('image/jpeg', 1.5); // voltar aqui
+      return canvas.toDataURL('image/jpeg', 1.5);
     };
 
     if (isMobile()) {

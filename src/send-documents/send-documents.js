@@ -57,6 +57,10 @@ const SendDocuments = () => {
       let capturaFoto = document.getElementById('captura-foto');
 
       capturaFoto.click();
+
+      capturaFoto.addEventListener('change', () => {
+        startCapture();
+      });
     }
 
     if (isMobile()) {
@@ -327,11 +331,15 @@ const SendDocuments = () => {
       let imgMobile = document.getElementById('img-mobile');
       imgMobile.setAttribute('src', '');
 
-      capturaFotoFromInput();
+      let capturaFoto = document.getElementById('captura-foto');
+
+      if (ownState.snapsCaptures.length < 1) {
+        capturaFoto.click();
+      }
     };
 
     const resetControls = () => {
-      if (isMobile) {
+      if (isMobile()) {
         resetMobileImage();
       }
 
@@ -404,7 +412,6 @@ const SendDocuments = () => {
   // prepara captura de imagem
   const snapTick = () => {
     // Adiciona as fotos nas listas
-    console.log(ownState.snapsCaptures.length);
     if (ownState.indexTempSnap !== -1) {
       ownState.snapsCaptures.splice(
         ownState.indexTempSnap,
@@ -412,7 +419,6 @@ const SendDocuments = () => {
         ownState.snapTempDOM
       );
     } else {
-      console.log('entrei aqui');
       ownState.snapsCaptures.push(ownState.snapTempDOM);
     }
 
@@ -599,6 +605,7 @@ const SendDocuments = () => {
     let capturaFoto = document.getElementById('captura-foto');
 
     capturaFoto.click(() => {
+      console.log('teste');
       startCapture();
     });
   };
@@ -606,11 +613,11 @@ const SendDocuments = () => {
   useEffect(() => {
     ownState.sendDocument && onResize();
 
-    let capturaFoto = document.getElementById('captura-foto');
+    // let capturaFoto = document.getElementById('captura-foto');
 
-    capturaFoto.addEventListener('change', () => {
-      startCapture();
-    });
+    // capturaFoto.addEventListener('change', () => {
+    //   startCapture();
+    // });
   }, [ownState.sendDocument]);
 
   return (

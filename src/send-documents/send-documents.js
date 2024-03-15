@@ -634,10 +634,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            // className={`btn btn-outline-secondary d-block mb-3 ${
-            //   ownState.appkey === null ? 'disabled' : ''
-            // }`}
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              ownState.appkey === null ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -661,10 +660,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            // className={`btn btn-outline-secondary d-block mb-3 ${
-            //   ownState.appkey === null ? 'disabled' : ''
-            // }`}
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              ownState.appkey === null ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >

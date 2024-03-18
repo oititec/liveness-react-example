@@ -482,8 +482,8 @@ const SendDocuments = () => {
       var width = img.width;
       var height = img.height;
 
-      var max_width = 1280;
-      var max_height = 768;
+      var max_width = 1200;
+      var max_height = 1600;
 
       if (width > height) {
         if (width > max_width) {
@@ -502,7 +502,7 @@ const SendDocuments = () => {
       var ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
 
-      return canvas.toDataURL('image/jpeg', 1.5);
+      return canvas.toDataURL('image/jpeg', 0.85);
     };
 
     if (isMobile()) {
@@ -588,6 +588,11 @@ const SendDocuments = () => {
 
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
+    setOwnState({
+      ...ownState,
+      isLoaded: true,
+    });
+
     const snapsSend = ownState.snapsCaptures.map((snap) =>
       snap.replace('data:image/jpeg;base64,', '')
     );
@@ -604,8 +609,7 @@ const SendDocuments = () => {
 
     try {
       const result = await facecaptchaService.sendDocument(parameters);
-
-      console.log('consolando', result);
+      console.log(result);
 
       setTimeout(() => {
         setOwnState({
@@ -643,23 +647,8 @@ const SendDocuments = () => {
     window.location.href = '/';
   };
 
-  const capturaFotoFromInput = () => {
-    let capturaFoto = document.getElementById('captura-foto');
-
-    capturaFoto.click(() => {
-      console.log('teste');
-      startCapture();
-    });
-  };
-
   useEffect(() => {
     ownState.sendDocument && onResize();
-
-    // let capturaFoto = document.getElementById('captura-foto');
-
-    // capturaFoto.addEventListener('change', () => {
-    //   startCapture();
-    // });
   }, [ownState.sendDocument]);
 
   return (

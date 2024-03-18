@@ -132,10 +132,23 @@ const CaptureArea = ({
                       onClick={() => uploadPictures()}
                       disabled={state.isLoaded}
                     >
-                      <i className="material-icons me-2" aria-hidden="true">
-                        outbox
-                      </i>
-                      Enviar foto{state.snapsCaptures.length === 2 && 's'}
+                      {state.isLoaded ? (
+                        <Fragment>
+                          <i className="material-icons me-2" aria-hidden="true">
+                            cloud_upload
+                          </i>
+                          <span>Carregando...</span>
+                        </Fragment>
+                      ) : (
+                        <Fragment>
+                          <i className="material-icons me-2" aria-hidden="true">
+                            outbox
+                          </i>
+                          <span>
+                            Enviar foto{state.snapsCaptures.length === 2 && 's'}
+                          </span>
+                        </Fragment>
+                      )}
                     </button>
                   )}
                 </div>

@@ -9,12 +9,13 @@ const CaptureArea = ({
   resetSnap,
   removeSnapFromLists,
   uploadPictures,
+  isMobile,
 }) => {
   return (
     <Fragment>
       {state.sendDocument && (
         <Fragment>
-          <div className="overlay" />
+          {!isMobile() ? <div className="overlay" /> : ''}
 
           <div className="send-document-area">
             <Container>
@@ -24,22 +25,39 @@ const CaptureArea = ({
                 </div>
               )}
 
-              {!state.showUpload && (
+              {!state.showUpload && !isMobile() && (
                 <video id="video" className="object-fit-contain" />
               )}
 
               {state.snapTempDOM !== '' && (
-                <div id="thumb-picture" className="thumb-picture">
-                  <div>
+                <div
+                  id="thumb-picture"
+                  className={`thumb-picture ${
+                    isMobile() ? 'mobile-thumb' : ''
+                  }`}
+                >
+                  <div
+                    className={`thumb-group-card ${
+                      isMobile() ? 'mobile-group' : ''
+                    }`}
+                  >
                     <p>A foto do documento ficou boa?</p>
-                    <img id="imgCamera" src={state.snapTempDOM} alt="" />
+                    <div>
+                      <img id="imgCamera" src={state.snapTempDOM} alt="" />
+                    </div>
                   </div>
                 </div>
               )}
 
               {state.showUpload && !state.rotateCamera && (
-                <div className="thumbs-group">
-                  <div className="thumb-group-card">
+                <div
+                  className={`thumbs-group ${isMobile() ? 'mobile-thumb' : ''}`}
+                >
+                  <div
+                    className={`thumb-group-card ${
+                      isMobile() ? 'mobile-group' : ''
+                    }`}
+                  >
                     <p>
                       Deseja enviar ou trocar a
                       {state.snapsCaptures.length === 2 && 's'} foto
@@ -95,7 +113,8 @@ const CaptureArea = ({
                 <div className="d-flex btn-controllers">
                   {state.showIniciar &&
                     !state.btnControllers &&
-                    !state.showUpload && (
+                    !state.showUpload &&
+                    !isMobile() && (
                       <button
                         id="btnIniciar"
                         className="btn btn-primary d-flex align-items-center btnImage btnCapture fadeIn mt-2 me-2"
@@ -113,10 +132,23 @@ const CaptureArea = ({
                       onClick={() => uploadPictures()}
                       disabled={state.isLoaded}
                     >
-                      <i className="material-icons me-2" aria-hidden="true">
-                        outbox
-                      </i>
-                      Enviar foto{state.snapsCaptures.length === 2 && 's'}
+                      {state.isLoaded ? (
+                        <Fragment>
+                          <i className="material-icons me-2" aria-hidden="true">
+                            cloud_upload
+                          </i>
+                          <span>Carregando...</span>
+                        </Fragment>
+                      ) : (
+                        <Fragment>
+                          <i className="material-icons me-2" aria-hidden="true">
+                            outbox
+                          </i>
+                          <span>
+                            Enviar foto{state.snapsCaptures.length === 2 && 's'}
+                          </span>
+                        </Fragment>
+                      )}
                     </button>
                   )}
                 </div>
@@ -126,6 +158,20 @@ const CaptureArea = ({
         </Fragment>
       )}
 
+      <input
+        type="file"
+        id="captura-foto"
+        accept="image/*"
+        capture="camera"
+        aria-hidden="true"
+        style={{ display: 'none', pointerEvents: 'none' }}
+      />
+      <img
+        id="img-mobile"
+        src=""
+        aria-hidden="true"
+        style={{ display: 'none' }}
+      />
       <canvas id="fc_canvas" style={{ display: 'none' }}></canvas>
     </Fragment>
   );
@@ -138,6 +184,7 @@ CaptureArea.propTypes = {
   resetSnap: PropTypes.func,
   removeSnapFromLists: PropTypes.func,
   uploadPictures: PropTypes.func,
+  isMobile: PropTypes.func,
 };
 
 export default CaptureArea;

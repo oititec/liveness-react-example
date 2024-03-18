@@ -53,10 +53,26 @@ const SendDocuments = () => {
   };
 
   const setTypeCapture = (type) => {
+    if (isMobile()) {
+      let capturaFoto = document.getElementById('captura-foto');
+
+      capturaFoto.click();
+
+      capturaFoto.addEventListener('change', () => {
+        startCapture();
+      });
+    }
+
+    if (isMobile()) {
+      setOwnState({
+        ...(ownState.multiCapture = type === 1 ? false : true),
+      });
+    }
+
     setOwnState({
       ...ownState,
       message: 'Carregando...',
-      sendDocument: true,
+      sendDocument: isMobile() ? ownState.sendDocument : true,
       multiCapture: type === 1 ? false : true,
       showTypeCapture: false,
     });
@@ -224,20 +240,20 @@ const SendDocuments = () => {
       video: {
         facingMode: 'environment',
         width: {
-          min: 640,
-          ideal: 640,
-          max: 640,
+          min: 1280,
+          ideal: 1920,
+          max: 2560,
         },
         height: {
-          min: 480,
-          ideal: 480,
-          max: 480,
+          min: 720,
+          ideal: 1080,
+          max: 1440,
         },
       },
     };
 
     // se mobile, ajusta configurações de video para mobile
-    if (isMobile()) {
+    if (!isMobile()) {
       constraints.video = {
         width: {
           min: 1280,
@@ -251,18 +267,15 @@ const SendDocuments = () => {
         },
         facingMode: 'environment',
         focusMode: 'continuous',
-        advanced: [
-          { zoom: isAndroid() ? 2.0 : 1.0, torch: isAndroid() ? true : false },
-        ],
       };
-    }
 
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then((stream) => handleStream(stream))
-      .catch((err) => {
-        console.log('Sem câmera! ' + err);
-      });
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((stream) => handleStream(stream))
+        .catch((err) => {
+          console.log('Sem câmera! ' + err);
+        });
+    }
   };
 
   // Fecha a câmera
@@ -285,62 +298,106 @@ const SendDocuments = () => {
     );
   };
 
-  const isAndroid = () => {
-    return /Android/i.test(navigator.userAgent);
-  };
-
   const startCapture = () => {
-    setOwnState({
-      ...ownState,
-      processing: true,
-      message: 'Processando...',
-      showIniciar: false,
-      isLoaded: true,
-    });
-
-    setTimeout(() => {
+    if (isMobile()) {
       snapCapture();
-      stopCameraStreams();
-
+    } else {
       setOwnState({
         ...ownState,
-        message: '',
-        btnControllers: true,
-        isLoaded: false,
-        processing: false,
+        processing: true,
+        message: 'Processando...',
+        showIniciar: false,
+        isLoaded: true,
       });
-    }, 1500);
+
+      setTimeout(() => {
+        snapCapture();
+        stopCameraStreams();
+
+        setOwnState({
+          ...ownState,
+          message: '',
+          btnControllers: true,
+          isLoaded: false,
+          processing: false,
+        });
+      }, 1500);
+    }
   };
 
   // Limpa as listar e reinicia a Câmera
   const resetSnap = () => {
+    const resetMobileImage = () => {
+      let imgMobile = document.getElementById('img-mobile');
+      imgMobile.setAttribute('src', '');
+
+      let capturaFoto = document.getElementById('captura-foto');
+
+      if (ownState.snapsCaptures.length < 1) {
+        capturaFoto.click();
+      }
+    };
+
     const resetControls = () => {
+      if (isMobile()) {
+        resetMobileImage();
+      }
+
       return setOwnState({
         ...((ownState.snapTempDOM = ''), (ownState.btnControllers = false)),
       });
     };
 
     const resetShowUpload = () => {
-      return setOwnState({
-        ...(ownState.showUpload = true),
-      });
+      let capturaFoto = document.getElementById('captura-foto');
+      let imgMobile = document.getElementById('img-mobile');
+
+      if (!isMobile()) {
+        setOwnState({
+          ...(ownState.showUpload = true),
+        });
+      } else {
+        capturaFoto.value = '';
+        imgMobile.src = '';
+
+        setOwnState({
+          ...ownState,
+          showUpload: true,
+        });
+      }
     };
 
     if (ownState.multiCapture) {
       if (ownState.snapsCaptures.length < 2) {
         resetControls();
-        startCamera();
+
+        if (!isMobile()) {
+          startCamera();
+        } else {
+          let capturaFoto = document.getElementById('captura-foto');
+
+          capturaFoto.click();
+        }
       } else {
         resetShowUpload();
-        stopCameraStreams();
+
+        if (!isMobile()) {
+          stopCameraStreams();
+        }
       }
     } else {
       if (ownState.snapsCaptures.length < 1) {
         resetControls();
-        startCamera();
+
+        if (!isMobile()) {
+          startCamera();
+        }
       } else {
         resetShowUpload();
-        stopCameraStreams();
+
+        if (!isMobile()) {
+          stopCameraStreams();
+        }
       }
     }
   };
@@ -381,11 +438,15 @@ const SendDocuments = () => {
 
   // captura imagem da câmera
   const snap = () => {
+    const capturaFoto = document.getElementById('captura-foto');
+    const imgMobile = document.getElementById('img-mobile');
+    const fotoCapturada = capturaFoto.files[0];
     const video = document.getElementById('video');
     const canvas = document.getElementById('fc_canvas');
     const ctx = canvas.getContext('2d');
+    const img = new Image();
 
-    let ratio = video.videoWidth / video.videoHeight;
+    let ratio = !isMobile() ? video.videoWidth / video.videoHeight : 0;
     let widthReal = 0;
     let heightReal = 0;
     let startX = 0;
@@ -402,7 +463,7 @@ const SendDocuments = () => {
       // retrato
       ctx.canvas.width = 640;
       ctx.canvas.height = 960;
-      ratio = video.videoHeight / video.videoWidth;
+      ratio = !isMobile() ? video.videoWidth / video.videoHeight : 0;
       // verifica proporção
       if (ratio > 1.5) {
         widthReal = video.videoWidth;
@@ -410,30 +471,93 @@ const SendDocuments = () => {
         startX = 0;
         startY = 0;
       } else {
-        widthReal = video.videoHeight / 1.5;
-        heightReal = video.videoHeight;
-        startX = (video.videoWidth - widthReal) / 2;
+        widthReal = !isMobile() ? video.videoHeight / 1.5 : 0;
+        heightReal = !isMobile() ? video.videoHeight : 0;
+        startX = (!isMobile() ? video.videoWidth - widthReal : 0) / 2;
         startY = 0;
       }
     }
 
-    // crop image video
-    ctx.drawImage(
-      video,
-      startX,
-      startY,
-      widthReal,
-      heightReal,
-      0,
-      0,
-      ctx.canvas.width,
-      ctx.canvas.height
-    );
+    const resizeMe = (img) => {
+      var width = img.width;
+      var height = img.height;
 
-    const img = new Image();
-    img.src = canvas.toDataURL('image/jpeg');
+      var max_width = 1200;
+      var max_height = 1600;
 
-    return img.src;
+      if (width > height) {
+        if (width > max_width) {
+          height = Math.round((height *= max_width / width));
+          width = max_width;
+        }
+      } else {
+        if (height > max_height) {
+          width = Math.round((width *= max_height / height));
+          height = max_height;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      return canvas.toDataURL('image/jpeg', 0.85);
+    };
+
+    if (isMobile()) {
+      const reader = new FileReader();
+
+      reader.readAsArrayBuffer(fotoCapturada);
+
+      reader.onload = (e) => {
+        let blob = new Blob([e.target.result]);
+        window.URL = window.URL || window.webkitURL;
+        let blobURL = window.URL.createObjectURL(blob);
+
+        imgMobile.src = blobURL;
+
+        imgMobile.onload = () => {
+          let resized = resizeMe(imgMobile);
+
+          let newinput = document.createElement('input');
+          newinput.type = 'hidden';
+          newinput.name = 'images[]';
+          newinput.value = resized;
+
+          setTimeout(() => {
+            setOwnState({
+              ...ownState,
+              snapTempDOM: newinput.value,
+              message: '',
+              btnControllers: true,
+              sendDocument: true,
+              isLoaded: false,
+              processing: false,
+            });
+
+            return imgMobile.src;
+          }, 100);
+        };
+      };
+    } else {
+      // crop image video
+      ctx.drawImage(
+        video,
+        startX,
+        startY,
+        widthReal,
+        heightReal,
+        0,
+        0,
+        ctx.canvas.width,
+        ctx.canvas.height
+      );
+
+      img.src = canvas.toDataURL('image/jpeg');
+
+      return img.src;
+    }
   };
 
   // remove imagem das listas
@@ -464,6 +588,11 @@ const SendDocuments = () => {
 
   // Envia as fotos e finaliza o upload de imagens
   const uploadPictures = async () => {
+    setOwnState({
+      ...ownState,
+      isLoaded: true,
+    });
+
     const snapsSend = ownState.snapsCaptures.map((snap) =>
       snap.replace('data:image/jpeg;base64,', '')
     );
@@ -480,8 +609,7 @@ const SendDocuments = () => {
 
     try {
       const result = await facecaptchaService.sendDocument(parameters);
-
-      console.log('consolando', result);
+      console.log(result);
 
       setTimeout(() => {
         setOwnState({
@@ -494,6 +622,8 @@ const SendDocuments = () => {
       window.alert('Documento enviado com sucesso');
 
       window.localStorage.removeItem('appkey');
+
+      window.location.reload();
     } catch (error) {
       setTimeout(() => {
         setOwnState({
@@ -503,6 +633,8 @@ const SendDocuments = () => {
         window.alert(
           'Documento não localizado! Por favor reenvie o documento.'
         );
+
+        window.location.reload();
       }, 1000);
     }
   };
@@ -533,7 +665,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-1-foto"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              ownState.appkey === null ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(1)}
             tabIndex={0}
           >
@@ -557,7 +691,9 @@ const SendDocuments = () => {
           <div
             id="btn-tipo-captura-2-fotos"
             role="button"
-            className="btn btn-outline-secondary d-block mb-3"
+            className={`btn btn-outline-secondary d-block mb-3 ${
+              ownState.appkey === null ? 'disabled' : ''
+            }`}
             onClick={() => setTypeCapture(2)}
             tabIndex={0}
           >
@@ -595,6 +731,7 @@ const SendDocuments = () => {
         resetSnap={resetSnap}
         removeSnapFromLists={removeSnapFromLists}
         uploadPictures={uploadPictures}
+        isMobile={isMobile}
       />
     </Fragment>
   );

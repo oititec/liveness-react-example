@@ -181,8 +181,18 @@
   color: #000;
   overflow-y: auto;
 }
+.send-document-area .thumb-picture.mobile-thumb, .send-document-area .thumbs-group.mobile-thumb {
+  width: 100%;
+}
 .send-document-area .thumb-picture > div, .send-document-area .thumbs-group > div {
   width: 50%;
+}
+.send-document-area .thumb-picture > div.mobile-group, .send-document-area .thumbs-group > div.mobile-group {
+  width: 100%;
+}
+.send-document-area .thumb-picture > div.mobile-group > div, .send-document-area .thumbs-group > div.mobile-group > div {
+  width: 40%;
+  margin: 0 auto;
 }
 .send-document-area .thumb-picture > div p, .send-document-area .thumbs-group > div p {
   text-align: center;

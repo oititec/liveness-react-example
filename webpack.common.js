@@ -11,6 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   devServer: {
     https: true,
@@ -35,6 +36,10 @@ module.exports = {
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.mp3$/,
+        type: 'asset/resource',
       },
     ],
   },

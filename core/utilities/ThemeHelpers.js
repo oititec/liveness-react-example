@@ -2,7 +2,13 @@ import { Config } from '../../src/Config';
 import { FaceTecSDK } from '../core-sdk/FaceTecSDK.js/FaceTecSDK';
 // import { FaceTecCustomization } from '../core-sdk/FaceTecSDK.js/FaceTecCustomization';
 import { SampleAppUtilities } from './SampleAppUtilities';
-import { SoundFileUtilities } from './SoundFileUtilities';
+
+const FrameYourFace = require('../sample-app-resources/Vocal_Guidance_Audio_Files/please_frame_your_face_sound_file.mp3');
+const MoveCloser = require('../sample-app-resources/Vocal_Guidance_Audio_Files/please_move_closer_sound_file.mp3');
+const Retry = require('../sample-app-resources/Vocal_Guidance_Audio_Files/please_retry_sound_file.mp3');
+const Uploading = require('../sample-app-resources/Vocal_Guidance_Audio_Files/uploading_sound_file.mp3');
+const Successful = require('../sample-app-resources/Vocal_Guidance_Audio_Files/facescan_successful_sound_file.mp3');
+const PresButtonToStart = require('../sample-app-resources/Vocal_Guidance_Audio_Files/please_press_button_sound_file.mp3');
 
 export const ThemeHelpers = (function () {
   // Definindo o tema padrão
@@ -26,11 +32,18 @@ export const ThemeHelpers = (function () {
   function getCustomizationForTheme(theme) {
     var currentCustomization = new FaceTecSDK.FaceTecCustomization();
 
-    // Adicionar personalização de som a nova personalização de tema
-    // var soundFileUtilities = new SoundFileUtilities();
-
-    // currentCustomization =
-    //   soundFileUtilities.setVocalGuidanceSoundFiles(currentCustomization);
+    currentCustomization.vocalGuidanceCustomization.pleaseFrameYourFaceInTheOvalSoundFile =
+      FrameYourFace;
+    currentCustomization.vocalGuidanceCustomization.pleaseMoveCloserSoundFile =
+      MoveCloser;
+    currentCustomization.vocalGuidanceCustomization.pleaseRetrySoundFile =
+      Retry;
+    currentCustomization.vocalGuidanceCustomization.uploadingSoundFile =
+      Uploading;
+    currentCustomization.vocalGuidanceCustomization.facescanSuccessfulSoundFile =
+      Successful;
+    currentCustomization.vocalGuidanceCustomization.pleasePressTheButtonToStartSoundFile =
+      PresButtonToStart;
 
     const retryScreenSlideshowImages = [
       themeResourceDirectory + 'FaceTec_ideal_1.png',

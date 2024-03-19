@@ -6,6 +6,7 @@ import { LivenessCheckProcessor } from '../../core/processor/LivenessCheckProces
 import { Config } from '../Config';
 import { SampleAppUtilities } from '../../core/utilities/SampleAppUtilities';
 import * as FaceTecStringsPtBr from '../../core/core-sdk-optional/FaceTecStrings.pt-br';
+import { SoundFileUtilities } from '../../core/utilities/SoundFileUtilities';
 
 export var SampleApp = (function () {
   let resultProductKey = '';
@@ -77,6 +78,13 @@ export var SampleApp = (function () {
 
           // Set localization
           FaceTecSDK.configureLocalization(FaceTecStringsPtBr);
+
+          var currentCustomization = new FaceTecSDK.FaceTecCustomization();
+
+          var soundFileUtilities = new SoundFileUtilities();
+
+          currentCustomization =
+            soundFileUtilities.setVocalGuidanceSoundFiles(currentCustomization);
         }
         SampleAppUtilities.displayStatus(
           FaceTecSDK.getFriendlyDescriptionForFaceTecSDKStatus(

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 const InsertAppKey = () => {
@@ -123,16 +122,6 @@ const InsertAppKey = () => {
           <Col xs={12}>
             <hr />
           </Col>
-
-          {/* IProov */}
-          <Col xs={12}>
-          <Link
-            to="/iproov"
-            className={`btn btn-outline-secondary d-block mb-3`}
-          > Ou Clique Aqui para Iproov</Link>
-          </Col>
-          {/* IProov */}
-
           <Col xs={12}>
             <Button
               variant="primary"

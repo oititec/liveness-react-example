@@ -24,4 +24,3 @@ chrome-user-data
 *.swp
 *.swo
 dist
-package-lock.json

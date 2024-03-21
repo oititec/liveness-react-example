@@ -81,6 +81,34 @@ const NavMenu = () => {
           </Row>
         </Link>
       </Col>
+
+      {/* Iproov */}
+
+      <Col xs={12}>
+        <Link
+          to="/iproov"
+          className={`btn btn-outline-secondary d-block mb-3`}
+        >
+          <Row>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={Liveness3D} alt="" aria-hidden="true" />
+            </Col>
+            <Col xs>
+              <h2>POC Iprov</h2>
+              <h3>Interação da face em tempo real.</h3>
+
+              <p className="m-0">
+                  *Para utilizar o liveness Iproov, certifique-se de ter gerado um session token.
+                </p>
+            </Col>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={ChevronRight} alt="" aria-hidden="true" />
+            </Col>
+          </Row>
+        </Link>
+      </Col>
+
+      {/* Fim IProov */}
     </Row>
   );
 };

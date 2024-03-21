@@ -1,0 +1,1 @@
+export { default as IProovComponent } from './iproov_component';

@@ -94,7 +94,7 @@ const NavMenu = () => {
               <img src={Liveness3D} alt="" aria-hidden="true" />
             </Col>
             <Col xs>
-              <h2>POC Iprov</h2>
+              <h2>POC IProov</h2>
               <h3>Interação da face em tempo real.</h3>
 
               <p className="m-0">

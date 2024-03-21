@@ -115,3 +115,27 @@ _data: 09/03/2023_
 - Added significant new Device and Server SDK AI layers to protect against sophisticated Level 5 Attacks.
 - Numerous Compatibility, Stability, and Performance Improvements.
 - Update I'm Ready Screen timer that auto-sends Users into the Face Scan UI in Blind User Assist Mode to 30 seconds to give visually impaired Users more time to prepare for the Face Scan.
+
+## Deploy static files to S3
+
+liveness-iproov.hml.certiface.io
+aws s3 sync ./dist s3://liveness-iproov.hml.certiface.io/
+aws s3 cp --recursive ./dist s3://liveness-iproov.hml.certiface.io/
+
+## IProov Docker Image - ReactJS.
+
+1 - Configurar credenciais AWS para o ambiente de DEV
+
+### Commandos:
+
+### 2 - Logar no Registry
+
+    aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 591631576024.dkr.ecr.sa-east-1.amazonaws.com
+
+### 2.1 - Opcional, baixar a imagem
+
+    docker pull 591631576024.dkr.ecr.sa-east-1.amazonaws.com/liveness_react_iproov:1.2
+
+### 3 - Rodar o container
+
+    docker run --env=REACT_APP_BASE_URL=https://comercial.certiface.com.br -p 8080:80 -d 591631576024.dkr.ecr.sa-east-1.amazonaws.com/liveness_react_iproov:1.2

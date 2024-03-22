@@ -122,6 +122,12 @@ liveness-iproov.hml.certiface.io
 aws s3 sync ./dist s3://liveness-iproov.hml.certiface.io/
 aws s3 cp --recursive ./dist s3://liveness-iproov.hml.certiface.io/
 
+### CDN Cache
+
+aws cloudfront list-distributions
+
+aws cloudfront create-invalidation --distribution-id=E2R53MJ6EDZP0J --paths /
+
 ## IProov Docker Image - ReactJS.
 
 1 - Configurar credenciais AWS para o ambiente de DEV

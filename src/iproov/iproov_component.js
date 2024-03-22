@@ -21,15 +21,16 @@ const IProovComponent = () => {
     };
 
     const startSession = () =>{
-        if(!sessionToken || !svcLocation){
+        if(!sessionToken || sessionToken == '' || !svcLocation || svcLocation == ''){
             setError(true);
             setErrorMessage('Invalid Session Token or Service Location');
+            setReady(false)
+        }else {
+            setError(false);
+            setErrorMessage('');
+
+            setReady(true)
         }
-
-        setError(false);
-        setErrorMessage('');
-
-        setReady(true)
     }
 
     const refreshPage = () => {

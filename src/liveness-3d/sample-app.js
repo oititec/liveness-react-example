@@ -99,7 +99,7 @@ export var SampleApp = (function () {
 
   const getProductionKey = async () => {
     const facecaptchaService = new FaceCaptcha(axios, {
-      BaseURL: 'https://comercial.certiface.com.br',
+      BaseURL: process.env.REACT_APP_BASE_URL,
     });
 
     const result = await facecaptchaService.getProductionKey({

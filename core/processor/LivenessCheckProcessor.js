@@ -1,5 +1,6 @@
 import { FaceTecSDK } from '../core-sdk/FaceTecSDK.js/FaceTecSDK';
 import { Crypto } from '../../src/crypto/crypto';
+import { SampleAppUtilities } from '../utilities/SampleAppUtilities';
 
 //
 // Este é um exemplo de classe independente para realizar verificações de vivacidade com o FaceTec SDK.

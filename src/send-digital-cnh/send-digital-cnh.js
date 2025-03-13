@@ -1,20 +1,23 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useState, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import ImgIcon from "../assets/img/img-icon.png";
-import QrcodeIcon from "../assets/img/qrcode-icon.png";
+import FileIcon from "../assets/img/file-icon.png";
 import ChevronRight from "../assets/img/chevron-right.png";
-import CaptureArea from "./capture-area";
+import ImageIcon from "../assets/img/img-icon.png";
+import PdfIcon from "../assets/img/pdf-icon.png";
+import TrashCanIcon from "../assets/img/trash-icon.png";
+import CaptureArea from "../send-documents/capture-area";
 import axios from "axios";
 import { FaceCaptcha } from "@oiti/facecaptcha-core";
+import { Row, Col } from "react-bootstrap";
 
-const SendDocuments = () => {
+const SendDigitalCNH = () => {
   const defaultState = {
     appkey: window.localStorage.getItem("appkey"),
     message: "", // trocar para ''
     sendDocument: false, // trocar pra false
-    isLoaded: false, // trocar pra false
     showUpload: false, // trocar pra false
+    isLoaded: false,
     rotateCamera: false, // trocar pra false
     snapsCaptures: [], // trocar para []
     streams: "", // trocar para ''
@@ -31,6 +34,8 @@ const SendDocuments = () => {
   };
 
   const [ownState, setOwnState] = useState(defaultState);
+  const [filePreview, setFilePreview] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleStream = (stream) => {
     setTimeout(() => {
@@ -588,15 +593,25 @@ const SendDocuments = () => {
   };
 
   // Envia as fotos e finaliza o upload de imagens
-  const uploadPictures = async () => {
+  const sendDigitalCNH = async () => {
+    let digitalCNH;
+
     setOwnState({
       ...ownState,
       isLoaded: true,
     });
+    setIsLoaded({
+      isLoaded: true,
+    });
 
-    const snapsSend = ownState.snapsCaptures.map((snap) =>
-      snap.replace("data:image/jpeg;base64,", "")
-    );
+    if (filePreview) {
+      digitalCNH = filePreview.base64.replace("data:image/jpeg;base64,", "");
+    } else {
+      digitalCNH = ownState.snapsCaptures[0].replace(
+        "data:image/jpeg;base64,",
+        ""
+      );
+    }
 
     const facecaptchaService = new FaceCaptcha(axios, {
       BaseURL: process.env.REACT_APP_BASE_URL,
@@ -605,8 +620,10 @@ const SendDocuments = () => {
 
     const parameters = {
       appkey: ownState.appkey,
-      images: snapsSend,
+      qrcode: digitalCNH,
     };
+
+    console.log(parameters);
 
     try {
       const result = await facecaptchaService.sendDocument(parameters);
@@ -618,9 +635,12 @@ const SendDocuments = () => {
           (ownState.uploadRequest = true),
           (ownState.uploadResp = false)),
         });
+        setIsLoaded({
+          isLoaded: false,
+        });
       }, 1000);
 
-      window.alert("Documento enviado com sucesso");
+      window.alert("QRCode enviado com sucesso");
 
       window.localStorage.removeItem("appkey");
 
@@ -631,16 +651,13 @@ const SendDocuments = () => {
           ...(ownState.isLoaded = false),
         });
 
-        window.alert(
-          "Documento não localizado! Por favor reenvie o documento."
-        );
+        window.alert("QRCode não localizado! Por favor reenvie o documento.");
 
         window.location.reload();
       }, 1000);
     }
   };
 
-  // Caso o usuário tenha algum problema, este método excluirá a appkey e o jogará de volta para a home
   const deleteAppKey = () => {
     window.localStorage.removeItem("appkey");
     window.localStorage.removeItem("hasLiveness");
@@ -652,125 +669,219 @@ const SendDocuments = () => {
     ownState.sendDocument && onResize();
   }, [ownState.sendDocument]);
 
+  const triggerFileInput = () => {
+    const fileInput = document.getElementById("file-input");
+    fileInput?.click();
+  };
+
+  const onFileSelected = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const validTypes = ["application/pdf", "image/jpeg", "image/png"];
+      if (validTypes.includes(file.type)) {
+        const fileIcon = file.type.startsWith("image") ? ImageIcon : PdfIcon;
+
+        convertToBase64(file)
+          .then((base64) => {
+            setFilePreview({
+              name: file.name,
+              type: file.type,
+              icon: fileIcon,
+              base64: base64,
+            });
+          })
+          .catch((error) => {
+            console.error("Erro ao converter o arquivo em base64", error);
+          });
+      } else {
+        window.alert(
+          "Por favor, selecione um arquivo no formato PDF, JPEG ou PNG."
+        );
+      }
+    }
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeLoadedFile = () => {
+    setFilePreview(null);
+    const fileInput = document.getElementById("file-input");
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+
   return (
     <Fragment>
-      <Row>
-        <Col xs={12} className="mt-4">
-          <Link to="/">Voltar</Link>
-        </Col>
-        <Col xs={12} className="mb-4">
-          <h1>Envio de documentos</h1>
-          <p>Para começarmos, escolha o tipo de documento que deseja enviar:</p>
-        </Col>
+      <Row className="mt-4">
         <Col xs={12}>
-          <div
-            id="btn-tipo-captura-1-foto"
-            role="button"
-            className={`btn btn-outline-secondary d-block mb-3 ${
-              ownState.appkey === null ? "disabled" : ""
-            }`}
-            onClick={() => setTypeCapture(1)}
-            tabIndex={0}
-          >
-            <Row>
-              <Col xs={"auto"} className="d-flex align-items-center">
-                <img src={ImgIcon} alt="" aria-hidden="true" />
-              </Col>
-              <Col className="d-flex align-items-center">
-                <div className="text-start">
-                  <p className="m-0 fw-bold">1 foto</p>
-                  <p className="m-0">Frente e verso</p>
-                </div>
-              </Col>
-              <Col xs={"auto"} className="d-flex align-items-center">
-                <img src={ChevronRight} alt="" aria-hidden="true" />
-              </Col>
-            </Row>
-          </div>
-        </Col>
-        <Col xs={12} className="mb-3">
-          <div
-            id="btn-cnh-digital"
-            role="button"
-            className={`btn btn-outline-secondary d-block ${
-              ownState.appkey === null ? "disabled" : ""
-            }`}
-            onClick={() => setTypeCapture(2)}
-            tabIndex={0}
-          >
-            <Row>
-              <Col xs={"auto"} className="d-flex align-items-center">
-                <img src={ImgIcon} alt="" aria-hidden="true" />
-              </Col>
-              <Col className="d-flex align-items-center">
-                <div className="text-start">
-                  <p className="m-0 fw-bold">2 fotos</p>
-                  <p className="m-0">1 frente e um verso</p>
-                </div>
-              </Col>
-              <Col xs={"auto"} className="d-flex align-items-center">
-                <img src={ChevronRight} alt="" aria-hidden="true" />
-              </Col>
-            </Row>
-          </div>
-        </Col>
-        <Col xs={12} className="mb-4">
-          <Link
-            to={
-              window.localStorage.getItem("hasLiveness")
-                ? "/send-digital-cnh"
-                : "/"
-            }
-            className={`btn btn-outline-secondary d-block mb-3 ${
-              ownState.appkey === null ? "disabled" : ""
-            }`}
-          >
-            <div
-              id="btn-cnh-digital"
-              role="button"
-              onClick={() => setTypeCapture(2)}
-              tabIndex={0}
-            >
-              <Row>
-                <Col xs={"auto"} className="d-flex align-items-center">
-                  <img src={QrcodeIcon} alt="" aria-hidden="true" />
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <div className="text-start">
-                    <p className="m-0 fw-bold">CNH Digital</p>
-                    <p className="m-0">Envie seu documento digital</p>
-                  </div>
-                </Col>
-                <Col xs={"auto"} className="d-flex align-items-center">
-                  <img src={ChevronRight} alt="" aria-hidden="true" />
-                </Col>
-              </Row>
-            </div>
-          </Link>
-        </Col>
-
-        <Col xs={12} className="text-center">
-          <Button
-            id="delete-appkey"
-            variant="link"
-            onClick={() => deleteAppKey()}
-          >
-            Em caso de problemas, clique aqui
-          </Button>
+          <Link to="/send-documents">Voltar</Link>
         </Col>
       </Row>
 
+      <Row className="mb-4">
+        <Col xs={12}>
+          <h1>Envio de CNH Digital</h1>
+          <p>Escolha a forma que deseja enviar:</p>
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col xs={12}>
+          <div
+            id="btn-captura-cnh-digital"
+            role="button"
+            className="btn btn-outline-secondary d-block"
+            onClick={() => setTypeCapture(1)}
+            tabIndex="0"
+          >
+            <Row>
+              <Col xs="auto" className="d-flex align-items-center">
+                <img src={ImgIcon} alt="" aria-hidden="true" />
+              </Col>
+              <Col className="d-flex align-items-center">
+                <div className="text-start">
+                  <p className="m-0 fw-bold">Foto</p>
+                  <p className="m-0">
+                    Envie uma foto do QRCode presente em sua CNH Digital
+                  </p>
+                </div>
+              </Col>
+              <Col xs="auto" className="d-flex align-items-center">
+                <img src={ChevronRight} alt="" aria-hidden="true" />
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Row>
+
+      <Row className="mb-4">
+        <Col xs={12}>
+          <div
+            id="btn-tipo-captura-2-fotos"
+            role="button"
+            className="btn btn-outline-secondary d-block mb-3"
+            onClick={triggerFileInput}
+            tabIndex="0"
+          >
+            <Row>
+              <Col xs="auto" className="d-flex align-items-center">
+                <img src={FileIcon} alt="" aria-hidden="true" />
+              </Col>
+              <Col className="d-flex align-items-center">
+                <div className="text-start">
+                  <p className="m-0 fw-bold">Envio de arquivo</p>
+                  <p className="m-0">
+                    Envie o arquivo de sua CNH Digital em formato PDF, JPEG ou
+                    PNG
+                  </p>
+                </div>
+              </Col>
+              <Col xs="auto" className="d-flex align-items-center">
+                <img src={ChevronRight} alt="" aria-hidden="true" />
+              </Col>
+            </Row>
+          </div>
+
+          <input
+            type="file"
+            id="file-input"
+            onChange={onFileSelected}
+            style={{ display: "none" }}
+          />
+
+          {filePreview && (
+            <div className="preview-container d-flex justify-content-center align-items-center flex-column">
+              <div className="file-icon">
+                <img
+                  src={filePreview.icon}
+                  alt="File Icon"
+                  className="file-icon-img"
+                />
+              </div>
+              <p className="file-name">{filePreview.name}</p>
+
+              <div className="d-flex align-items-center">
+                <button
+                  className="btn btn-primary d-flex align-items-center btnImage btnUpload fadeIn mt-2"
+                  onClick={() => sendDigitalCNH()}
+                  disabled={isLoaded}
+                >
+                  {isLoaded ? (
+                    <Fragment>
+                      <i className="material-icons me-2" aria-hidden="true">
+                        cloud_upload
+                      </i>
+                      <span>Carregando...</span>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <i className="material-icons me-2" aria-hidden="true">
+                        outbox
+                      </i>
+                      <span>Enviar foto</span>
+                    </Fragment>
+                  )}
+                </button>
+
+                {filePreview && (
+                  <button
+                    className="btn btn-link mt-2 trash-can-button"
+                    onClick={removeLoadedFile}
+                    aria-label="Delete file"
+                  >
+                    <img
+                      src={TrashCanIcon}
+                      alt="Trash Can"
+                      className="trash-can-button img"
+                    />
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </Col>
+      </Row>
+
+      <Row className="text-center">
+        <Col xs={12}>
+          <button
+            id="delete-appkey"
+            type="button"
+            className="btn btn-link"
+            onClick={deleteAppKey}
+          >
+            Em caso de problemas, clique aqui
+          </button>
+        </Col>
+      </Row>
+
+      <input
+        type="file"
+        id="captura-foto"
+        accept="image/*"
+        capture="camera"
+        aria-hidden="true"
+        style={{ display: "none", pointerEvents: "none" }}
+      />
       <CaptureArea
         state={ownState}
         startCapture={startCapture}
         snapTick={snapTick}
         resetSnap={resetSnap}
         removeSnapFromLists={removeSnapFromLists}
-        uploadPictures={uploadPictures}
+        uploadPictures={sendDigitalCNH}
         isMobile={isMobile}
       />
     </Fragment>
   );
 };
 
-export default SendDocuments;
+export default SendDigitalCNH;

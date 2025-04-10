@@ -12,6 +12,7 @@ const LivenessIproov = () => {
   const [showButton, setShowButton] = useState(false);
   const [status, setStatus] = useState('Carregando...');
   const [statusRequest, setStatusRequest] = useState(null);
+  const [iproovStatus, setIproovStatus] = useState(null);
 
   const fetchSessionData = async () => {
     const appkey = window.localStorage.getItem('appkey');
@@ -144,8 +145,6 @@ const LivenessIproov = () => {
                                 </div>
                             </div>
                             <div>
-                                <h3 class="font-highlight font-extrabold text-2xl text-center">Não foi possível avançar com
-                                    sua verificação. Uma nova sessão deve ser gerada.</h3>
                             </div>
                             <div class="flex items-center justify-center">
                                 <a class="text-lg focus:bg-brand-primary-medium inline-flex items-center justify-center whitespace-nowrap rounded-full font-bold ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-100 text-slate-900 hover:bg-slate-100/80 p-3 px-20"
@@ -231,31 +230,11 @@ const LivenessIproov = () => {
     livenessIproov.innerHTML = slots
 
     livenessIproov.addEventListener('passed', () => {
-      window.localStorage.setItem('hasLiveness', 'true');
-      setStatusRequest('Enviando...')
-    
-      fetch(process.env.REACT_APP_BASE_URL + '/facecaptcha/service/captcha/3d/liveness', {
-        method: 'POST',
-        body: JSON.stringify({ appkey, sessionToken }),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(response => {
-        if (response.ok) {
-          setStatusRequest("Enviado com sucesso");
-          console.log(statusRequest);
-        } else {
-          setStatusRequest("Erro ao enviar");
-          console.log(statusRequest);
-        }
-      })
-      .catch(error => {
-        setStatusRequest("Erro de conexão");
-        console.log(statusRequest);
-      });
+      sendLivenessValidation(appkey, sessionToken, 'passed')
     });
 
     livenessIproov.addEventListener('failed', () => {
-      console.log('failed')
+      sendLivenessValidation(appkey, sessionToken, 'failed')
     });
 
     livenessIproov.addEventListener('ready', () => {
@@ -270,6 +249,30 @@ const LivenessIproov = () => {
     window.localStorage.removeItem('hasLiveness');
     window.location.href = '/';
   };
+
+  const sendLivenessValidation = (appkey, sessionToken, iproovStatus) => {
+    setStatusRequest('Enviando...')
+  
+    fetch(process.env.REACT_APP_BASE_URL + '/facecaptcha/service/captcha/3d/liveness', {
+      method: 'POST',
+      body: JSON.stringify({ appkey, sessionToken }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => {
+        switch (iproovStatus) {
+          case 'passed':
+            setStatusRequest("Enviado com sucesso");
+            break;
+          case 'failed':
+            setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
+        }
+    })
+    .catch(error => {
+      setStatusRequest("Erro ao enviar");
+      console.log(error)
+    });
+    window.localStorage.setItem('hasLiveness', 'true');
+  }
 
   return (
     <Row>

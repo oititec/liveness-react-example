@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import IproovLogo from '../assets/img/Iproov_Logo.png';
-import "@iproov/web"
+import "@iproov/web-sdk"
 
 
 const LivenessIproov = () => {
@@ -12,7 +12,6 @@ const LivenessIproov = () => {
   const [showButton, setShowButton] = useState(false);
   const [status, setStatus] = useState('Carregando...');
   const [statusRequest, setStatusRequest] = useState(null);
-  const [iproovStatus, setIproovStatus] = useState(null);
 
   const fetchSessionData = async () => {
     const appkey = window.localStorage.getItem('appkey');

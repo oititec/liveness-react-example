@@ -16,6 +16,7 @@ Você terá 3 itens no menu:
 
 - [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-2d/README.md)
 - [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
+- [Liveness 3D Iproov](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-iproov/README.md)
 - [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
 
 ## 2 - Liveness 2D

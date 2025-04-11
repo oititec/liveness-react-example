@@ -12,8 +12,9 @@ Você terá 3 itens no menu:
 
 - [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-2d/README.md)
 - [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
-- Liveness 3D Iproov
-- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md) - Este último só estará disponível ao finalizar um do processos de Liveness
+- [Liveness 3D Iproov](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-iproov/README.md)
+- [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md) 
+- Este último só estará disponível ao finalizar um do processos de Liveness
 
 ## 2 - Liveness 3D Iproov
 
@@ -32,7 +33,16 @@ Ao clicar no botão Iniciar Validação Iproov, os seguintes métodos são chama
 <br>
 | Método | Descrição |
 |--|--|
-| startIproovValidation() | Responsável por iniciar a sessão de Liveness Iproov. Após a realização do Liveness 3D com sucesso, será gravado o hasLiveness no localStorage do navegador, liberando assim o usuário para fazer o envio de documentos caso desejar ao final do processo |
+| startIproovValidation() | Responsável por iniciar a sessão de Liveness Iproov. |
+<br>
+
+| Método | Descrição |
+|--|--|
+| sendLivenessValidation() | Responsável por enviar os dados da validação à API. Após a realização do Liveness 3D, será gravado o hasLiveness no localStorage do navegador, liberando assim o usuário para fazer o envio de documentos caso desejar ao final do processo.
 <br>
 
 Ao finalizar o processo (caso o envio seja feito com sucesso), uma mensagem de confirmação de envio é exibido na tela.
+
+<br>
+
+**Observacao: A dependencia @iproov/web-sdk se encontra em um repositório privado, requerindo acesso da equipe da Iproov. [Consulte a documentação da Iproov!](https://github.com/iProov/web)**

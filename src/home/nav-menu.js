@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Liveness2D from '../assets/img/liveness-2d.png';
 import Liveness3D from '../assets/img/liveness-3d.png';
@@ -7,6 +7,13 @@ import SendDocuments from '../assets/img/send-documents.png';
 import ChevronRight from '../assets/img/chevron-right.png';
 
 const NavMenu = () => {
+
+  const deleteAppKey = () => {
+    window.localStorage.removeItem('appkey');
+    window.localStorage.removeItem('hasLiveness');
+    window.location.href = '/';
+  };
+
   return (
     <Row>
       <Col xs={12}>
@@ -99,6 +106,15 @@ const NavMenu = () => {
             </Col>
           </Row>
         </Link>
+      </Col>
+      <Col xs={12} className="text-center">
+        <Button
+          id="delete-appkey"
+          variant="link"
+          onClick={deleteAppKey}
+        >
+          Iniciar nova sessão
+        </Button>
       </Col>
     </Row>
   );

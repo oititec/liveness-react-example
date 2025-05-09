@@ -26,13 +26,13 @@ const LivenessIproov = () => {
       });
       const data = await response.json();
 
-      if (data.token && data.url) {
+      if (data.vendor != 'IPROOV') {
+        setStatus('Parece que os dados recebidos não são compatíveis com este processo. Por favor, entre em contato com nosso suporte.')
+      } else {
         setSessionToken(data.token);
         setIproovUrl(data.url)
         setIsLoading(false);
         setStatus(null);
-      } else {
-        setStatus('Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela');
       }
     } catch (error) {
       setStatus('Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela');
@@ -76,7 +76,7 @@ const LivenessIproov = () => {
                     </div>
                     <div slot="grant_button" class="grid w-full px-10 pt-6">
                         <button
-                            class="inline-flex items-center justify-center whitespace-nowrap rounded-full font-bold ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 buttonPrimary text-lg text-slate-900 hover:bg-brand-primary-medium focus:bg-brand-primary-medium p-3 px-20"
+                            class="btn btn-primary btn-rounded"
                             type="button">Habilitar permissão</button>
                     </div>
                     <div slot="ready" class="grid gap-5 w-full px-10">

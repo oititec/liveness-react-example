@@ -98,47 +98,53 @@ const InsertAppKey = () => {
 
   return (
     <Row>
-      <Col xs={12}>
-        <h1 className="my-4 text-center">
-          Para usar a aplicação, por favor insira uma AppKey válida.
-        </h1>
+  <Col xs={12}>
+    <h1 className="my-4 text-center">
+      Para usar a aplicação, por favor insira uma AppKey válida.
+    </h1>
+  </Col>
+
+  <Col xs={12}>
+    <Row className="g-2">
+      <Col xs={12} md={10}>
+        <Form.Control type="text" id="txt-appkey" onChange={handleAppKey} />
       </Col>
-      <Col xs={12}>
-        <Row>
-          <Col xs={10}>
-            <Form.Control type="text" id="txt-appkey" onChange={handleAppKey} />
-          </Col>
-          <Col xs={2}>
-            <Button
-              variant="primary"
-              className="w-100"
-              onClick={() => setAppKeyValue()}
-              disabled={loading}
-            >
-              {loading ? 'Carregando' : 'Continuar'}
-            </Button>
-          </Col>
-          {error && <Col xs={12}>{errorMessage}</Col>}
-          <Col xs={12}>
-            <hr />
-          </Col>
-          <Col xs={12}>
-            <Button
-              variant="primary"
-              className="w-100"
-              onClick={() => detectUserAgent()}
-              disabled={loading}
-            >
-              Detectar userAgent
-            </Button>
-          </Col>
-          {deviceType && <Col xs={12}>{deviceType}</Col>}
-          {os && <Col xs={12}>{os}</Col>}
-          {userAgent && <Col xs={12}>{userAgent}</Col>}
-          {deviceModel && <Col xs={12}>{deviceModel}</Col>}
-        </Row>
+
+      <Col xs={12} md={2}>
+        <Button
+          variant="primary"
+          className="w-100"
+          onClick={() => setAppKeyValue()}
+          disabled={loading}
+        >
+          {loading ? 'Carregando' : 'Continuar'}
+        </Button>
       </Col>
+
+      {error && <Col xs={12}>{errorMessage}</Col>}
+
+      <Col xs={12}>
+        <hr />
+      </Col>
+
+      <Col xs={12}>
+        <Button
+          variant="primary"
+          className="w-100"
+          onClick={() => detectUserAgent()}
+          disabled={loading}
+        >
+          Detectar userAgent
+        </Button>
+      </Col>
+
+      {deviceType && <Col xs={12}>{deviceType}</Col>}
+      {os && <Col xs={12}>{os}</Col>}
+      {userAgent && <Col xs={12}>{userAgent}</Col>}
+      {deviceModel && <Col xs={12}>{deviceModel}</Col>}
     </Row>
+  </Col>
+</Row>
   );
 };
 

@@ -18,7 +18,7 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 - [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.md)
 
-### [FaceTec SDK: 9.7.68](https://github.com/oititec/liveness-angular-example/blob/main/src/assets/9.7.68)
+### [FaceTec SDK: 9.7.68](https://github.com/oititec/liveness-react-example/blob/main/core/9.7.68)
 
 _data: 23/06/2025_
 

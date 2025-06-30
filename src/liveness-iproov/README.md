@@ -34,11 +34,21 @@ Ao clicar no botão Iniciar Validação Iproov, os seguintes métodos são chama
 | Método | Descrição |
 |--|--|
 | startIproovValidation() | Responsável por iniciar a sessão de Liveness Iproov. |
+
+O idioma das instruções exibidas no componente da iProov é customizável, sendo
+possível a alteração ao substituir o arquivo JSON dentro da pasta *assets/iproov-languages*. A iProov oferece arquivos de idioma prontos em sua página no [GitHub](https://github.com/iProov/web/tree/master/languages)
+
+**Observação: O idioma padrão do componente é inglês(en) caso nenhum arquivo seja encontrado.** 
 <br>
 
 | Método | Descrição |
 |--|--|
 | sendLivenessValidation() | Responsável por enviar os dados da validação à API. Após a realização do Liveness 3D, será gravado o hasLiveness no localStorage do navegador, liberando assim o usuário para fazer o envio de documentos caso desejar ao final do processo.
+<br>
+
+| Método | Descrição |
+|--|--|
+| refreshSessionAndRestart()() | Responsável por recarregar o componente em caso de falha na validação do Liveness 3D, possibilitando que o usuário faça uma nova tentativa com a mesma Appkey, se permitido.
 <br>
 
 Ao finalizar o processo (caso o envio seja feito com sucesso), uma mensagem de confirmação de envio é exibido na tela.

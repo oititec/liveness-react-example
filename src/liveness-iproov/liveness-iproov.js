@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import IproovLogo from '../assets/img/Iproov_Logo.png';
+import language from '../assets/iproov-languagues/iproov-pt_BR.json'
 import "@iproov/web-sdk"
 
 
@@ -43,17 +44,31 @@ const LivenessIproov = () => {
     fetchSessionData();
   }, []);
 
-  const startIproovValidation = () => {
+  useEffect(() => {
+  if (sessionToken && iproovUrl) {
+    startIproovValidation();
+  }
+  }, [sessionToken, iproovUrl]);
+
+  const startIproovValidation = async () => {
     setShowButton(true)
     const appkey = window.localStorage.getItem('appkey');
 
     const content = document.querySelector('#certiface-iproov');
-    const livenessIproov = document.createElement('iproov-me');
-    livenessIproov.setAttribute('token', sessionToken);
-    livenessIproov.setAttribute('base_url', 'https://'.concat(iproovUrl));
+    const livenessIproov = document.createElement('iproov-me')
+    const ELEMENTS_TO_HIDE_IN_FS = document.querySelectorAll(".hide-in-fs")
+
+    livenessIproov.setAttribute('token', sessionToken)
+    livenessIproov.setAttribute('base_url', 'https://'.concat(iproovUrl))
+    livenessIproov.setAttribute('filter', 'classic')
+    livenessIproov.setAttribute("language", JSON.stringify(language))
+        
+    livenessIproov.setAttribute('role', 'application');
+    livenessIproov.setAttribute('aria_live', 'assertive');
+    livenessIproov.setAttribute('aria-label', 'Validação facial 3D com câmera');
 
     const slots = `
-    <div slot="grant_permission" class="w-full px-10 pt-6">
+    <div slot="grant_permission" class="w-full px-10 pt-6" aria-live="polite">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-brand-primary-pure">
@@ -74,25 +89,30 @@ const LivenessIproov = () => {
                             </div>
                         </div>
                     </div>
-                    <div slot="grant_button" class="grid w-full px-10 pt-6">
+                    <div slot="grant_button" class="grid w-full px-10 pt-6" aria-live="polite">
                         <button
                             class="btn btn-primary btn-rounded"
                             type="button">Habilitar permissão</button>
                     </div>
-                    <div slot="ready" class="grid gap-5 w-full px-10">
+                    <div slot="ready" class="grid gap-5 w-full px-10" aria-live="polite">
                         <div>
                             <h3 class="font-highlight font-extrabold text-xl leading-10">Inicializado</h3>
-                            
+                            <hr />
+                            <h4>Antes de começar:</h4>
+                            <ul class="pull-left list-disc pl-5">
+                                <li><h5 class="text-left">Escolha um ambiente bem iluminado para a validação</h5></li>
+                                <li><h5 class="text-left">Não use acessórios como bonés, máscaras e afins</h5></li>
+                            </ul>
                         </div>
                
                         </div>
                     </div>
-                    <div slot="button" class="grid w-full px-10 pt-6">
+                    <div slot="button" class="grid w-full px-10 pt-6" aria-live="polite">
                         <button
                             class="btn btn-primary btn-rounded"
                             type="button">3D Liveness Check</button>
                     </div>
-                    <div slot="progress" class="w-full px-10 pt-6">
+                    <div slot="progress" class="w-full px-10 pt-6" aria-live="polite">
                         <div><svg aria-hidden="true" class="animate-spin text-white fill-brand-primary-pure w-12 h-12 font-2xl"
                                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -107,7 +127,7 @@ const LivenessIproov = () => {
                     </div>
                     <div slot="passed" class="w-full px-10 pt-6">
                     </div>
-                    <div slot="error" class="grid gap-2 gap-y-10 w-full px-10">
+                    <div slot="error" class="grid gap-2 gap-y-10 w-full px-10" aria-live="assertive">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-feedback-warning-pure">
@@ -130,7 +150,7 @@ const LivenessIproov = () => {
                             </div>
                         </div>
                     </div>
-                    <div slot="failed" class="grid gap-2 gap-y-10 w-full px-10">
+                    <div slot="failed" class="grid gap-2 gap-y-10 w-full px-10" aria-live="assertive">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-feedback-warning-pure">
@@ -143,15 +163,13 @@ const LivenessIproov = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div>
-                            </div>
                             <div class="flex items-center justify-center">
                                 <a class="text-lg focus:bg-brand-primary-medium inline-flex items-center justify-center whitespace-nowrap rounded-full font-bold ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-100 text-slate-900 hover:bg-slate-100/80 p-3 px-20"
                                     href="/">Fechar</a>
                             </div>
                         </div>
                     </div>
-                    <div slot="canceled" class="grid gap-2 gap-y-10 w-full px-10">
+                    <div slot="canceled" class="grid gap-2 gap-y-10 w-full px-10" aria-live="assertive">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-feedback-warning-pure">
@@ -174,7 +192,7 @@ const LivenessIproov = () => {
                             </div>
                         </div>
                     </div>
-                    <div slot="permission_denied" class="w-full px-10 pt-6">
+                    <div slot="permission_denied" class="w-full px-10 pt-6" aria-live="polite">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0 py-6">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-feedback-warning-pure">
@@ -200,7 +218,7 @@ const LivenessIproov = () => {
                             </div>
                         </div>
                     </div>
-                    <div slot="unsupported" class="grid gap-2 gap-y-10 w-full px-10">
+                    <div slot="unsupported" class="grid gap-2 gap-y-10 w-full px-10" aria-live="assertive">
                         <div class="items-center gap-4 p-6 md:p-4 lg:p-0">
                             <div class="flex justify-center items-center">
                                 <div class="rounded-full p-3 bg-feedback-warning-pure">
@@ -225,20 +243,21 @@ const LivenessIproov = () => {
                     </div>
     `
 
-    livenessIproov.setAttribute('filter', 'classic')
     livenessIproov.innerHTML = slots
 
+    livenessIproov.addEventListener("started", () => {
+      ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.setAttribute("aria-hidden", "true"))
+    })
+
     livenessIproov.addEventListener('passed', () => {
+      ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.removeAttribute("aria-hidden"))
       sendLivenessValidation(appkey, sessionToken, 'passed')
     });
 
     livenessIproov.addEventListener('failed', () => {
+      ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.removeAttribute("aria-hidden"))
       sendLivenessValidation(appkey, sessionToken, 'failed')
     });
-
-    livenessIproov.addEventListener('ready', () => {
-      console.log('ready')
-    })
 
     content?.appendChild(livenessIproov);
   };
@@ -257,14 +276,25 @@ const LivenessIproov = () => {
       body: JSON.stringify({ appkey, sessionToken }),
       headers: { 'Content-Type': 'application/json' },
     })
-    .then(response => {
+    .then(async response => {
+        const data = await response.json(); 
+
         switch (iproovStatus) {
           case 'passed':
             setStatusRequest("Enviado com sucesso");
             break;
           case 'failed':
-            setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
-        }
+            if (data.retry) {
+              setStatusRequest(data.reason)
+              setStatus("Preparando nova tentativa...")
+              setTimeout(async () => {
+                  await refreshSessionAndRestart();
+              }, 4000);
+            } else {
+              setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
+            }
+            break;
+        }  
     })
     .catch(error => {
       setStatusRequest("Erro ao enviar");
@@ -272,6 +302,18 @@ const LivenessIproov = () => {
     });
     window.localStorage.setItem('hasLiveness', 'true');
   }
+
+  const refreshSessionAndRestart = async () => {
+    const content = document.querySelector('#certiface-iproov');
+    content.innerHTML = '';
+
+    setIsLoading(true);
+    setStatusRequest(null);
+
+    await fetchSessionData();
+
+    setIsLoading(false);
+  };
 
   return (
     <Row>
@@ -289,24 +331,23 @@ const LivenessIproov = () => {
                 className="btn-rounded"
                 onClick={startIproovValidation}
                 disabled={isLoading}
+                aria-label="Iniciar a validação facial 3D com a câmera"
               >
                 Iniciar Validacao Iproov
               </Button>
             )}
-            <p id="status" className="mt-2">
+            <p id="status" className="mt-2" aria-live="assertive">
               {status}
             </p>
 
             {( statusRequest &&
-            <p id="statusRequest" className="mt-2">
-              <h3>{statusRequest}</h3>
-            </p>
+              <h3 id="statusRequest" className="mt-2" aria-live="polite">{statusRequest}</h3>
             )}
 
             <div id="certiface-iproov"></div>
             <hr />
             <div id="custom-logo-container">
-              <img src={IproovLogo} alt="Logo Iproov" />
+              <img src={IproovLogo} alt="Logotipo da solução de validação facial da Iproov"/>
             </div>
           </div>
         </div>
@@ -317,6 +358,7 @@ const LivenessIproov = () => {
           id="delete-appkey"
           variant="link"
           onClick={deleteAppKey}
+          aria-label="Clique aqui se estiver com problemas. Isso removerá sua AppKey."
         >
           Em caso de problemas, clique aqui
         </Button>

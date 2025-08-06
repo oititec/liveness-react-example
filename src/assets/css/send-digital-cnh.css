@@ -1,0 +1,11 @@
+.trash-can-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.trash-can-button img {
+    width: 24px;
+    height: 24px;
+}

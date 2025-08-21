@@ -8,6 +8,7 @@ import "@iproov/web-sdk"
 
 const LivenessIproov = () => {
   const [sessionToken, setSessionToken] = useState(null);
+  const [livenessType, setLivenessType] = useState(null);
   const [iproovUrl, setIproovUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showButton, setShowButton] = useState(false);
@@ -32,6 +33,7 @@ const LivenessIproov = () => {
       } else {
         setSessionToken(data.token);
         setIproovUrl(data.url)
+        setLivenessType(data.livenessType)
         setIsLoading(false);
         setStatus(null);
       }
@@ -60,7 +62,7 @@ const LivenessIproov = () => {
 
     livenessIproov.setAttribute('token', sessionToken)
     livenessIproov.setAttribute('base_url', 'https://'.concat(iproovUrl))
-    livenessIproov.setAttribute('filter', 'classic')
+    livenessIproov.setAttribute('filter', livenessType == 'LA' ? 'clear' : 'classic');
     livenessIproov.setAttribute("language", JSON.stringify(language))
         
     livenessIproov.setAttribute('role', 'application');

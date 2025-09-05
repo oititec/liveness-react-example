@@ -639,7 +639,7 @@ const SendDigitalCNH = () => {
         });
       }, 1000);
 
-      window.alert("QRCode enviado com sucesso");
+      window.alert("Arquivo enviado com sucesso!");
 
       window.localStorage.removeItem("appkey");
 
@@ -650,7 +650,7 @@ const SendDigitalCNH = () => {
           ...(ownState.isLoaded = false),
         });
 
-        window.alert("QRCode não localizado! Por favor reenvie o documento.");
+        window.alert("Arquivo inválido! Por favor, reenvie o documento.");
 
         window.location.reload();
       }, 1000);

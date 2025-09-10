@@ -283,10 +283,10 @@ const LivenessIproov = () => {
 
         switch (iproovStatus) {
           case 'passed':
-            if (data.valid) {
-              setStatusRequest("Enviado com sucesso");
-            } else {
+            if (data.codID === 300.1 || data.codID === 300.2) {
               setStatusRequest("Prova de Vida reprovada. Insira uma nova appkey e tente novamente.");
+            } else {
+              setStatusRequest("Enviado com sucesso");
             }          
             break;
           case 'failed':

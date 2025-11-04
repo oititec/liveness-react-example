@@ -19,7 +19,7 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 - [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.
 md)
 
-### [Iproov SDK: 5.5.0](https://github.com/oititec/liveness-angular-example/blob/main/src/app/iproov/README.md)
+### [Iproov SDK: 5.5.0](https://github.com/oititec/liveness-react-example/blob/main/src/app/iproov/README.md)
 
 _data: 04/11/2025_
 - Melhorias de segurança

@@ -16,7 +16,15 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 ## Changelog Liveness 3D
 
-- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.md)
+- [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.
+md)
+
+### [Iproov SDK: 5.5.0](https://github.com/oititec/liveness-react-example/blob/main/src/app/iproov/README.md)
+
+_data: 04/11/2025_
+- Melhorias de segurança
+- Ajustes para alguns problemas de câmera específicos com o navegador Chrome no desktop
+- [Consulte também a documentação da Iproov](https://github.com/iProov/web)
 
 ### [FaceTec SDK: 9.7.86](https://github.com/oititec/liveness-react-example/blob/main/core/9.7.86)
 

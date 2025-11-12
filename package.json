@@ -15,7 +15,7 @@
   "author": "Andre Lima",
   "license": "ISC",
   "dependencies": {
-    "@iproov/web-sdk": "^5.4.4",
+    "@iproov/web-sdk": "^5.5.0",
     "@material-design-icons/font": "^0.14.3",
     "@oiti/facecaptcha-core": "^0.2.9",
     "axios": "^1.3.4",

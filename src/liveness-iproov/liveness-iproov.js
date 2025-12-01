@@ -100,10 +100,11 @@ const LivenessIproov = () => {
                         <div>
                             <h3 class="font-highlight font-extrabold text-xl leading-10">Inicializado</h3>
                             <hr />
-                            <h4>Antes de começar:</h4>
+                            <h4>Vamos escanear seu rosto:</h4>
                             <ul class="pull-left list-disc pl-5">
                                 <li><h5 class="text-left">Escolha um ambiente bem iluminado para a validação</h5></li>
                                 <li><h5 class="text-left">Não use acessórios como bonés, máscaras e afins</h5></li>
+                                <li><h5 class="text-left">Aumente o brilho da tela e remova filtros de privacidade</h5></li>
                             </ul>
                         </div>
                
@@ -247,18 +248,19 @@ const LivenessIproov = () => {
 
     livenessIproov.innerHTML = slots
 
-    livenessIproov.addEventListener("started", () => {
+    livenessIproov.addEventListener("error", (event) => {
       ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.setAttribute("aria-hidden", "true"))
+      setStatusRequest(event.detail.reason)
     })
 
-    livenessIproov.addEventListener('passed', () => {
+    livenessIproov.addEventListener('passed', (event) => {
       ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.removeAttribute("aria-hidden"))
-      sendLivenessValidation(appkey, sessionToken, 'passed')
+      sendLivenessValidation(appkey, sessionToken, event)
     });
 
-    livenessIproov.addEventListener('failed', () => {
+    livenessIproov.addEventListener('failed', (event) => {
       ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.removeAttribute("aria-hidden"))
-      sendLivenessValidation(appkey, sessionToken, 'failed')
+      sendLivenessValidation(appkey, sessionToken, event)
     });
 
     content?.appendChild(livenessIproov);
@@ -270,7 +272,7 @@ const LivenessIproov = () => {
     window.location.href = '/';
   };
 
-  const sendLivenessValidation = (appkey, sessionToken, iproovStatus) => {
+  const sendLivenessValidation = (appkey, sessionToken, event) => {
     setStatusRequest('Enviando...')
   
     fetch(process.env.REACT_APP_BASE_URL + '/facecaptcha/service/captcha/3d/liveness', {
@@ -281,24 +283,19 @@ const LivenessIproov = () => {
     .then(async response => {
         const data = await response.json(); 
 
-        switch (iproovStatus) {
+        switch (event.type) {
           case 'passed':
-            if (data.codID === 300.1 || data.codID === 300.2) {
+            if (data.codID === 300.1) {
+              checkLivenessRetry(data, 'Vamos tentar outra vez! '
+                                    .concat('Escolha um ambiente bem iluminado e mantenha a câmera firme!'));
+            } else if (data.codID === 300.2) {
               setStatusRequest("Prova de Vida reprovada. Insira uma nova appkey e tente novamente.");
             } else {
               setStatusRequest("Enviado com sucesso");
             }          
             break;
           case 'failed':
-            if (data.retry) {
-              setStatusRequest(data.reason)
-              setStatus("Preparando nova tentativa...")
-              setTimeout(async () => {
-                  await refreshSessionAndRestart();
-              }, 4000);
-            } else {
-              setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
-            }
+            checkLivenessRetry(data, !event.detail.reason ? data.reason : event.detail.reason)
             break;
         }  
     })
@@ -320,6 +317,20 @@ const LivenessIproov = () => {
 
     setIsLoading(false);
   };
+
+const checkLivenessRetry = async (data, reason) => {
+  if (data.retry) {
+      setStatusRequest(reason)
+          setStatus("Preparando nova tentativa...");
+
+          setTimeout(async () => {
+              await refreshSessionAndRestart();
+          }, 4000);
+
+      } else {
+          setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
+      }
+  }
 
   return (
     <Row>

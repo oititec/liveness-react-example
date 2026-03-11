@@ -19,15 +19,18 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 - [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.
 md)
 
-### [Liveness 3D Iproov](https://github.com/oititec/liveness-js-example/blob/main/liveness-iproov/README.md)
+### [Iproov SDK: 6.0.1](https://github.com/oititec/liveness-react-example/blob/main/liveness-iproov/README.md)
 
-_data: 25/11/2025_
-
-- Exibição das mensagens de falha e erros do SDK da iProov para mais acertividade
-- Mais orientações iniciais ao usuários
-- Consulte a documentação completa da implementação do Liveness 3D no link acima
+_data: 02/12/2025_
+- Ajustes para suporte no navegador Edge em integrações com iFrame
 - [Consulte também a documentação da Iproov](https://github.com/iProov/web)
 
+### [Liveness 3D Iproov](https://github.com/oititec/liveness-react-example/blob/main/liveness-iproov/README.md)
+
+_data: 25/11/2025_
+- Exibição das mensagens de falha e erros do SDK da iProov para mais acertividade
+- Mais orientações iniciais ao usuários
+- [Consulte também a documentação da Iproov](https://github.com/iProov/web)
 
 ### [Iproov SDK: 5.5.0](https://github.com/oititec/liveness-react-example/blob/main/src/app/iproov/README.md)
 

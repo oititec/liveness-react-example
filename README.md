@@ -45,7 +45,7 @@ _data: 04/11/2025_
 - Ajustes para alguns problemas de câmera específicos com o navegador Chrome no desktop
 - [Consulte também a documentação da Iproov](https://github.com/iProov/web)
 
-### [FaceTec SDK: 9.7.100](https://github.com/oititec/liveness-react-example/blob/main/core/9.7.109)
+### [FaceTec SDK: 9.7.109](https://github.com/oititec/liveness-react-example/blob/main/core/9.7.109)
 
 _data: 16/03/2026_
 - Melhorias nas Verificações de Injeção de Vídeo no Lado do Dispositivo e no Lado do Servidor para mitigar Ameaças de IA Generativa.

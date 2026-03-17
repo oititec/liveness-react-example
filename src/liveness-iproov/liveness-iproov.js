@@ -3,7 +3,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import IproovLogo from '../assets/img/Iproov_Logo.png';
 import language from '../assets/iproov-languagues/iproov-pt_BR.json'
-import "@iproov/web-sdk"
+import "../../core/iproov/web-sdk"
 
 
 const LivenessIproov = () => {

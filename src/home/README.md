@@ -2,8 +2,6 @@
 
 ## O projeto foi desenvolvido utilizando as seguintes dependências:
 
-"@iproov/web-sdk": "^5.4.2" <br>
-
 "@material-design-icons/font": "^0.14.3" <br>
 
 "@oiti/facecaptcha-core": "^0.2.9" <br>
@@ -54,7 +52,7 @@
 
 "webpack-merge": "^5.8.0" <br>
 
-**Observacao: A dependencia @iproov/web-sdk se encontra em um repositório privado, requerindo acesso da equipe da Iproov. [Consulte a documentação da Iproov!](https://github.com/iProov/web)**
+**[Consulte a documentação da Iproov!](https://github.com/iProov/web)**
 
 Atualmente o projeto possui a seguinte árvore de arquivos:
 <br>

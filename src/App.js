@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@material-design-icons/font";
 import "./assets/css/styles.css";
 import { Home } from "./home";
-import LogoOiti from "./assets/img/logo-oiti.png";
+import LogoCertiFace from "./assets/img/logo_certiface_trans.png";
 import { Liveness2D } from "./liveness-2d";
 import { Liveness3D } from "./liveness-3d";
 import { SendDocuments } from "./send-documents";
@@ -20,7 +20,7 @@ const App = () => {
           <Navbar bg="light">
             <Container>
               <Navbar.Brand href="/">
-                <img src={LogoOiti} alt="Logo Oiti" />
+                <img src={LogoCertiFace} alt="Logo CertiFace" style={{ width: '150px' }} />
               </Navbar.Brand>
             </Container>
           </Navbar>

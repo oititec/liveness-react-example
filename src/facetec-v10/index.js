@@ -1,0 +1,1 @@
+export { default as Facetecv10 } from './facetec-v10';

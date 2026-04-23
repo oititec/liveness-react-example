@@ -11,6 +11,7 @@ import { Liveness3D } from "./liveness-3d";
 import { SendDocuments } from "./send-documents";
 import { SendDigitalCNH } from "./send-digital-cnh";
 import { LivenessIproov } from './liveness-iproov';
+import { Facetecv10 } from "./facetec-v10";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
             <Route element={<Home />} path="/" exact />
             <Route element={<Liveness2D />} path="/liveness-2d" />
             <Route element={<Liveness3D />} path="/liveness-3d" />
+            <Route element={<Facetecv10 />} path="/facetec-v10" />
             <Route element={<LivenessIproov />} path="/liveness-iproov" />
             <Route element={<SendDocuments />} path="/send-documents" />
             <Route element={<SendDigitalCNH />} path="/send-digital-cnh" />

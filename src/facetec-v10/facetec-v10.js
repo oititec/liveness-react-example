@@ -98,7 +98,7 @@ const Facetecv10 = () => {
     console.error(error);
 
     DeveloperStatusMessages.displayMessage(
-      "Sua appkey é inválida."
+      "Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela."
     );
   };
 

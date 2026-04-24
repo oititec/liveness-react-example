@@ -25,7 +25,7 @@ export var Config = (function () {
     // This app can modify the customization to demonstrate different look/feel preferences
     // NOTE: This function is auto-populated by the FaceTec SDK Configuration Wizard based on your UI Customizations you picked in the Configuration Wizard GUI.
     function retrieveConfigurationWizardCustomization(FaceTecSDK) {
-        var sdkImageDirectory = "core/10.0.42/core-sdk/FaceTec_images/";
+        var sdkImageDirectory = "/core/10.0.42/core-sdk/FaceTec_images/";
         
         // For Color Customization
         var outerBackgroundColor = "#ffffff";

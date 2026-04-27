@@ -12,8 +12,8 @@ export class ThemeHelpers {
     }
 
     setAppTheme = (theme) => {
-        this.sdk.setCustomization(this.getDynamicDimmingCustomizationForTheme(theme));
-        this.sdk.setLowLightCustomization(this.getDynamicDimmingCustomizationForTheme(theme));
+        this.sdk.setCustomization(this.getCustomizationForTheme(theme));
+        this.sdk.setLowLightCustomization(this.getLowLightCustomizationForTheme(theme));
         this.sdk.setDynamicDimmingCustomization(this.getDynamicDimmingCustomizationForTheme(theme));
     };
 
@@ -35,7 +35,6 @@ export class ThemeHelpers {
             return Config.retrieveConfigurationWizardCustomization(FaceTecSDK);
         }
         else if (theme === 'Oiti-Dark') {
-            console.log('aqui no oiti-dark')
             const primaryColor = '#05D758'; // verde
             const secondaryColor = '#FFFFFF'; // branco
             const backgroundColor = '#1E1E1E'; // preto

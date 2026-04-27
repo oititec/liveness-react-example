@@ -1,9 +1,5 @@
 import { DeveloperStatusMessages } from "./DeveloperStatusMessages";
 
-// const API_URL = import.meta?.env?.VITE_API_URL || process.env.REACT_APP_API_URL;
-// const API_URL = process.env.REACT_APP_API_URL;
-const API_URL = "http://localhost:8080"
-
 export class SampleAppNetworkingRequest {
   static MAX_ERRORS_ALLOWED = 2;
 
@@ -27,7 +23,7 @@ export class SampleAppNetworkingRequest {
     const openAndSendRequest = () => {
       request.open(
         "POST",
-        `${API_URL}/facecaptcha/service/captcha/3d/process-request`
+        process.env.REACT_APP_BASE_URL + '/facecaptcha/service/captcha/3d/process-request'
       );
       request.setRequestHeader("Content-Type", "application/json");
       request.send(JSON.stringify(sessionRequestCallPayload));

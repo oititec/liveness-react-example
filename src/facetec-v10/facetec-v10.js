@@ -16,7 +16,7 @@ const Facetecv10 = () => {
   const faceTecInstanceRef = useRef(null);
   const themeHelpersRef = useRef(null);
   const facetecStringsRef = useRef(null);
-  const processorRef = useRef(null);
+  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     const init = async () => {
@@ -44,6 +44,8 @@ const Facetecv10 = () => {
   }, []);
 
   const showLiveness3D = () => {
+    if (isInitializing || !faceTecInstanceRef.current) return;
+
     SampleAppUtilities.fadeOutMainUIAndPrepareForSession();
     faceTecInstanceRef.current.start3DLiveness(processor);
   };
@@ -91,6 +93,7 @@ const Facetecv10 = () => {
     DeveloperStatusMessages.logAndDisplayMessage(
       "Inicializado com sucesso"
     );
+    setIsInitializing(false);
   };
 
   const onInitializationFailure = (error) => {
@@ -119,11 +122,7 @@ const Facetecv10 = () => {
       default:
         break;
     }
-
     SampleAppUtilities.showMainUI();
-
-    // opcional: guardar estado no React
-    // setStatus(faceTecSessionResult.status);
   };
 
   const processor = useMemo(() => {
@@ -179,11 +178,11 @@ const Facetecv10 = () => {
               variant="primary"
               className="btn-rounded"
               onClick={() => showLiveness3D()}
+              disabled={isInitializing}
             >
               3D Liveness Check
             </Button>
             <p id="status" className="mt-2">
-              {/* {SampleApp.status} */}
             </p>
             <hr />
             <div id="custom-logo-container">

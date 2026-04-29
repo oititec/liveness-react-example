@@ -1,6 +1,3 @@
-
-
-// Base path dos sons
 const SOUND_FILES_DIR =
   "/core/facetec-v10/sample-app-resources/Vocal_Guidance_Audio_Files";
 

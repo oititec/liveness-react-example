@@ -1,7 +1,6 @@
 import { DeveloperStatusMessages } from "./DeveloperStatusMessages";
 
 export class SampleAppNetworkingRequest {
-  static MAX_ERRORS_ALLOWED = 2;
 
   static send(
     referencingProcessor,
@@ -18,7 +17,6 @@ export class SampleAppNetworkingRequest {
     };
 
     const request = new XMLHttpRequest();
-    request.timeout = 2 * 60 * 1000;
 
     const openAndSendRequest = () => {
       request.open(
@@ -28,8 +26,6 @@ export class SampleAppNetworkingRequest {
       request.setRequestHeader("Content-Type", "application/json");
       request.send(JSON.stringify(sessionRequestCallPayload));
     };
-
-    let errorCount = 0;
 
     request.onload = (response) => {
       const responseJSON = JSON.parse(response.target.response);
@@ -56,12 +52,6 @@ export class SampleAppNetworkingRequest {
     };
 
     request.onerror = (ev) => {
-      if (errorCount < SampleAppNetworkingRequest.MAX_ERRORS_ALLOWED) {
-        errorCount++;
-        setTimeout(openAndSendRequest, errorCount * 1000);
-        return;
-      }
-
       DeveloperStatusMessages.logMessage(
         `SampleAppNetworkingRequest >> request.onerror >> Catastrophic error: ${ev}`
       );

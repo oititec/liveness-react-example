@@ -238,14 +238,6 @@ export class ThemeHelpers {
     getLowLightCustomizationForTheme = (theme) => {
         let currentLowLightCustomization = this.getCustomizationForTheme(theme);
 
-        const retryScreenSlideshowImages = [
-            `${this.themeResourceDirectory}FaceTec_ideal_1.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_2.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_3.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_4.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_5.png`,
-        ];
-
         if (theme === "Config Wizard Theme") {
             currentLowLightCustomization =
                 Config.retrieveLowLightConfigurationWizardCustomization(FaceTecSDK);
@@ -267,8 +259,6 @@ export class ThemeHelpers {
             currentLowLightCustomization.frameCustomization.borderColor = "#FFFFFF";
 
             currentLowLightCustomization.guidanceCustomization.foregroundColor = "#000000";
-            currentLowLightCustomization.guidanceCustomization.headerTextColor = "#000000";
-            currentLowLightCustomization.guidanceCustomization.subtextTextColor = "#000000";
 
             // Ready / Retry screens
             currentLowLightCustomization.guidanceCustomization.readyScreenHeaderTextColor = "#000000";
@@ -290,55 +280,35 @@ export class ThemeHelpers {
         let currentDynamicDimmingCustomization =
             this.getCustomizationForTheme(theme);
 
-        const retryScreenSlideshowImages = [
-            `${this.themeResourceDirectory}FaceTec_ideal_1.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_2.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_3.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_4.png`,
-            `${this.themeResourceDirectory}FaceTec_ideal_5.png`,
-        ];
-
         if (theme === "Config Wizard Theme") {
             currentDynamicDimmingCustomization =
                 Config.retrieveDynamicDimmingConfigurationWizardCustomization(FaceTecSDK);
         }
 
         else if (theme === "Oiti-Dark") {
-            const primaryColor = "#05D758";
-            const secondaryText = "#F5F5F5";
+                   var primaryColor = "#FFFFFF";
+        var secondaryColor = "#000000";
 
-            // Oval (feedback visual principal)
-            currentDynamicDimmingCustomization.ovalCustomization.progressColor1 = primaryColor;
-            currentDynamicDimmingCustomization.ovalCustomization.progressColor2 = "#A5F2C5";
+        currentDynamicDimmingCustomization.ovalCustomization.strokeColor = primaryColor;
 
-            // Feedback (mensagens tipo toast)
-            currentDynamicDimmingCustomization.feedbackCustomization.shadow =
-                "0px 3px 15px rgba(0,0,0,0.5)";
-            currentDynamicDimmingCustomization.feedbackCustomization.textColor = secondaryText;
-            currentDynamicDimmingCustomization.feedbackCustomization.backgroundColor = "rgba(0,0,0,0.6)";
+        currentDynamicDimmingCustomization.feedbackCustomization.backgroundColor = primaryColor;
+        currentDynamicDimmingCustomization.feedbackCustomization.textColor = secondaryColor;
 
-            // Guidance (textos principais durante instrução)
-            currentDynamicDimmingCustomization.guidanceCustomization.foregroundColor = secondaryText;
-            currentDynamicDimmingCustomization.guidanceCustomization.headerTextColor = secondaryText;
-            currentDynamicDimmingCustomization.guidanceCustomization.subtextTextColor = secondaryText;
+        currentDynamicDimmingCustomization.guidanceCustomization.buttonBackgroundNormalColor = "rgb(86, 86, 86)";
+        currentDynamicDimmingCustomization.guidanceCustomization.buttonTextNormalColor = primaryColor;
 
-            // Ready / Retry (importante pra não sumir texto)
-            currentDynamicDimmingCustomization.guidanceCustomization.readyScreenHeaderTextColor = secondaryText;
-            currentDynamicDimmingCustomization.guidanceCustomization.readyScreenSubtextTextColor = secondaryText;
-            currentDynamicDimmingCustomization.guidanceCustomization.retryScreenHeaderTextColor = secondaryText;
-            currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSubtextTextColor = secondaryText;
+        currentDynamicDimmingCustomization.frameCustomization.borderColor = primaryColor;
 
-            // Result screen (upload / processamento)
-            currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = secondaryText;
-            currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = secondaryText;
-            currentDynamicDimmingCustomization.resultScreenCustomization.uploadProgressFillColor = primaryColor;
+        currentDynamicDimmingCustomization.guidanceCustomization.foregroundColor = secondaryColor;
 
-            //  Extra: melhora contraste do frame
-            currentDynamicDimmingCustomization.frameCustomization.borderColor = primaryColor;
+        currentDynamicDimmingCustomization.guidanceCustomization.readyScreenHeaderTextColor = secondaryColor;
+        currentDynamicDimmingCustomization.guidanceCustomization.readyScreenSubtextTextColor = secondaryColor;
+        currentDynamicDimmingCustomization.guidanceCustomization.retryScreenHeaderTextColor = secondaryColor;
+        currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSubtextTextColor = secondaryColor;
 
-            //  Botões (leve ajuste pra dimming)
-            currentDynamicDimmingCustomization.guidanceCustomization.buttonBackgroundNormalColor = primaryColor;
-            currentDynamicDimmingCustomization.guidanceCustomization.buttonTextNormalColor = "#000000";
+        currentDynamicDimmingCustomization.resultScreenCustomization.uploadProgressFillColor = secondaryColor;
+        currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = secondaryColor;
+        currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = secondaryColor;
         }
 
         return currentDynamicDimmingCustomization;

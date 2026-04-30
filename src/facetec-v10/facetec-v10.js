@@ -8,7 +8,7 @@ import { ThemeHelpers } from "../../core/facetec-v10/utilities/ThemeHelpers";
 import { Config } from "/core/facetec-v10/Config";
 import { SessionRequestProcessor } from "../../core/facetec-v10/SessionRequestProcessor";
 import React, { useMemo, useState } from "react";
-import { FaceTecSDK } from "../../core/10.0.42/core-sdk/FaceTecSDK.js/FaceTecSDK";
+import { FaceTecSDK } from "../../core/core-sdk-v10/core-sdk/FaceTecSDK.js/FaceTecSDK";
 
 
 const Facetecv10 = () => {
@@ -28,7 +28,7 @@ const Facetecv10 = () => {
 
       // load strings pt-br
       const module = await import(
-        "/core/10.0.42/core-sdk-optional/FaceTecStrings.pt-br.js"
+        "/core/core-sdk-v10/core-sdk-optional/FaceTecStrings.pt-br.js"
       );
       facetecStringsRef.current = module.default;
 
@@ -60,10 +60,10 @@ const Facetecv10 = () => {
     const sdk = sdkRef.current;
 
     sdk.setResourceDirectory(
-      "core/10.0.42/core-sdk/FaceTecSDK.js/resources"
+      "core/core-sdk-v10/core-sdk/FaceTecSDK.js/resources"
     );
     sdk.setImagesDirectory(
-      "core/10.0.42/core-sdk/FaceTec_images"
+      "core/core-sdk-v10/core-sdk/FaceTec_images"
     );
 
     sdk.initializeWithSessionRequest(
@@ -149,7 +149,7 @@ const Facetecv10 = () => {
     window.FaceTecSDK = undefined;
 
     await loadScript(
-      "core/10.0.42/core-sdk/FaceTecSDK.js/FaceTecSDK.js"
+      "core/core-sdk-v10/core-sdk/FaceTecSDK.js/FaceTecSDK.js"
     );
 
     const sdk = window.FaceTecSDK;

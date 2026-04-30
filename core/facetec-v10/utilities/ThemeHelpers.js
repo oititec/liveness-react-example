@@ -1,5 +1,5 @@
 import { Config } from "../Config";
-import { FaceTecSDK } from "../../10.0.42/core-sdk/FaceTecSDK.js/FaceTecSDK";
+import { FaceTecSDK } from "../../core-sdk-v10/core-sdk/FaceTecSDK.js/FaceTecSDK";
 import { SoundFileUtilities } from "./SoundFileUtilities";
 
 export class ThemeHelpers {
@@ -229,7 +229,7 @@ export class ThemeHelpers {
             );
 
             currentCustomization.orientationScreenCustomization
-                .iconImage = "/core/10.0.42/core-sdk/FaceTec_images/FaceTec_rotate.png";
+                .iconImage = "/core/core-sdk-v10/core-sdk/FaceTec_images/FaceTec_rotate.png";
         }
 
         return currentCustomization;

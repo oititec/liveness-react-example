@@ -1,4 +1,4 @@
-import { FaceTecSDK } from "../../10.0.42/core-sdk/FaceTecSDK.js/FaceTecSDK";
+import { FaceTecSDK } from "../../core-sdk-v10/core-sdk/FaceTecSDK.js/FaceTecSDK";
 import { FaceTecStatusEnumFriendlyText } from "./FaceTecStatusEnumFriendlyText";
 
 export class DeveloperStatusMessages {

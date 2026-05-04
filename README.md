@@ -8,7 +8,8 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 
 - [Visão geral](https://github.com/oititec/liveness-react-example/blob/main/src/home/README.md)
 - [Liveness 2D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-2d/README.md)
-- [Liveness 3D](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
+- [Liveness 3D Facetec v9](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-3d/README.md)
+- [Liveness 3D Facetec v10](https://github.com/oititec/liveness-react-example/blob/main/src/facetec-v10/README.md)
 - [Liveness 3D Iproov](https://github.com/oititec/liveness-react-example/blob/main/src/liveness-iproov/README.md)
 - [Envio de documentos](https://github.com/oititec/liveness-react-example/blob/main/src/send-documents/README.md)
 
@@ -19,7 +20,7 @@ Para visualizar a documentação de cada módulo, utilize os links abaixo:
 - [Guia rápido de atualização](https://github.com/oititec/liveness-react-example/blob/main/update-guide/README.
 md)
 
-### [FaceTec SDK: 10.0.42](https://github.com/oititec/liveness-react-example/main/core/core-sdk-v10)
+### [FaceTec SDK: 10.0.42](https://github.com/oititec/liveness-react-example/main/core/10.0.42)
 
 _data: 29/04/2026_
 

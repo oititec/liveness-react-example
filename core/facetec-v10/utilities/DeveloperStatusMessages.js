@@ -1,4 +1,3 @@
-import { FaceTecSDK } from "../../core-sdk-v10/core-sdk/FaceTecSDK.js/FaceTecSDK";
 import { FaceTecStatusEnumFriendlyText } from "./FaceTecStatusEnumFriendlyText";
 
 export class DeveloperStatusMessages {
@@ -33,30 +32,10 @@ export class DeveloperStatusMessages {
   }
 
   static logSessionStatusOnFaceTecExit(sessionStatus) {
-    let displayMessage = "";
-    let logMessage = "Unable to parse status message";
-
-    if (sessionStatus != null) {
-      switch (sessionStatus) {
-        case FaceTecSDK.FaceTecSessionStatus.LockedOut:
-          displayMessage =
-            "O dispositivo está bloqueado do FaceTec Browser SDK.";
-          break;
-
-        case FaceTecSDK.FaceTecSessionStatus.CameraPermissionsDenied:
-          displayMessage = "Não há permissão de câmera";
-          break;
-
-        default:
-          break;
-      }
-
-      logMessage = `FaceTecSessionResult.status: ${sessionStatus} - "${FaceTecStatusEnumFriendlyText.descriptionForSessionStatus(
+    let logMessage = `FaceTecSessionResult.status: ${sessionStatus} - "${FaceTecStatusEnumFriendlyText
+      .descriptionForSessionStatus(
         sessionStatus
       )}"`;
-    }
-
-    this.displayMessage(displayMessage);
     this.logMessage(logMessage);
   }
 

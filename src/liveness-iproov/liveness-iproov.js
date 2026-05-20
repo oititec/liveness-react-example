@@ -14,6 +14,7 @@ const LivenessIproov = () => {
   const [showButton, setShowButton] = useState(false);
   const [status, setStatus] = useState('Carregando...');
   const [statusRequest, setStatusRequest] = useState(null);
+  const [userFeedback, setUserFeedback] = useState(null);
 
   const fetchSessionData = async () => {
     const appkey = window.localStorage.getItem('appkey');
@@ -28,7 +29,9 @@ const LivenessIproov = () => {
       });
       const data = await response.json();
 
-      if (data.vendor != 'IPROOV') {
+      if (data.error) {
+        setStatus('Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela');
+      } else if (data.vendor != 'IPROOV') {
         setStatus('Parece que os dados recebidos não são compatíveis com este processo. Por favor, entre em contato com nosso suporte.')
       } else {
         setSessionToken(data.token);
@@ -47,9 +50,9 @@ const LivenessIproov = () => {
   }, []);
 
   useEffect(() => {
-  if (sessionToken && iproovUrl) {
-    startIproovValidation();
-  }
+    if (sessionToken && iproovUrl) {
+      startIproovValidation();
+    }
   }, [sessionToken, iproovUrl]);
 
   const startIproovValidation = async () => {
@@ -64,7 +67,7 @@ const LivenessIproov = () => {
     livenessIproov.setAttribute('base_url', 'https://'.concat(iproovUrl))
     livenessIproov.setAttribute('filter', livenessType == 'LA' ? 'clear' : 'classic');
     livenessIproov.setAttribute("language", JSON.stringify(language))
-        
+
     livenessIproov.setAttribute('role', 'application');
     livenessIproov.setAttribute('aria_live', 'assertive');
     livenessIproov.setAttribute('aria-label', 'Validação facial 3D com câmera');
@@ -250,7 +253,7 @@ const LivenessIproov = () => {
 
     livenessIproov.addEventListener("error", (event) => {
       ELEMENTS_TO_HIDE_IN_FS.forEach((el) => el.setAttribute("aria-hidden", "true"))
-      setStatusRequest(event.detail.reason)
+      setStatusRequest(event.reasons)
     })
 
     livenessIproov.addEventListener('passed', (event) => {
@@ -274,35 +277,34 @@ const LivenessIproov = () => {
 
   const sendLivenessValidation = (appkey, sessionToken, event) => {
     setStatusRequest('Enviando...')
-  
+
     fetch(process.env.REACT_APP_BASE_URL + '/facecaptcha/service/captcha/3d/liveness', {
       method: 'POST',
       body: JSON.stringify({ appkey, sessionToken }),
       headers: { 'Content-Type': 'application/json' },
     })
-    .then(async response => {
-        const data = await response.json(); 
+      .then(async response => {
+        const data = await response.json();
 
         switch (event.type) {
           case 'passed':
             if (data.codID === 300.1) {
-              checkLivenessRetry(data, 'Vamos tentar outra vez! '
-                                    .concat('Escolha um ambiente bem iluminado e mantenha a câmera firme!'));
+              checkLivenessRetry(data);
             } else if (data.codID === 300.2) {
               setStatusRequest("Prova de Vida reprovada. Insira uma nova appkey e tente novamente.");
             } else {
               setStatusRequest("Enviado com sucesso");
-            }          
+            }
             break;
           case 'failed':
-            checkLivenessRetry(data, !event.detail.reason ? data.reason : event.detail.reason)
+            checkLivenessRetry(data)
             break;
-        }  
-    })
-    .catch(error => {
-      setStatusRequest("Erro ao enviar");
-      console.log(error)
-    });
+        }
+      })
+      .catch(error => {
+        setStatusRequest("Erro ao enviar");
+        console.log(error)
+      });
     window.localStorage.setItem('hasLiveness', 'true');
   }
 
@@ -310,6 +312,7 @@ const LivenessIproov = () => {
     const content = document.querySelector('#certiface-iproov');
     content.innerHTML = '';
 
+    setUserFeedback(null);
     setIsLoading(true);
     setStatusRequest(null);
 
@@ -318,18 +321,28 @@ const LivenessIproov = () => {
     setIsLoading(false);
   };
 
-const checkLivenessRetry = async (data, reason) => {
-  if (data.retry) {
-      setStatusRequest(reason)
-          setStatus("Preparando nova tentativa...");
+  const checkLivenessRetry = async (data) => {
+    setUserFeedback(null);
+    setStatusRequest(null);
 
-          setTimeout(async () => {
-              await refreshSessionAndRestart();
-          }, 4000);
-
+    if (data.retry) {
+      if (Array.isArray(data.userFeedback) && data.userFeedback.length > 0) {
+        setUserFeedback(data.userFeedback);
       } else {
-          setStatusRequest("Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada");
+        setStatusRequest(
+          "Vamos tentar outra vez! Escolha um ambiente bem iluminado e mantenha a câmera firme!"
+        );
       }
+      setStatus("Preparando nova tentativa...");
+
+      setTimeout(async () => {
+        await refreshSessionAndRestart();
+      }, 5000);
+    } else {
+      setStatusRequest(
+        "Não foi possível avançar com sua verificação. Uma nova sessão deve ser gerada"
+      );
+    }
   }
 
   return (
@@ -357,14 +370,28 @@ const checkLivenessRetry = async (data, reason) => {
               {status}
             </p>
 
-            {( statusRequest &&
+            {(statusRequest &&
               <h3 id="statusRequest" className="mt-2" aria-live="polite">{statusRequest}</h3>
             )}
+
+            <div className="grid gap-5 w-full px-10">
+              <div className="grid gap-5 w-full px-10">
+                {userFeedback && userFeedback.length > 0 && (
+                  <ul className="pull-left list-disc pl-5">
+                    {userFeedback.map((guidance, index) => (
+                      <li key={index}>
+                        <h5 className="text-left">{guidance}</h5>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
 
             <div id="certiface-iproov"></div>
             <hr />
             <div id="custom-logo-container">
-              <img src={IproovLogo} alt="Logotipo da solução de validação facial da Iproov"/>
+              <img src={IproovLogo} alt="Logotipo da solução de validação facial da Iproov" />
             </div>
           </div>
         </div>

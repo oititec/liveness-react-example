@@ -74,8 +74,8 @@ const Facetecv10 = () => {
           faceTecInstanceRef.current = instance;
           onInitializationSuccess();
         },
-        onError: (error) => {
-          onInitializationFailure(error);
+        onError: (initializationError) => {
+          onInitializationFailure(initializationError);
         },
       }
     );
@@ -96,13 +96,32 @@ const Facetecv10 = () => {
     setIsInitializing(false);
   };
 
-  const onInitializationFailure = (error) => {
+  const onInitializationFailure = (initializationError) => {
     SampleAppUtilities.fadeInMainUIContainer();
-    console.error(error);
-
-    DeveloperStatusMessages.displayMessage(
-      "Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela."
-    );
+    console.log(initializationError);
+    switch (initializationError) {
+      case 0:
+        DeveloperStatusMessages.displayMessage("Servidor da FaceTec não pode validar esta aplicação");
+        break;
+      case 1:
+        DeveloperStatusMessages.displayMessage("Sua appkey é inválida. Por favor, retorne para a home clicando no link no final da tela");
+        break;
+      case 2:
+        DeveloperStatusMessages.displayMessage("Dispositivo não suportado");
+        break;
+      case 3:
+        DeveloperStatusMessages.displayMessage("Ocorreu um erro inesperado");
+        break;
+      case 4:
+        DeveloperStatusMessages.displayMessage("Falha ao carregar recursos na inicialização");
+        break;
+      case 5:
+        DeveloperStatusMessages.displayMessage("APIs de câmera do browser funcionam apenas em localhost ou https");
+        break;
+      default:
+        DeveloperStatusMessages.displayMessage("Erro interno");
+        break;
+    }
   };
 
   const handleFaceTecExit = (faceTecSessionResult) => {
@@ -112,14 +131,25 @@ const Facetecv10 = () => {
 
     switch (faceTecSessionResult.status) {
       case FaceTecSDK.FaceTecSessionStatus.RequestAborted:
-        DeveloperStatusMessages.displayMessage(
-          "Prova de Vida Reprovada. Insira uma nova appkey e tente novamente."
-        );
+        DeveloperStatusMessages.displayMessage("Prova de Vida reprovada. Insira uma nova appkey e tente novamente");
         break;
       case FaceTecSDK.FaceTecSessionStatus.SessionCompleted:
-        DeveloperStatusMessages.displayMessage("Enviado com sucesso");
+        DeveloperStatusMessages.displayMessage("Enviado com sucesso")
+        break;
+      case FaceTecSDK.FaceTecSessionStatus.UserCancelledFaceScan:
+        DeveloperStatusMessages.displayMessage("Saiu da tela inteira sem concluir a prova de vida")
+        break;
+      case FaceTecSDK.FaceTecSessionStatus.LockedOut:
+        DeveloperStatusMessages.displayMessage("O dispositivo está bloqueado do FaceTec Browser SDK");
+        break;
+      case FaceTecSDK.FaceTecSessionStatus.CameraPermissionsDenied:
+        DeveloperStatusMessages.displayMessage("Não há permissão de câmera");
+        break;
+      case FaceTecSDK.FaceTecSessionStatus.IFrameNotAllowedWithoutPermission:
+        DeveloperStatusMessages.displayMessage("FaceTec Browser SDK foi aberto em um IFrame sem permissão");
         break;
       default:
+        DeveloperStatusMessages.displayMessage("Erro interno");
         break;
     }
     SampleAppUtilities.showMainUI();

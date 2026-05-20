@@ -244,29 +244,23 @@ export class ThemeHelpers {
         }
 
         else if (theme === "Oiti-Dark") {
-            // Mais contraste
-            currentLowLightCustomization.ovalCustomization.strokeColor = "#FFFFFF";
+            currentLowLightCustomization.ovalCustomization.strokeColor = "#000000";
 
-            // Feedback mais visível
             currentLowLightCustomization.feedbackCustomization.backgroundColor = "#000000";
             currentLowLightCustomization.feedbackCustomization.textColor = "#FFFFFF";
 
-            // Botões
-            currentLowLightCustomization.guidanceCustomization.buttonBackgroundNormalColor = "#FFFFFF";
-            currentLowLightCustomization.guidanceCustomization.buttonTextNormalColor = "#000000";
+            currentLowLightCustomization.guidanceCustomization.buttonBackgroundNormalColor = "#000000";
+            currentLowLightCustomization.guidanceCustomization.buttonTextNormalColor = "#FFFFFF";
 
-            // Frame
             currentLowLightCustomization.frameCustomization.borderColor = "#FFFFFF";
 
             currentLowLightCustomization.guidanceCustomization.foregroundColor = "#000000";
 
-            // Ready / Retry screens
             currentLowLightCustomization.guidanceCustomization.readyScreenHeaderTextColor = "#000000";
             currentLowLightCustomization.guidanceCustomization.readyScreenSubtextTextColor = "#000000";
             currentLowLightCustomization.guidanceCustomization.retryScreenHeaderTextColor = "#000000";
             currentLowLightCustomization.guidanceCustomization.retryScreenSubtextTextColor = "#000000";
 
-            // Progress bar and text color 
             currentLowLightCustomization.resultScreenCustomization.uploadProgressFillColor =
                 "#000000";
             currentLowLightCustomization.resultScreenCustomization.foregroundColor = "#000000";
@@ -286,29 +280,29 @@ export class ThemeHelpers {
         }
 
         else if (theme === "Oiti-Dark") {
-                   var primaryColor = "#FFFFFF";
-        var secondaryColor = "#000000";
+            currentDynamicDimmingCustomization.initialLoadingAnimationCustomization.messageTextColor =
+                "#FFFFFF";
 
-        currentDynamicDimmingCustomization.ovalCustomization.strokeColor = primaryColor;
+            currentDynamicDimmingCustomization.ovalCustomization.strokeColor = "#FFFFFF";
 
-        currentDynamicDimmingCustomization.feedbackCustomization.backgroundColor = primaryColor;
-        currentDynamicDimmingCustomization.feedbackCustomization.textColor = secondaryColor;
+            currentDynamicDimmingCustomization.feedbackCustomization.backgroundColor = "#FFFFFF";
+            currentDynamicDimmingCustomization.feedbackCustomization.textColor = "#000000";
 
-        currentDynamicDimmingCustomization.guidanceCustomization.buttonBackgroundNormalColor = "rgb(86, 86, 86)";
-        currentDynamicDimmingCustomization.guidanceCustomization.buttonTextNormalColor = primaryColor;
+            currentDynamicDimmingCustomization.guidanceCustomization.buttonTextNormalColor = "#000000";
 
-        currentDynamicDimmingCustomization.frameCustomization.borderColor = primaryColor;
+            currentDynamicDimmingCustomization.frameCustomization.borderColor = "#FFFFFF";
 
-        currentDynamicDimmingCustomization.guidanceCustomization.foregroundColor = secondaryColor;
+            currentDynamicDimmingCustomization.guidanceCustomization.foregroundColor = "#FFFFFF";
 
-        currentDynamicDimmingCustomization.guidanceCustomization.readyScreenHeaderTextColor = secondaryColor;
-        currentDynamicDimmingCustomization.guidanceCustomization.readyScreenSubtextTextColor = secondaryColor;
-        currentDynamicDimmingCustomization.guidanceCustomization.retryScreenHeaderTextColor = secondaryColor;
-        currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSubtextTextColor = secondaryColor;
+            currentDynamicDimmingCustomization.guidanceCustomization.readyScreenHeaderTextColor = "#FFFFFF";
+            currentDynamicDimmingCustomization.guidanceCustomization.readyScreenSubtextTextColor = "#FFFFFF";
+            currentDynamicDimmingCustomization.guidanceCustomization.retryScreenHeaderTextColor = "#FFFFFF";
+            currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSubtextTextColor = "#FFFFFF";
 
-        currentDynamicDimmingCustomization.resultScreenCustomization.uploadProgressFillColor = secondaryColor;
-        currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = secondaryColor;
-        currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = secondaryColor;
+            currentDynamicDimmingCustomization.resultScreenCustomization.uploadProgressFillColor =
+                "#FFFFFF";
+            currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = "#FFFFFF";
+            currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = "#FFFFFF";
         }
 
         return currentDynamicDimmingCustomization;

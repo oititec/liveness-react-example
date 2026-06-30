@@ -348,7 +348,7 @@ const LivenessIproov = () => {
   return (
     <Row>
       <Col xs={12} className="mt-4">
-        <Link to="/">Voltar</Link>
+        <Link to="/home">Voltar</Link>
       </Col>
 
       <Col xs={12} className="my-4">

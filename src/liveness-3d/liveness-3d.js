@@ -16,15 +16,31 @@ const Liveness3D = () => {
 
     window.location.href = '/';
   };
-
+  
   useEffect(() => {
     SampleApp.getProductionKey();
+
+    return () => {
+      try {
+        SampleApp?.reset?.();
+      } catch (e) {
+        console.warn('SampleApp.reset falhou', e);
+      }
+
+      try {
+        if (typeof latestProcessor !== 'undefined' && latestProcessor) {
+          latestProcessor.dispose?.();
+        }
+      } catch (e) {
+        console.warn('latestProcessor cleanup ignorado', e);
+      }
+    };
   }, []);
 
   return (
     <Row>
       <Col xs={12} className="mt-4">
-        <Link to="/">Voltar</Link>
+        <Link to="/home">Voltar</Link>
       </Col>
       <Col xs={12} className="my-4">
         <div className="wrapping-box-container">

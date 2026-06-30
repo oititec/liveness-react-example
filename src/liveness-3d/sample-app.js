@@ -30,8 +30,6 @@ export var SampleApp = (function () {
     '8QIDAQAB\n' +
     '-----END PUBLIC KEY-----';
 
-  const staticAppKey = window.localStorage.getItem('appkey');
-
   const staticUserAgent = FaceTecSDK.createFaceTecAPIUserAgentString('');
 
   const loadAssets = () => {
@@ -103,7 +101,7 @@ export var SampleApp = (function () {
     });
 
     const result = await facecaptchaService.getProductionKey({
-      appKey: staticAppKey,
+      appKey: window.localStorage.getItem('appkey')
     });
 
     if (result.productionKey) {
@@ -124,7 +122,7 @@ export var SampleApp = (function () {
     });
 
     const result = await facecaptchaService.getSessionToken({
-      appkey: staticAppKey,
+      appkey: window.localStorage.getItem('appkey'),
       userAgent: staticUserAgent,
     });
 
@@ -172,7 +170,7 @@ export var SampleApp = (function () {
   const setLatestServerResult = (responseJSON) => {};
 
   const getAppKey = () => {
-    return staticAppKey;
+    return window.localStorage.getItem('appkey');
   };
 
   return {

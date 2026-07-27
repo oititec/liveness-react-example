@@ -1,0 +1,1 @@
+export { defautt as Fortface } from './fortface'

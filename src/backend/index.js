@@ -1,1 +1,1 @@
-export { default as facecaptchaService} from './facecaptcha-service'
+export { default as facecaptchaService } from './facecaptcha-service'

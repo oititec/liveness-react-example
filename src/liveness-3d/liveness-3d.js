@@ -21,19 +21,7 @@ const Liveness3D = () => {
     SampleApp.getProductionKey();
 
     return () => {
-      try {
-        SampleApp?.reset?.();
-      } catch (e) {
-        console.warn('SampleApp.reset falhou', e);
-      }
-
-      try {
-        if (typeof latestProcessor !== 'undefined' && latestProcessor) {
-          latestProcessor.dispose?.();
-        }
-      } catch (e) {
-        console.warn('latestProcessor cleanup ignorado', e);
-      }
+      SampleApp.reset();
     };
   }, []);
 

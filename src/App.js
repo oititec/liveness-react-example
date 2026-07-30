@@ -14,10 +14,10 @@ import { SendDocuments } from "./send-documents";
 import { SendDigitalCNH } from "./send-digital-cnh";
 import { LivenessIproov } from './liveness-iproov';
 import { Facetecv10 } from "./facetec-v10";
+import { Fortface } from "./fortface"
 import { facecaptchaService } from './backend/facecaptcha-service';
 
 import LogoCertiFace from "./assets/img/logo_certiface_trans.png";
-import Fortface from './fortface/fortface';
 
 const App = () => {
   const location = useLocation();

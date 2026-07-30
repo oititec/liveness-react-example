@@ -1,1 +1,1 @@
-export { defautt as Fortface } from './fortface'
+export { default as Fortface } from './fortface'

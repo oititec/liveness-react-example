@@ -6,7 +6,6 @@ import ImgLogin from "../assets/img/img-certiface-login.jpg";
 import { useState } from 'react';
 import './login.css';
 
-
 const Login = () => {
     const navigate = useNavigate();
 
@@ -28,10 +27,8 @@ const Login = () => {
             );
 
             localStorage.setItem('login', login);
-            localStorage.setItem(
-                'credentialResponse',
-                JSON.stringify(response.data)
-            );
+            localStorage.setItem('senhaMd5', md5(senha));
+            localStorage.setItem('credentialResponse',JSON.stringify(response.data));
 
             navigate('/appkey');
         } catch (error) {

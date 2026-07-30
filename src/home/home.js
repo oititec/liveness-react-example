@@ -99,6 +99,25 @@ const Home = () => {
       </Col>
       <Col xs={12}>
         <Link
+          to="/fortface"
+          className="btn btn-outline-secondary d-block mb-3"
+        >
+          <Row>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={Liveness3D} alt="" aria-hidden="true" />
+            </Col>
+            <Col xs>
+              <h2>Liveness 3D Fortface</h2>
+              <h3>Interação da face em tempo real com Fortface.</h3>
+            </Col>
+            <Col xs={'auto'} className="d-flex align-items-center">
+              <img src={ChevronRight} alt="" aria-hidden="true" />
+            </Col>
+          </Row>
+        </Link>
+      </Col>
+      <Col xs={12}>
+        <Link
           to="/send-documents"
           className={`btn btn-outline-secondary d-block mb-3 ${window.localStorage.getItem('hasLiveness') ? '' : 'disabled'
             }`}

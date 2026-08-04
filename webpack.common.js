@@ -14,7 +14,10 @@ module.exports = {
     assetModuleFilename: 'assets/[hash][ext][query]',
   },
   devServer: {
-    https: true,
+    https: false,
+    client: {
+      overlay: false
+    },
     historyApiFallback: true,
   },
   module: {

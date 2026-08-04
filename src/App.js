@@ -14,6 +14,7 @@ import { SendDocuments } from "./send-documents";
 import { SendDigitalCNH } from "./send-digital-cnh";
 import { LivenessIproov } from './liveness-iproov';
 import { Facetecv10 } from "./facetec-v10";
+import { Fortface } from "./fortface"
 import { facecaptchaService } from './backend/facecaptcha-service';
 
 import LogoCertiFace from "./assets/img/logo_certiface_trans.png";
@@ -41,7 +42,7 @@ const App = () => {
     setExibirBotoesMenu(url === '/home');
 
     setExibirBotaoResult(
-      ['/liveness-2d', '/liveness-3d', '/liveness-iproov', '/facetec-v10']
+      ['/liveness-2d', '/liveness-3d', '/liveness-iproov', '/facetec-v10', '/fortface']
         .includes(url)
     );
   }, [location]);
@@ -79,6 +80,7 @@ const App = () => {
 
   const novaSessao = () => {
     localStorage.removeItem('login');
+    localStorage.removeItem('senhaMd5');
     localStorage.removeItem('credentialResponse');
     limparLocalStorage();
     navigate('/');
@@ -188,6 +190,7 @@ const App = () => {
           <Route path="/liveness-3d" element={<Liveness3D />} />
           <Route path="/facetec-v10" element={<Facetecv10 />} />
           <Route path="/liveness-iproov" element={<LivenessIproov />} />
+          <Route path="/fortface" element={<Fortface />} />
           <Route path="/send-documents" element={<SendDocuments />} />
           <Route path="/send-digital-cnh" element={<SendDigitalCNH />} />
         </Routes>

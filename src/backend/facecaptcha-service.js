@@ -58,5 +58,25 @@ export const facecaptchaService = {
                 },
             }
         );
-    }
+    },
+
+    createFortfaceSession(appkey, userAgent, deviceRequestInfo) {
+        const body = {
+            appkey,
+            userAgent,
+            deviceRequestInfo
+        };
+
+        return axios.post(
+            `${SERVER_API_URL}/facecaptcha/service/captcha/fortface/session-token`,
+            body);
+    },
+
+    verifyFortfaceLiveness(livenessInfo) {
+
+        return axios.post(
+            `${SERVER_API_URL}/facecaptcha/service/captcha/fortface/liveness`,
+            livenessInfo
+        );
+    },
 };

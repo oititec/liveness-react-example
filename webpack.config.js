@@ -12,6 +12,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     assetModuleFilename: 'assets/[hash][ext][query]',
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
   },
   devtool: 'source-map',
   devServer: {

@@ -63,6 +63,22 @@ const Fortface = () => {
         fortfaceSdk.current = sdk;
 
         deviceRequestInfo.current = await sdk.start();
+
+        const customizerProps = {
+            version: '1.0.0',
+            face_recognition: {
+                instructions_screen: {
+                    continue_button: {
+                        content: 'Começar',
+                        background_color: 'rgb(80, 175, 8)',
+                        text_color: 'rgb(255, 255, 255)',
+                        corner_radius: 30
+                    }
+                }
+            }
+        };
+
+        await sdk.setCustomizer(customizerProps);
     };
 
     const createSession = async () => {
